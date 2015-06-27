@@ -1,0 +1,31 @@
+Chrome extension for github code reviews
+- can work on the file on the github repo directly
+- highlight code
+	- opens comment box where reviewer can comment
+	- allows reviewer to write code - supports formatting
+	- on hover, a div should popover with the reviewer's comments
+- only collaborators of that repo can see the comments
+- need a server to store comment data
+- can authenticate by checking dom to make sure they are 'signed in as that user' on github
+
+Div on side when hovered on post-it.  conversations in the div?
+
+Chrome extensions can also be created to work only on certain pages through the use of Page Actions, they can run code in the background using Background Pages, and they can even modify an existing page loaded in the browser using Content Scripts. But for this tutorial we are going to keep things simple.
+
+Our app
+- will use page action because it will only be relevant for a particular github page
+	- chrome.pageAction.show / chrome.pageAction.hide - hidden by default
+	- icon shows only when that certain page is open in the tab
+	- to set the icon: chrome.pageAction.setIcon()
+- will need content scripts - run in the context of web pages
+
+- Saturday ToDo:
+1. set up routes/database
+2. play around with extension
+	- ajax calls
+	- send data back to servers
+	- DOM manipulation with jQuery and/or with Angular
+
+
+set who are the people comment
+- need github api to search?
