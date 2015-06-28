@@ -4,14 +4,14 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	if(req.event==="hello") console.log('HELLOW');
 	if(req.event==="bye") console.log('BYE BYE');
 
-	// $.ajax({
- //  		type: 'POST',
- //  		url: 'http://localhost:1337/api/comments',
- //  		data: {text: req.message},
- //  		success: function(response){
- //  			console.log('Post was successful!')
- //  		}
- //  	})
+	$.ajax({
+  		type: 'POST',
+  		url: 'http://localhost:1337/api/comments',
+  		data: {highlighted:{code: req.message}},
+  		success: function(response){
+  			console.log('Post was successful!', response)
+  		}
+  	})
 	returnMessage(req.message);
 })
 

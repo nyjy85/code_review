@@ -9,7 +9,7 @@ $(document).ready(function(){
   	// chrome.extension.sendRequest({message: text});
   	$('.normtext.lead').on('click', function(){
   		chrome.runtime.sendMessage({event:"hello", message: text});
-  		chrome.runtime.sendMessage({event:"bye", message: 'bye bye'});
+  		// chrome.runtime.sendMessage({event:"bye", message: 'bye bye'});
   	});
 
 	chrome.runtime.onMessage.addListener(
