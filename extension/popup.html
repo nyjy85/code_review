@@ -2,10 +2,21 @@
 <html>
   <head>
     <title>Github Code Review</title>
-    <script src="popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/angular-csp.css">
+    <link rel="stylesheet" type="text/css" href="/css/material.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/ripples.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/roboto.min.css">
   </head>
-  <body>
+
+  <body ng-app="CodeReviewExt" ng-controller="MainController">
     <h1>Github Code Review</h1>
-    <button id="checkPage">Check this page now!</button>
+    <button id="checkPage">{{message}}</button>
+    <script src='/js/dependencies/angular.min.js'></script>
+    <script src='/js/dependencies/angular-ui-router.min.js'></script>
+    <script src='/js/dependencies/ui-bootstrap-tpls.min.js'></script>
+    <script src='/js/dependencies/jquery.min.js'></script>
+    <script src='/js/main.js'></script>
   </body>
+
 </html>

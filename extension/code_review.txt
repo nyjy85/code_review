@@ -29,3 +29,61 @@ Our app
 
 set who are the people comment
 - need github api to search?
+
+
+function getSelectionHtml() {
+    var html = "";
+    if (typeof window.getSelection != "undefined") {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var container = document.createElement("div");
+            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                container.appendChild(sel.getRangeAt(i).cloneContents());
+            }
+            html = container.innerHTML;
+        }
+    } else if (typeof document.selection != "undefined") {
+        if (document.selection.type == "Text") {
+            html = document.selection.createRange().htmlText;
+        }
+    }
+    return html;
+}
+
+
+
+var k = window.getSelection().toString()
+k.split('\n').forEach(function(e){
+  $(document).find('td').each(function(){
+    if ( $(this).text().indexOf(e) !== -1){
+        var re = new RegExp(e, "g")
+        console.log('this is e', e)
+        console.log('this is re', re)
+        var k = $(this).html();
+        console.log('this is k', k)
+        k.replace(re, '<span style="background-color: green">'+e+'</span>')
+        console.log('k after replace', k)
+        $(this).html(k);
+    } 
+  })
+})
+
+// Things To Do
+    // OAuth
+    // Persistent Highlighting
+    // Extension features and detailed architecture
+    // right click additional field
+    // what features should be in popup.html
+
+// when user is a contributor but not the commenter.  how can i make the messages show up?
+    // check against the DOM as opposed to server
+    // for each page do the following: (pattern matching in manifest.json)
+        // do an API call to get the contributors of that repo
+        // match logged in user's username with the username in the contributor's object
+            // if it matches, populate that page's file url with the comments
+// comments model should hold the repo name so when user is verified, i can do an ajax call with the repo-url
+    // repo_url
+    // comment
+    // file_url
+    // 
+

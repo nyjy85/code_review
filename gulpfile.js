@@ -128,14 +128,38 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 // --------------------------------------------------------------
 
+// Extension tasks
+// --------------------------------------------------------------
+
+gulp.task('buildJSExtension', function () {
+    return gulp.src(['./extension/js/application/app.js', './extension/js/application/**/*.js'])
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(concat('main.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./Extension/js'));
+});
+
+gulp.task('buildCSSExtension', function () {
+    return gulp.src('./Extension/scss/main.scss')
+        .pipe(plumber())
+        .pipe(sass())
+        .pipe(rename('style.css'))
+        .pipe(gulp.dest('./Extension/css'));
+});
+
+gulp.task('buildExtension', ['buildCSSExtension', 'buildJSExtension']);
+
+// --------------------------------------------------------------
+
 // Composed tasks
 // --------------------------------------------------------------
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildCSSExtension', 'buildJSExtension']);
     } else {
-        runSeq(['buildJS', 'buildCSS']);
+        runSeq(['buildJS', 'buildCSS', 'buildCSSExtension', 'buildJSExtension']);
     }
 });
 
@@ -150,6 +174,14 @@ gulp.task('default', function () {
 
     gulp.watch('browser/scss/**', function () {
         runSeq('buildCSS', 'reloadCSS');
+    });
+
+    gulp.watch('extension/js/**', function () {
+        runSeq('buildJSExtension');
+    });
+
+    gulp.watch('extension/scss/**', function () {
+        runSeq('buildCSSExtension');
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
