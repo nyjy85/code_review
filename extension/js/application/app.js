@@ -4,6 +4,7 @@ app.controller('MainController', function($scope){
 	$scope.message = "Check this page out now!";
 
 	$scope.gitLogin = function() {
+		//need to change localhost:1337 to the appropriate domain name after deployment!!!
 		chrome.tabs.create({
         url: "http://localhost:1337/auth/github"
     });
