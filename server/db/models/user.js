@@ -12,18 +12,14 @@ var schema = new mongoose.Schema({
     salt: {
         type: String
     },
-    twitter: {
-        id: String,
-        username: String,
-        token: String,
-        tokenSecret: String
+    github: {
+      token: String,
+      id: String,
+      name: String,
+      profileUrl: String, 
+      username: String
     },
-    facebook: {
-        id: String
-    },
-    google: {
-        id: String
-    }
+    repo: [String]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
