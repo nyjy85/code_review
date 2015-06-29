@@ -24,25 +24,21 @@ router.get('/:user', function(req, res, next){
 	})
 	.then(null, next) 
 })
+
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
 router.post('/', function(req, res, next){
-	Highlight.create(req.body.newData)
-	.then(function(highlighted){
-		File.findOne({fileUrl: req.body.url})
-		.exec()
-		.then(function(file){
-			console.log('this be file yo', file)
-			file.highlighted.push(highlighted._id)
-			file.save(function(err, data){
-				if(err) return next(err);
-				res.send({message: 'highlighted portion created and file updated'})
-			})
-		})
-		.then(null, next)
+	
+	var newData = req.body.newData;
+	var fileInfo = req.body.fileInfo;
+
+	Highlight.checkForFileOnHighlight(newData, fileInfo, next)
+	.then(function(updatedFile){
+		console.log('this is updated FIle', updatedFile)
+		res.send("You made a new file/updated the file model with your highlight info")
 	})
-	.then(null, next)
 });
+
 
 // for when user makes updates to comment
 router.put('/', function(req, res, next){
