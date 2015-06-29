@@ -63,8 +63,9 @@ var seedHighlights = function () {
 };
 
 connectToDb.then(function () {
+    console.log('hellow')
     getCurrentHighlightData().then(function (highlights) {
-
+        console.log('ysldfds', highlights)
         if (highlights.length === 0) {
             return seedHighlights();
         } else {
