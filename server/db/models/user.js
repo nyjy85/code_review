@@ -19,7 +19,7 @@ var schema = new mongoose.Schema({
       profileUrl: String, 
       username: String
     },
-    repo: [String]
+    repos: [String]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

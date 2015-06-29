@@ -50,19 +50,17 @@ function getSelectionHtml() {
     return html;
 }
 
-
+$('td').click(function () {
+   console.log($(this).attr('id'));
+});
 
 var k = window.getSelection().toString()
 k.split('\n').forEach(function(e){
   $(document).find('td').each(function(){
     if ( $(this).text().indexOf(e) !== -1){
         var re = new RegExp(e, "g")
-        console.log('this is e', e)
-        console.log('this is re', re)
         var k = $(this).html();
-        console.log('this is k', k)
-        k.replace(re, '<span style="background-color: green">'+e+'</span>')
-        console.log('k after replace', k)
+        k = k.replace(re, '<span style="background-color: green">'+e+'</span>')
         $(this).html(k);
     } 
   })
@@ -87,3 +85,17 @@ k.split('\n').forEach(function(e){
     // file_url
     // 
 // do we want the comments to go away after a new commit?
+
+ok lets just forget about private vs public for a minute and just assume only contributors can see the comments
+
+Joanne Yae [1:00 PM]
+in order to go about this I would do the following
+
+Joanne Yae [1:02 PM]
+first all github file pages that have comments in them would verify if the current signed in user is a contributor.  i can do this by matchin their username (which i get from oauth) with a github api call which grabs the contributors of the repo.  if theres a match the comments show up.  now the next, question is, how do i grab the comments data from the models?  ok now i will lay that part out:
+
+Joanne Yae [1:04 PM]
+first, there should be a Comments Model which hold the following fields: [comment], file_url, repo_url, commit_number, highlighted {code, indexOf}.  second, I would search the Comments Model by file_url, grab that data bring it to the DOM. maybe add a contributor's field?
+
+Joanne Yae [1:05 PM]
+the next issue is how i'm gooing to use that data to populate that file page with highlights and comments

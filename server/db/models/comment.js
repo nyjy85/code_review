@@ -3,18 +3,19 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    repo_url: String,
     commit: String,
-    comment: String,
     highlighted: {
       code: String,
-      indexOf: Number
+      range: [String], // this is the range of #ids that hold the highlighted area 
+      comment: String
     },
     fileUrl: String,
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
-
+    commenter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
+    repo: {
+    	url: String, 
+    	contributors: [String]
+    }
 });
-
 
 
 mongoose.model('Comment', schema);
