@@ -11,14 +11,15 @@ var schema = new mongoose.Schema({
     commenter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
-var checkForFileOnHighlight = function(newData, fileUrl, fileInfo, highlightInfo, callback) {
+var checkForFileOnHighlight = function(newData, fileInfo, callback) {
+	
 	var highlightPromise = this.create(newData);
-	var filePromise = this.model('File').findOne(fileUrl).exec();
+	var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
 
 	return Q.all([highlightPromise, filePromise]).then(function(results){
 		var highlight = results[0], file = results[1];
             if(!file){
-                this.model('File').create(fileInfo).then(function(fileCreated){
+                mongoose.model('File').create(fileInfo).then(function(fileCreated){
                     fileCreated.highlighted.push(highlight._id)
                     fileCreated.save(callback);
                 })

@@ -3,3 +3,5 @@ node_modules
 npm-debug.log
 public
 .DS_Store
+seed_first.js
+seed_second.js
