@@ -1,18 +1,18 @@
 'use strict';
 app.config(function ($stateProvider) {
-	$stateProvider.state('mainPage', {
-		url: '/mainPage',
-		templateUrl: 'js/application/states/mainPage/mainPage.html',
-		controller: 'mainPageCtrl'
+	$stateProvider.state('home', {
+		url: '/home',
+		templateUrl: 'js/application/states/home/home.html',
+		controller: 'HomeCtrl'
 	});
 });
 
 //add Factory
-app.controller('mainPageCtrl', function ($scope) {
+app.controller('HomeCtrl', function ($scope) {
 
   //isAuthenticated.
 
-  // $scope.displayName = 
+  // $scope.displayName =
 
   // UserFactory.getTotalPoints().then(function(points){
 	// 	$scope.manyPoints = points
