@@ -27,22 +27,46 @@ router.get('/:user', function(req, res, next){
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
 router.post('/', function(req, res, next){
-	Highlight.create(req.body.newData)
-	.then(function(highlighted){
-		File.findOne({fileUrl: req.body.url})
-		.exec()
-		.then(function(file){
-			console.log('this be file yo', file)
-			file.highlighted.push(highlighted._id)
-			file.save(function(err, data){
-				if(err) return next(err);
-				res.send({message: 'highlighted portion created and file updated'})
-			})
-		})
-		.then(null, next)
+	var newData = req.body.newData;
+	var fileUrl = req.body.url;
+	var fileInfo = req.body.fileInfo;
+	var highlightInfo = req.body.highlightInfo;
+	
+	Highlight.checkForFileOnHighLight(newData, fileUrl, fileInfo, highlightInfo, next)
+	.then(function(updatedFile){
+		res.send("You made a new file/updated the file model with your highlight info")
 	})
-	.then(null, next)
 });
+
+//newData, fileUrl, fileInfo, highlightInfo, callback)
+	// Highlight.create(req.body.newData)
+	// .then(function(highlighted){
+	// 	File.findOne({fileUrl: req.body.url})
+	// 	.exec()
+	// 	.then(function(file){
+	// 		if(!file){
+	// 			File.create({fileUrl: "www.itworks.com"}).then(function(file){
+	// 				file.highlighted.push(highlighted._id)
+	// 				file.save(function(err, data){
+	// 					if(err) return next(err);
+	// 					res.send({message: 'highlighted portion created and file created'})
+	// 				})
+	// 			})
+	// 		}else{
+	// 		file.highlighted.push(highlighted._id)
+	// 		file.save(function(err, data){
+	// 			if(err) return next(err);
+	// 			res.send({message: 'highlighted portion created and file updated'})
+	// 			})
+	// 		}
+	// 	})
+	// 	.then(null, next)
+	// })
+	// .then(null, next)
+
+/////////////////////////////////////////////////////////////////////////////
+
+
 
 // for when user makes updates to comment
 router.put('/', function(req, res, next){
