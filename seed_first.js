@@ -36,25 +36,25 @@ var seedHighlights = function () {
             code: ["tDb = require('./db');", "", "// Create a node server instance! cOoL!", "var server = require('http').createServer();", "", "var createApplication = function () {", "    var app = requir"],
             range: ['#LC6'],
             comment: "What an awesome piece of code",
-            commenter: /*reference your USER db and add id here*/ 
+            commenter: "5591911ebac51770abc6efc7"
         },
-         {
+        {
             code: ["var concat = require('gulp-concat');", "var rename = require('gulp-rename');", "var sass = require('gulp-sass');", "var livereload = require('gulp-livereload');"],
             range: ['#LC8'],
             comment: "refactor please it's ugly",
-            commenter: /*reference your USER db and add id here*/
+            commenter: "5591911ebac51770abc6efc7"
         },
         {
             code: ["ode: [String], // array of code seperated by newline", "    range: [St"],
             range: ['#LC6'],
             comment: "SO DRY SO SO DRY",
-            commenter:  /*reference your USER db and add id here*/
+            commenter:  "5591911ebac51770abc6efc7"
         },
         {
             code: ["ctToDb.then(function () {", "    getCurrentHighlightData().then(function (highlight) {", "        if (highlight"],
             range: ['#LC59'],
             comment: "COOL COOL COOLIO",
-            commenter:  /*reference your USER db and add id here*/ 
+            commenter:  "5591911ebac51770abc6efc7" 
         }
     ];
 
@@ -63,9 +63,8 @@ var seedHighlights = function () {
 };
 
 connectToDb.then(function () {
-    console.log('hellow')
     getCurrentHighlightData().then(function (highlights) {
-        console.log('ysldfds', highlights)
+        
         if (highlights.length === 0) {
             return seedHighlights();
         } else {
