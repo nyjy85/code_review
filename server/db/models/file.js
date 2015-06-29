@@ -8,7 +8,7 @@ var schema = new mongoose.Schema({
     highlighted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}],
     repo: {
     	url: String, 
-    	contributors: [String]
+    	contributors: [String] // this will be collaborators
     }
 });
 
