@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-csp>
   <head>
     <title>Github Code Review</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
@@ -9,12 +9,10 @@
     <link rel="stylesheet" type="text/css" href="/css/roboto.min.css">
   </head>
 
-  <body ng-app="CodeReviewExt" ng-controller="MainController">
-    <h1>Github Code Review</h1>
-    <button id="checkPage">{{message}}</button>
+  <!-- ng-controller="MainController" -->
+  <body ng-app="CodeReviewExt">
 
-    <!-- Loggin button for Github -->
-    <button ng-click="gitLogin()">Loggin with Github</button>
+    <ui-view></ui-view>
 
     <script src='/js/dependencies/angular.min.js'></script>
     <script src='/js/dependencies/angular-ui-router.min.js'></script>
