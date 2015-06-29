@@ -16,7 +16,8 @@ router.post('/', function(req, res){
 		})
 });
 
-// find by fileUrl - grabs all the data and sends to front
+// find by file_id - grabs all the data and sends to front
+	// perhaps make it so that we find by fileUrl?
 router.get('/:id', function(req, res, next){
 	File.findOne({_id: req.params.id})
 	.populate('highlighted')
