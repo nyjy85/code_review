@@ -10,11 +10,18 @@
   </head>
 
   <body ng-app="CodeReviewExt" ng-controller="MainController">
+
+    <div ng-hide="loggedin">
     <h1>Github Code Review</h1>
     <button id="checkPage">{{message}}</button>
 
     <!-- Loggin button for Github -->
     <button ng-click="gitLogin()">Loggin with Github</button>
+    </div>
+
+    <div ng-show="loggedin">
+    <ui-view></ui-view>
+    </div>
 
     <script src='/js/dependencies/angular.min.js'></script>
     <script src='/js/dependencies/angular-ui-router.min.js'></script>

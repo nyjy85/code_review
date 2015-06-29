@@ -10,6 +10,9 @@ app.controller('MainController', function($scope){
     });
 	}
 
+	//ng-csp????
+
+	
 })
 
 //What Sarah has for app.config
