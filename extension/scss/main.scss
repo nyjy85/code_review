@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+	position: relative;
+	top: 20px;
+	width: 400px;
+	height: 500px;
+}
+
+.ng-scope {
+  height: 500px;
+}
+
+h3 {
+  margin-top: 0px
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@import 'home/main';
