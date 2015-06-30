@@ -1,23 +1,26 @@
-//listens for event
+//listens for event from content.js.  this is the purpose of background.js
+// it will be a bunch of if statements that will check for the command and do something on that command
 chrome.runtime.onMessage.addListener(function(req, sender){
-	console.log('AM I IN BG.js??')
-	if(req.event==="hello") console.log('HELLOW');
-	if(req.event==="bye") console.log('BYE BYE');
 
-	$.ajax({
-  		type: 'POST',
-  		url: 'http://localhost:1337/api/comments',
-  		data: {highlighted:{code: req.message}},
-  		success: function(response){
-  			console.log('Post was successful!', response)
-  		}
-  	})
-	returnMessage(req.message);
+	if(req.command === "get"){
+		console.log('get has been called')
+		populateFile(req.id)
+	}
+
+	if (req.command === "verify"){
+		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+			// split get 4th element do repo name check
+	    	var parsedRepo = tab.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
+	    	var repo = parsedRepo.join("");
+	    	console.log('repo depp', repo)
+	    	getRepos(repo);
+		}); 
+	}
 })
 
-function returnMessage(msg){
+function returnMessage(msg, cmd){
 	chrome.tabs.getSelected(null, function(tab){
-		console.log('this be tab', tab)
-		chrome.tabs.sendMessage(tab.id, {message: msg})
+		chrome.tabs.sendMessage(tab.id, {message: msg, command: cmd})
 	});
 };
+
