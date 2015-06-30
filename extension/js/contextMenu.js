@@ -4,13 +4,13 @@
 
 // A generic onclick callback function.
 function genericOnClick(info, tab) {
+  
   console.log("whats up", info.selectionText)
   console.log("item " + info.menuItemId + " was clicked");
   console.log("info: " + JSON.stringify(info));
   console.log("tab: " + JSON.stringify(tab));
 }
-
-var contexts = []; 
+ 
 chrome.contextMenus.create({"title": "Add Comment", "contexts": ["all"], "onclick": genericOnClick});
 
 
