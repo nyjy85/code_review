@@ -2,7 +2,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Highlight = mongoose.model('Highlight');
-var File = mongoose.model('File');
 
 module.exports = router;
 
@@ -11,7 +10,7 @@ router.get('/', function(req, res, next){
 	Highlight.find({})
 	.exec()
 	.then(function(data){
-		res.json(data)
+		res.send(data)
 	})
 	.then(null, next)
 })

@@ -1,43 +1,26 @@
-//listens for event.  this is the purpose of background.js
+//listens for event from content.js.  this is the purpose of background.js
+// it will be a bunch of if statements that will check for the command and do something on that command
 chrome.runtime.onMessage.addListener(function(req, sender){
-	if(req.event==="hello") console.log('HELLOW');
-	if(req.event==="bye") console.log('BYE BYE');
-	if(req.event==="get"){
-		$.ajax({
-			type: 'GET',
-			url: 'http://localhost:1337/api/file/'+req.id,
-			success: function(response){
-				console.log('successfully gotten', response);
-				// returnMessage(response);
-			}
-		})
+
+	if(req.command === "get"){
+		console.log('get has been called')
+		populateFile(req.id)
 	}
-	if (req.event==="check"){
 
+	if (req.command === "verify"){
 		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-		   var parsedRepo = tab.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
-		   var theRepo = parsedRepo.join("");
-
-		   $.ajax({
-		   		type: 'GET', 
-		   		url: 'http://localhost:1337/session', 
-		   		success: function(response){
-		   			console.log('succesfully gotten', response);
-
-		   			response.user.repos.forEach(function(repo){
-		   				if (repo.url === theRepo) returnMessage(response.url);
-		   			})
-		   		}
-		   })
-		   // do comparison logic in the front
+			// split get 4th element do repo name check
+	    	var parsedRepo = tab.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
+	    	var repo = parsedRepo.join("");
+	    	console.log('repo depp', repo)
+	    	getRepos(repo);
 		}); 
 	}
 })
 
-function returnMessage(msg){
+function returnMessage(msg, cmd){
 	chrome.tabs.getSelected(null, function(tab){
-		console.log('this be tab', tab)
-		chrome.tabs.sendMessage(tab.id, {message: msg})
+		chrome.tabs.sendMessage(tab.id, {message: msg, command: cmd})
 	});
 };
 

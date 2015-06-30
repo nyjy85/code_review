@@ -1,52 +1,27 @@
-//listens for event
-chrome.runtime.onMessage.addListener(function(req, sender){
-  if(req.event==="hello") console.log('HELLOW');
-  if(req.event==="bye") console.log('BYE BYE');
-  if(req.event==="get"){
-    $.ajax({
-      type: 'GET',
-      url: 'http://localhost:1337/api/file/'+req.id,
-      success: function(response){
-        console.log('successfully gotten', response);
-        // returnMessage(response);
-      }
+$(document).ready(function(){
+    console.log('document is ready!')
+
+    // sends events back to background.js 
+    chrome.runtime.sendMessage({command: "verify"});
+
+    $(document).on('click', function(){
+        console.log('HEEELLLP')
+        chrome.runtime.sendMessage({command: "get", id: '55918a257b166fba67442c21'});
     })
-  }
-  if (req.event==="check"){
+    
+    // listens for events from AJAX calls/background.js and executes something
+    chrome.runtime.onMessage.addListener(
+        function(res, sender){
+            if (res.command === 'verified'){
+                console.log('message 1!', res.message)
+                $('#LC26').html('<p>THERE IS A MATCH!</p>').css('background-color', 'green');
+            }
+            if (res.command === 'file-retrieved'){
+                // do something
+                console.log('message 2!', res.message)
+            }
+        }
+    )
+});
 
-    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-       console.log('this is tab yo', tab.url);
-       var parsedRepo = tab.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
-       console.log('this is parsed URL', parsedRepo)
-       // send parsed to the back end
-       var theRepo = parsedRepo.join("");
-       console.log('this is the repo', theRepo);
-
-       $.ajax({
-          type: 'GET', 
-          url: 'http://localhost:1337/session', 
-          success: function(response){
-            console.log('succesfully gotten', response);
-
-            response.user.repos.forEach(function(repo){
-              console.log('repo.url', repo.url)
-              console.log('repo', theRepo)
-              if (repo.url === theRepo) returnMessage(response.url);
-            })
-          }
-       })
-       // do comparison logic in the front
-    }); 
-
-
-  }
-
-})
-
-function returnMessage(msg){
-  chrome.tabs.getSelected(null, function(tab){
-    console.log('this be tab', tab)
-    chrome.tabs.sendMessage(tab.id, {message: msg})
-  });
-};
 
