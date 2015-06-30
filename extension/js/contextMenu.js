@@ -3,15 +3,16 @@
 // found in the LICENSE file.
 
 // A generic onclick callback function.
-function genericOnClick(info, tab) {
+function onClick(info, tab) {
   
-  console.log("whats up", info.selectionText)
-  console.log("item " + info.menuItemId + " was clicked");
-  console.log("info: " + JSON.stringify(info));
-  console.log("tab: " + JSON.stringify(tab));
+  returnMessage("we are inside the content.js" , 'create-CommentBox');
+  // console.log("whats up", info.selectionText)
+  // console.log("item " + info.menuItemId + " was clicked");
+  // console.log("info: " + JSON.stringify(info));
+  // console.log("tab: " + JSON.stringify(tab));
 }
  
-chrome.contextMenus.create({"title": "Add Comment", "contexts": ["all"], "onclick": genericOnClick});
+chrome.contextMenus.create({"title": "Add Comment", "contexts": ["all"], "onclick": onClick});
 
 
 // // Create one test item for each context type.

@@ -20,6 +20,13 @@ $(document).ready(function(){
                 // do something
                 console.log('message 2!', res.message)
             }
+            if(res.command === 'create-CommentBox'){
+                console.log('message 3!', res.message)
+                var box = document.createElement('input');
+                box.setAttribute('type', 'text');
+                document.getElementById('LC13').appendChild(box);
+            }
+
         }
     )
 });
