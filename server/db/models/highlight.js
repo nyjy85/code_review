@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var _ = require('lodash');
 var Q = require('q');
 
 var schema = new mongoose.Schema({

@@ -1,22 +1,27 @@
 $(document).ready(function(){
-	// only works on the popup's console
-	console.log('document is ready!')
+    console.log('document is ready!')
 
-  	// this is working on the DOM for Fullstack Academy page
-  	var text = $('.normtext.lead').text().trim()
-  	console.log('this be text yo', text)
-  	// emits an event
-  	// chrome.extension.sendRequest({message: text});
-  	$('.normtext.lead').on('click', function(){
-  		chrome.runtime.sendMessage({event:"hello", message: text});
-  		// chrome.runtime.sendMessage({event:"bye", message: 'bye bye'});
-  	});
+    // sends events back to background.js 
+    chrome.runtime.sendMessage({command: "verify"});
 
-	chrome.runtime.onMessage.addListener(
-		function(req, sender){
-			console.log('received a msg from background', req);
-			console.log('this be sender', sender)
-		}
-	)
+    $(document).on('click', function(){
+        console.log('HEEELLLP')
+        chrome.runtime.sendMessage({command: "get", id: '55918a257b166fba67442c21'});
+    })
+    
+    // listens for events from AJAX calls/background.js and executes something
+    chrome.runtime.onMessage.addListener(
+        function(res, sender){
+            if (res.command === 'verified'){
+                console.log('message 1!', res.message)
+                $('#LC26').html('<p>THERE IS A MATCH!</p>').css('background-color', 'green');
+            }
+            if (res.command === 'file-retrieved'){
+                // do something
+                console.log('message 2!', res.message)
+            }
+        }
+    )
 });
+
 
