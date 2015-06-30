@@ -22,13 +22,13 @@ router.get('/:user', function(req, res, next){
 	.then(function(highlighted){
 		res.send(highlighted)
 	})
-	.then(null, next) 
+	.then(null, next)
 })
 
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
 router.post('/', function(req, res, next){
-	
+
 	var newData = req.body.newData;
 	var fileInfo = req.body.fileInfo;
 
@@ -57,7 +57,7 @@ router.delete('/:id', function(req, res, next){
 		File.findOne({fileUrl: req.body.url})
 		.exec()
 		.then(function(file){
-			file.higlighted = file.highlighted.filter(function(e){
+			file.highlighted = file.highlighted.filter(function(e){
 				return e !== highlighted._id
 			})
 			file.save(function(err, data){
@@ -65,10 +65,7 @@ router.delete('/:id', function(req, res, next){
 				res.send({message: 'successfull removed'})
 			})
 		})
-		.then(next, null)
+		.then(null, next)
 	})
-	.then(next, null)
+	.then(null, next)
 })
-
-
-

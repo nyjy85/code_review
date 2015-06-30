@@ -1,6 +1,15 @@
 <div>
   <h3>Welcome {{displayName}}</h3>
-  <p>Let's review codes!</p>
-  <button>Add a repo</button>
+  <p>Let's review code!</p>
+  <button ng-click="showRepo()">Add a repo</button>
+  <!-- <code>{{reposToAdd}}</code> -->
+  <ol>
+    <li ng-repeat="repo in reposToAdd" ng-click="addRepoToProfile(repo)">{{ repo.name }}</li>
+  </ol>
+
+  <p>Your Repos</p>
+  <ol>
+    <li></li>
+  </ol>
 
 </div>

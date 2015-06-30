@@ -23,12 +23,26 @@ app.config(function ($stateProvider) {
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
 
   popupGitFactory.getUserInfo().then(function(user) {
-		$scope.displayName = user.user.github.name;
+		$scope.user = user.user;
+		$scope.displayName = $scope.user.github.name;
 		console.log(user.user)
 	})
 
-  // UserFactory.getTotalPoints().then(function(points){
-	// 	$scope.manyPoints = points
-	// })
+	$scope.showRepo = function() {
+		console.log('hit controller showRepo')
+		var tokenObj = {token: $scope.user.github.token}
+
+		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
+			$scope.reposToAdd = repos;
+		})
+	}
+
+	$scope.addRepoToProfile = function (repo) {
+		console.log('add repo to profile')
+		popupGitFactory.addRepoToProfile($scope.user, repo).then(function(repo) {
+
+		})
+	}
+
 
 })

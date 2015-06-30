@@ -7,8 +7,8 @@ body {
   width: 400px;
   height: 500px; }
 
-.ng-scope {
-  height: 500px; }
+li.ng-binding.ng-scope {
+  height: 20px; }
 
 h3 {
   margin-top: 0px; }
