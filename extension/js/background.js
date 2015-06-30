@@ -1,18 +1,37 @@
-//listens for event
+//listens for event.  this is the purpose of background.js
 chrome.runtime.onMessage.addListener(function(req, sender){
-	console.log('AM I IN BG.js??')
 	if(req.event==="hello") console.log('HELLOW');
 	if(req.event==="bye") console.log('BYE BYE');
+	if(req.event==="get"){
+		$.ajax({
+			type: 'GET',
+			url: 'http://localhost:1337/api/file/'+req.id,
+			success: function(response){
+				console.log('successfully gotten', response);
+				// returnMessage(response);
+			}
+		})
+	}
+	if (req.event==="check"){
 
-	$.ajax({
-  		type: 'POST',
-  		url: 'http://localhost:1337/api/comments',
-  		data: {highlighted:{code: req.message}},
-  		success: function(response){
-  			console.log('Post was successful!', response)
-  		}
-  	})
-	returnMessage(req.message);
+		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+		   var parsedRepo = tab.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
+		   var theRepo = parsedRepo.join("");
+
+		   $.ajax({
+		   		type: 'GET', 
+		   		url: 'http://localhost:1337/session', 
+		   		success: function(response){
+		   			console.log('succesfully gotten', response);
+
+		   			response.user.repos.forEach(function(repo){
+		   				if (repo.url === theRepo) returnMessage(response.url);
+		   			})
+		   		}
+		   })
+		   // do comparison logic in the front
+		}); 
+	}
 })
 
 function returnMessage(msg){
@@ -21,3 +40,4 @@ function returnMessage(msg){
 		chrome.tabs.sendMessage(tab.id, {message: msg})
 	});
 };
+
