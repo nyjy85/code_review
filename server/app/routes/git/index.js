@@ -13,30 +13,13 @@ router.get('/reposFromGit', function(req, res, next){
   var client = github.client(accessToken);
   client.get('/user/repos', {}, function(err, status, body, header) {
     if (err) return next(err);
-    
+
     res.send(body);
   })
 
 })
 
-//add repo to User model -> access to hightlight feature
-// router.post('/addRepoToProfile', function(req, res, next){
-//   console.log('req.query', req.body)
-//   var username = req.body.username;
-//   var repo = {url: req.body.url, name: req.body.repo_name}
-//
-//   User.findOne({github.username: username})
-//   .exec()
-//   .then(function(user){
-//     user.repos.push(repo)
-//     user.save(function(err,data){
-//       if(err) return next(err);
-//       res.send({message: 'successfully added repo to profile'})
-//     })
-//   })
-//   .then(null, next);
-//
-// })
+
 
 //
 // name: 'meowsic',

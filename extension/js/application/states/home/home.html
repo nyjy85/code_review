@@ -1,15 +1,22 @@
 <div>
   <h3>Welcome {{displayName}}</h3>
   <p>Let's review code!</p>
-  <button ng-click="showRepo()">Add a repo</button>
+  <button ng-click="showRepoSelections()">Add a repo</button>
   <!-- <code>{{reposToAdd}}</code> -->
   <ol>
     <li ng-repeat="repo in reposToAdd" ng-click="addRepoToProfile(repo)">{{ repo.name }}</li>
   </ol>
 
   <p>Your Repos</p>
-  <ol>
-    <li></li>
-  </ol>
+  <button>View</button>
+  <button>Comment</button>
+    <div class="your-repos" ng-repeat="repo in showYourRepos">
+      <div class="repo-name" ng-click="selectRepo(repo)">{{ repo.name }}</div>
+      <div class="options" ng-show="repo.showOptions">
+        <button ng-click="goToRepo(repo)">Go</button>
+        <button>List</button>
+      </div>
+    </div>
+
 
 </div>

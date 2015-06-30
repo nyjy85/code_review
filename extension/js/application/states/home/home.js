@@ -25,10 +25,10 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
 		$scope.displayName = $scope.user.github.name;
-		console.log(user.user)
+		$scope.showYourRepos = $scope.user.repos;
 	})
 
-	$scope.showRepo = function() {
+	$scope.showRepoSelections = function() {
 		console.log('hit controller showRepo')
 		var tokenObj = {token: $scope.user.github.token}
 
@@ -39,9 +39,19 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
 
 	$scope.addRepoToProfile = function (repo) {
 		console.log('add repo to profile')
-		popupGitFactory.addRepoToProfile($scope.user, repo).then(function(repo) {
-
+		popupGitFactory.addRepoToProfile($scope.user, repo).then(function(res) {
+			console.log(res)
 		})
+	}
+
+	$scope.selectRepo = function(repo) {
+		repo.showOptions = !repo.showOptions;
+	}
+
+	$scope.goToRepo = function(repo) {
+		chrome.tabs.create({
+        url: repo.url
+    });
 	}
 
 

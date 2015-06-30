@@ -24,8 +24,8 @@ app.factory('popupGitFactory', function($http) {
 
         addRepoToProfile: function(user, repo) {
           console.log('addRepoToProfile factory',user, repo)
-          // var updateUser = {username: }
-          return $http.post(domain + "/api/git/addRepoToProfile", repo)
+          var repo = {repo: {url: repo.html_url, name: repo.name}}
+          return $http.put(domain + "/api/users/addRepo/" + user.github.username, repo)
           .then(function(res) {
             return res.data;
           })
@@ -33,3 +33,8 @@ app.factory('popupGitFactory', function($http) {
 
     }
 });
+
+
+//extension on
+//tab bar
+//
