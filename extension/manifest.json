@@ -13,8 +13,12 @@
    "default_popup": "popup.html"
   },
   "permissions": [
-        "tabs"
+        "tabs",
+        "contextMenus"
     ],
+    "icons": {
+      "16": "bear.png"
+    },
    "content_scripts": [ {
     "matches": ["http://*/*", "https://*/*"],
     "js": ["js/dependencies/jquery.min.js", "js/content.js"],
