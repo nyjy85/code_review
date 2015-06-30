@@ -36,9 +36,9 @@ var seedHighlights = function () {
             code: ["tDb = require('./db');", "", "// Create a node server instance! cOoL!", "var server = require('http').createServer();", "", "var createApplication = function () {", "    var app = requir"],
             range: ['#LC6'],
             comment: "What an awesome piece of code",
-            commenter: /*reference your USER db and add id here*/ 
+            commenter: /*reference your USER db and add id here*/
         },
-         {
+        {
             code: ["var concat = require('gulp-concat');", "var rename = require('gulp-rename');", "var sass = require('gulp-sass');", "var livereload = require('gulp-livereload');"],
             range: ['#LC8'],
             comment: "refactor please it's ugly",
