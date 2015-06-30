@@ -37,8 +37,9 @@ var seedHighlights = function () {
             range: ['#LC6'],
             comment: "What an awesome piece of code",
             commenter: "5590590264d237f12d9ec36d"
+
         },
-         {
+        {
             code: ["var concat = require('gulp-concat');", "var rename = require('gulp-rename');", "var sass = require('gulp-sass');", "var livereload = require('gulp-livereload');"],
             range: ['#LC8'],
             comment: "refactor please it's ugly",

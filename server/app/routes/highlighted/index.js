@@ -2,7 +2,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Highlight = mongoose.model('Highlight');
-var File = mongoose.model('File');
 
 module.exports = router;
 
@@ -11,7 +10,7 @@ router.get('/', function(req, res, next){
 	Highlight.find({})
 	.exec()
 	.then(function(data){
-		res.json(data)
+		res.send(data)
 	})
 	.then(null, next)
 })
@@ -34,8 +33,9 @@ router.post('/', function(req, res, next){
 
 	Highlight.checkForFileOnHighlight(newData, fileInfo, next)
 	.then(function(updatedFile){
-		console.log('this is updated FIle', updatedFile)
-		res.send("You made a new file/updated the file model with your highlight info")
+		//if you want something to res.send, you can change updatedFile in the static
+		//in the highlight
+		res.send("You made a new file/updated the file model with your highlight info");
 	})
 });
 
@@ -50,22 +50,13 @@ router.put('/', function(req, res, next){
 	.then(null, next)
 });
 
+
 router.delete('/:id', function(req, res, next){
-	Highlight.remove({_id: req.params.id})
-	.exec()
-	.then(function(highlighted){
-		File.findOne({fileUrl: req.body.url})
-		.exec()
-		.then(function(file){
-			file.highlighted = file.highlighted.filter(function(e){
-				return e !== highlighted._id
-			})
-			file.save(function(err, data){
-				if(err) return next(err);
-				res.send({message: 'successfull removed'})
-			})
-		})
-		.then(null, next)
+	var id = req.params.id;
+	var url = req.body.url;
+
+	Highlight.deleteHighlight(id, url, next)
+	.then(function(updatedFile){
+		res.send('You have removed the highlight from the file');
 	})
-	.then(null, next)
-})
+});
