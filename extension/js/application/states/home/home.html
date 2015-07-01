@@ -40,13 +40,17 @@
             placeholder="Choose repo to add">
           <md-item-template>
             <!-- MODIFY THE NG_CLICK -->
-            <span md-highlight-flags="^i" ng-click="addRepoToProfile(repo)">{{repo.name}}</span>
+            <span md-highlight-flags="^i" >{{repo.name}}</span>
           </md-item-template>
 
           <md-not-found>
             No matches found.
           </md-not-found>
     </md-autocomplete>
+
+    <md-button class="md-primary" ng-click="addRepoToProfile()">Add</md-button>
+    <md-button class="md-warn" ng-click="showRepoSelections()">Cancel</md-button>
+
   </div>
 
     <md-list-item class="your-repos" ng-repeat="repo in showYourRepos">
