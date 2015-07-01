@@ -5,6 +5,7 @@ var Highlight = mongoose.model('Highlight');
 
 module.exports = router;
 
+// gets all highilights. prob won't be necessary
 router.get('/', function(req, res, next){
 	console.log('hit da highlight yo')
 	Highlight.find({})
@@ -15,7 +16,7 @@ router.get('/', function(req, res, next){
 	.then(null, next)
 })
 
-// just a test
+// just a test to get a highlight by id and see if persistence works
 router.get('/getit/:id', function(req, res, next){
 	Highlight.findOne({_id: req.params.id})
 	.exec()
@@ -23,7 +24,8 @@ router.get('/getit/:id', function(req, res, next){
 		res.send(highlighted)
 	})
 	.then(null, next) 
-})
+});
+
 router.get('/:user', function(req, res, next){
 	Highlight.find({commenter: req.params.user})
 	.exec()
