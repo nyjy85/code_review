@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
 					else {
 						return
 					}
-				})
+				});
 			}
 		}
 	});

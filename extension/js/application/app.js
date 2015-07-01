@@ -1,4 +1,4 @@
-var app = angular.module('CodeReviewExt', ['ui.router', 'ui.bootstrap']);
+var app = angular.module('CodeReviewExt', ['ui.router', 'ui.bootstrap', 'ngMaterial']);
 
 
 app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
