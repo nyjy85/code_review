@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 						return
 					}
 					else {
-						$state.go('login')
+						// $state.go('login')
 					}
 				});
 			}
@@ -26,16 +26,22 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
 		$scope.user = user.user;
 		$scope.displayName = $scope.user.github.name;
 		$scope.showYourRepos = $scope.user.repos;
-	})
 
-	$scope.showRepoSelections = function() {
-		console.log('hit controller showRepo')
+		//Load repos to add
 		var tokenObj = {token: $scope.user.github.token}
-
 		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
 			$scope.reposToAdd = repos;
 		})
+	})
+
+
+	$scope.showAddBar = false;
+
+	$scope.showRepoSelections = function() {
+		$scope.showAddBar = true;
+		console.log('hit controller showRepo')
 	}
+
 
 	$scope.addRepoToProfile = function (repo) {
 		console.log('add repo to profile')

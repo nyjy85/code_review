@@ -1,22 +1,68 @@
 <div>
-  <h3>Welcome {{displayName}}</h3>
-  <p>Let's review code!</p>
-  <button ng-click="showRepoSelections()">Add a repo</button>
-  <!-- <code>{{reposToAdd}}</code> -->
-  <ol>
-    <li ng-repeat="repo in reposToAdd" ng-click="addRepoToProfile(repo)">{{ repo.name }}</li>
-  </ol>
+  <!-- <h3>Welcome {{displayName}}</h3>
+  <p>Let's review code!</p> -->
+  <md-button class="md-icon-button md-primary" aria-label="Settings">
+        <md-icon md-svg-icon="img/icons/ic_view_headline_black_24px.svg"></md-icon>
+  </md-button>
 
-  <p>Your Repos</p>
-  <button>View</button>
-  <button>Comment</button>
-    <div class="your-repos" ng-repeat="repo in showYourRepos">
+  <md-button class="md-icon-button md-primary">
+        <md-icon md-svg-icon="img/icons/ic_search_black_24px.svg"></md-icon>
+  </md-button>
+
+  <md-button class="md-icon-button md-primary">
+        <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" ng-click="showRepoSelections()"></md-icon>
+  </md-button>
+
+  <md-button class="md-icon-button md-primary">
+        <md-icon md-svg-icon="img/icons/ic_settings_black_24px.svg"></md-icon>
+  </md-button>
+
+
+  <md-divider></md-divider>
+
+
+<!--
+
+  ng-disabled="ctrl.isDisabled"
+  md-no-cache="ctrl.noCache"
+  md-selected-item="ctrl.selectedItem"
+  md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+  md-search-text="ctrl.searchText"
+  md-selected-item-change="ctrl.selectedItemChange(item)" -->
+
+  <!-- md-highlight-text="ctrl.searchText"  -->
+  <div ng-show="showAddBar">
+    <md-autocomplete
+            md-items="repo in reposToAdd"
+            md-selected-item="reposToAdd"
+            md-item-text="repo.name"
+            md-min-length="0"
+            placeholder="Choose repo to add">
+          <md-item-template>
+            <!-- MODIFY THE NG_CLICK -->
+            <span md-highlight-flags="^i" ng-click="addRepoToProfile(repo)">{{repo.name}}</span>
+          </md-item-template>
+
+          <md-not-found>
+            No matches found.
+          </md-not-found>
+    </md-autocomplete>
+  </div>
+
+    <md-list-item class="your-repos" ng-repeat="repo in showYourRepos">
+      <md-checkbox></md-checkbox>
       <div class="repo-name" ng-click="selectRepo(repo)">{{ repo.name }}</div>
-      <div class="options" ng-show="repo.showOptions">
-        <button ng-click="goToRepo(repo)">Go</button>
-        <button>List</button>
-      </div>
-    </div>
+      <!-- <div class="options" ng-show="repo.showOptions"> -->
+        <md-icon class="editRepo" md-svg-icon="img/icons/ic_list_black_24px.svg" ng-click="listFiles(repo)"></md-icon>
+        <md-icon class="editRepo" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
+        <!-- <button ng-click="goToRepo(repo)">Go</button> -->
+      <!-- </div> -->
+      <md-divider></md-divider>
+    </md-list-item>
 
+    <!-- <div class="mode">
+      <button>View</button>
+      <!-- <button>Comment</button> -->
+    <!-- </div> -->
 
 </div>

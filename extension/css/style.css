@@ -2,13 +2,12 @@
   box-sizing: border-box; }
 
 body {
-  position: relative;
-  top: 20px;
   width: 400px;
   height: 500px; }
 
-li.ng-binding.ng-scope {
-  height: 20px; }
-
 h3 {
   margin-top: 0px; }
+
+.editRepo.ng-isolate-scope.md-default-theme {
+  margin: 0 0 0 0;
+  float: left; }
