@@ -16,6 +16,14 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	    	getRepos(repo);
 		}); 
 	}
+
+	if (req.command === "highlight-data"){
+		sendHighlightData(req.data)
+	}
+
+	if(req.command === "get-highlight"){
+		getHighlightData(req.id)
+	}
 })
 
 function returnMessage(msg, cmd){

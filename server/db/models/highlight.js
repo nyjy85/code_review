@@ -5,8 +5,15 @@ var Q = require('q');
 
 var schema = new mongoose.Schema({
     code: [String], // array of code seperated by newline
-    range: [String], // this is the range of #ids that hold the highlighted area 
     comment: String,
+    highlighted: {
+        startId: String,
+        endId: String,
+        startNode: String,
+        endNode: String,
+        startOffset: Number,
+        endOffset: Number
+    },  
     commenter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 

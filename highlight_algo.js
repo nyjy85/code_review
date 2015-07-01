@@ -1,3 +1,169 @@
+// iteration 4
+function Highlight(){
+	this.selections = [];
+	this.range;
+}
+
+Highlight.prototype.backupRange = function(){
+	var selection = window.getSelection();
+    this.range = selection.getRangeAt(0); 
+    this.selections.push({"startContainer": this.range.startContainer, "startOffset":this.range.startOffset,"endContainer":this.range.endContainer, "endOffset":this.range.endOffset}))
+}
+
+function ReHighlight(data){
+	this.selection = data;
+}
+ReHighlight.prototype.restoreRange = function(ele){
+	var selection = window.getSelection();
+	selection.removeAllRanges();
+	var range = document.createRange();
+	range.setStart(ele.startContainer, ele.startOffset);
+    range.setEnd(ele.endContainer, ele.endOffset);
+    selection.addRange(range);
+}
+
+ReHighlight.prototype.setBackgroundColor = function(ele){
+	this.restoreRange(ele);
+    document.designMode = "on";
+    document.execCommand("BackColor", false, '#ceff63');
+    document.designMode = 'off';
+}
+
+// create new instance of highlight on receiving data
+var rehighlight = new ReHighlight(data)
+//assume data from data base
+this.selection.forEach(function(ele){
+	highlight.setBackgroundColor(ele);
+})
+// iteration 3
+var zss_editor = {};
+
+// The current selection
+zss_editor.currentSelection = [];
+
+zss_editor.backuprange = function(){
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);  
+    zss_editor.currentSelection.push({"startContainer": range.startContainer, "startOffset":range.startOffset,"endContainer":range.endContainer, "endOffset":range.endOffset});
+
+}
+
+zss_editor.restorerange = function(ele){
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    var range = document.createRange();
+    range.setStart(ele.startContainer, ele.startOffset);
+    range.setEnd(ele.endContainer, ele.endOffset);
+    selection.addRange(range);
+}
+
+zss_editor.setTextColor = function(color) {
+    zss_editor.restorerange();
+    document.execCommand("styleWithCSS", null, true);
+    document.execCommand('foreColor', false, color);
+    document.execCommand("styleWithCSS", null, false);
+}
+
+zss_editor.setBackgroundColor = function(ele) {
+    zss_editor.restorerange(ele);
+    document.designMode = "on";
+    document.execCommand("BackColor", false, '#ceff63');
+    document.designMode = 'off';
+}
+zss_editor.currentSelection.forEach(function(ele){
+    zss_editor.setBackgroundColor(ele, '#007AFF')
+});
+// iteration 2 
+// this was deleted
+var highlight;
+$('td').mousedown(function(){
+    highlight = new Highlight();
+    highlight.id.push($(this).attr('id'));
+});
+
+// grab id on mouseup
+$('td').mouseup(function(){
+    var selection = window.getSelection();
+    if(!selection.isCollapsed){
+        var range = selection.getRangeAt(0).cloneRange();
+        highlight.ranges.push(range);
+        highlight.addHighlight();
+        console.log(highlight.ranges)
+    }
+});
+
+function Highlight(){
+    this.ranges = [];
+    this.id = [];
+}
+
+Highlight.prototype.addHighlight = function(){
+    var ref = this.id;
+    var self = this;
+    // this.ranges.forEach(function(range, idx){
+    	// console.log('the id', ref[idx])
+        // range.selectNodeContents(document.getElementById(ref[idx]));
+        // this is the highlight 
+        document.designMode = "on";
+        document.execCommand("BackColor", false, '#ceff63');
+        document.designMode = 'off';
+        // end highlight
+        // self.addCommentLink(range.startContainer);
+    // })
+};
+
+var $commentBox = '<div class="box"><textarea rows="5"></textarea></div>';
+
+Highlight.prototype.addCommentLink = function(codeBlock){
+    $('body').after($commentBox);
+    $('.box').css({"background-color": "green", "height": "200px", "width": "300px", "text-align": "center"})
+};
+
+
+// this was deleted
+var highlight;
+$('td').mousedown(function(){
+    highlight = new Highlight();
+    highlight.id.push($(this).attr('id'));
+});
+
+// grab id on mouseup
+$('td').mouseup(function(){
+    var selection = window.getSelection();
+    if(!selection.isCollapsed){
+        var range = selection.getRangeAt(0).cloneRange();
+        highlight.ranges.push(range);
+        highlight.addHighlight();
+        console.log(highlight.ranges)
+    }
+});
+
+function Highlight(){
+    this.ranges = [];
+    this.id = [];
+}
+
+Highlight.prototype.addHighlight = function(){
+    var ref = this.id;
+    var self = this;
+    this.ranges.forEach(function(range, idx){
+        range.selectNodeContents(document.getElementById(ref[idx]));
+        // this is the highlight 
+        document.designMode = "on";
+        document.execCommand("BackColor", false, '#ceff63');
+        document.designMode = 'off';
+        // end highlight
+        self.addCommentLink(range.startContainer);
+    })
+};
+
+Highlight.prototype.addCommentLink = function(codeBlock){
+    $(codeBlock).after('<a href="#" title="Replace this with an icon in the future">Comment</a>');
+};
+
+
+
+
 // grab id on mousedown
 var highlight;
 $('td').mousedown(function(){
