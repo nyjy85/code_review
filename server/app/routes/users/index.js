@@ -46,12 +46,8 @@ router.put('/addRepo/:user', function(req, res, next){
 		user.repos.push(req.body.repo);
 		user.save(function(err, data){
 			console.log('this be data', data)
-			if(err) return next(err);
 			res.send(data)
 		})
 	})
 	.then(next, null)
 });
-
-
-
