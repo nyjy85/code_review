@@ -7,8 +7,9 @@ var schema = new mongoose.Schema({
     commit: String,
     highlighted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}],
     repo: {
-    	url: String, 
-    	contributors: [String] // this will be collaborators
+      name: String,
+    	url: String,
+    	contributors: [String] // this will be collaborators (for sharing to other users)
     }
 });
 

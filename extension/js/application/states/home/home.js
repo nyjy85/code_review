@@ -61,7 +61,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
     });
 	}
 
-
+	//sidebar
 	$scope.toggleLeft = buildToggler('left');
 
 	function buildToggler(navID) {
@@ -73,6 +73,13 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
               });
           },300);
       return debounceFn;
-    }
+  }
+
+	$scope.close = function () {
+      $mdSidenav('left').close()
+        .then(function () {
+          $log.debug("close LEFT is done");
+        });
+  };
 
 })
