@@ -20,7 +20,7 @@ app.config(function ($stateProvider) {
 });
 
 //add Factory
-app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
+app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
@@ -61,5 +61,18 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
     });
 	}
 
+
+	$scope.toggleLeft = buildToggler('left');
+
+	function buildToggler(navID) {
+      var debounceFn =  $mdUtil.debounce(function(){
+            $mdSidenav(navID)
+              .toggle()
+              .then(function () {
+                $log.debug("toggle " + navID + " is done");
+              });
+          },300);
+      return debounceFn;
+    }
 
 })

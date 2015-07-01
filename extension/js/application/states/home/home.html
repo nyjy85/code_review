@@ -1,7 +1,7 @@
 <div>
   <!-- <h3>Welcome {{displayName}}</h3>
   <p>Let's review code!</p> -->
-  <md-button class="md-icon-button md-primary" aria-label="Settings">
+  <md-button class="md-icon-button md-primary" ng-click="toggleLeft()">
         <md-icon md-svg-icon="img/icons/ic_view_headline_black_24px.svg"></md-icon>
   </md-button>
 
@@ -20,6 +20,29 @@
 
   <md-divider></md-divider>
 
+
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Sidenav Right</h1>
+      </md-toolbar>
+
+      <!-- <sidebar></sidebar> -->
+
+      <md-content layout-padding>
+        <form>
+          <md-input-container>
+            <label for="testInput">Test input</label>
+            <input type="text" id="testInput"
+                   ng-model="data" md-sidenav-focus>
+          </md-input-container>
+        </form>
+        <md-button ng-click="close()" class="md-primary">
+          Close Sidenav Right
+        </md-button>
+      </md-content>
+
+
+    </md-sidenav>
 
 <!--
 
