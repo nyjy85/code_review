@@ -23,5 +23,27 @@ function populateFile(id){
 	})
 }
 
+function sendHighlightData(data){
+   $.ajax({
+      type: 'POST',
+      url: 'http://localhost:1337/api/highlighted',
+      data: data,
+      success: function(response){
+         console.log('POST has been successful!', response);
+      }
+   })
+}
+
+function getHighlightData(id){
+   $.ajax({
+      type: 'GET',
+      url: 'http://localhost:1337/api/highlighted/getit/'+id,
+      success: function(response){
+         console.log('YOU GOT THE HIGLIHGT', response);
+         returnMessage(response, 'highlight-retrieved');
+      }
+   })
+}
+
 // for backend
 // url.replace(/(http)/g, 'https').replace(/(wwww)\./g, '')

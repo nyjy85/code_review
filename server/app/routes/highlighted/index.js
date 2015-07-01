@@ -15,6 +15,15 @@ router.get('/', function(req, res, next){
 	.then(null, next)
 })
 
+// just a test
+router.get('/getit/:id', function(req, res, next){
+	Highlight.findOne({_id: req.params.id})
+	.exec()
+	.then(function(highlighted){
+		res.send(highlighted)
+	})
+	.then(null, next) 
+})
 router.get('/:user', function(req, res, next){
 	Highlight.find({commenter: req.params.user})
 	.exec()
@@ -27,7 +36,7 @@ router.get('/:user', function(req, res, next){
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
 router.post('/', function(req, res, next){
-	
+	console.log('req.body from da frrronnnt', req.body);
 	var newData = req.body.newData;
 	var fileInfo = req.body.fileInfo;
 
