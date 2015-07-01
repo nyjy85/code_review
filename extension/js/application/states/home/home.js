@@ -20,31 +20,32 @@ app.config(function ($stateProvider) {
 });
 
 //add Factory
-app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
+app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
 		$scope.displayName = $scope.user.github.name;
 		$scope.showYourRepos = $scope.user.repos;
 
-		//Load repos to add
-		var tokenObj = {token: $scope.user.github.token}
-		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
-			$scope.reposToAdd = repos;
-		})
 	})
 
 
 	$scope.showAddBar = false;
 
 	$scope.showRepoSelections = function() {
-		$scope.showAddBar = true;
-		console.log('hit controller showRepo')
+		//Load repos to add
+		var tokenObj = {token: $scope.user.github.token}
+		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
+			$scope.reposToAdd = repos;
+		})
+
+		$scope.showAddBar = !$scope.showAddBar;
 	}
 
 
 	$scope.addRepoToProfile = function (repo) {
-		console.log('add repo to profile')
+		console.log('add repo to profile', $scope.addRepo)
+		$scope.showAddBar = !$scope.showAddBar;
 		popupGitFactory.addRepoToProfile($scope.user, repo).then(function(res) {
 			console.log(res)
 		})
@@ -60,5 +61,18 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory) {
     });
 	}
 
+
+	$scope.toggleLeft = buildToggler('left');
+
+	function buildToggler(navID) {
+      var debounceFn =  $mdUtil.debounce(function(){
+            $mdSidenav(navID)
+              .toggle()
+              .then(function () {
+                $log.debug("toggle " + navID + " is done");
+              });
+          },300);
+      return debounceFn;
+    }
 
 })
