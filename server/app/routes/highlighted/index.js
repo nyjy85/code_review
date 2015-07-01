@@ -32,7 +32,7 @@ router.get('/:user', function(req, res, next){
 	.then(function(highlighted){
 		res.send(highlighted)
 	})
-	.then(null, next) 
+	.then(null, next)
 })
 
 // make sure to send back the User._id
@@ -64,14 +64,10 @@ router.put('/', function(req, res, next){
 
 router.delete('/:id', function(req, res, next){
 	var id = req.params.id;
-	var url = req.body.url; 
+	var url = req.body.url;
 
 	Highlight.deleteHighlight(id, url, next)
 	.then(function(updatedFile){
 		res.send('You have removed the highlight from the file');
 	})
 });
-
-
-
-

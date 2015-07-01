@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+	// position: 0px;
+	// top: 0px;
+	width: 400px;
+	height: 500px;
+}
+
+h3 {
+  margin-top: 0px
+}
+
+.editRepo.ng-isolate-scope.md-default-theme {
+  margin: 0 0 0 0;
+  float: left;
+}
+
+// .autocompletedemoCustomTemplate .autocomplete-custom-template li {
+//   border-bottom: 1px solid #ccc;
+//   height: auto;
+//   padding-top: 8px;
+//   padding-bottom: 8px;
+//   white-space: normal; }
+// .autocompletedemoCustomTemplate .autocomplete-custom-template li:last-child {
+//   border-bottom-width: 0; }
+// .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title, .autocompletedemoCustomTemplate .autocomplete-custom-template .item-metadata {
+//   display: block;
+//   line-height: 2; }
+// .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title md-icon {
+//   height: 18px;
+//   width: 18px; }
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@import 'home/main';

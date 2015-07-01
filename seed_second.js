@@ -35,25 +35,25 @@ var seedFile = function () {
         {
             fileUrl: 'https://github.com/nyjy85/code_review/blob/master/server/main.js',
             commit: "769cd90b611a6156c3663fbea798a6f1c2070692",
-            highlighted: [/*reference your db and add id here*/],
+            highlighted: ["5591a6ab6934d3a3afb9a9cf"],
             repo: {url:'https://github.com/nyjy85/code_review', contributors: ['cschoi3', 'nyjy85', 'eueueleelee']}
         },
         {
             fileUrl: 'https://github.com/nyjy85/test_for_CR/blob/master/index.js',
             commit: '014276ce4dede4db58cb2698acdf7e01675dda97',
-            highlighted: [/*reference your db and add id here*/],
+            highlighted: ["5591a6ab6934d3a3afb9a9d0"],
             repo: {url:'https://github.com/nyjy85/test_for_CR', contributors: ['cschoi3', 'nyjy85', 'eueueleelee']}
         },
         {
             fileUrl: 'https://github.com/nyjy85/code_review/blob/master/server/db/models/highlight.js',
             commit: 'fc327d4cf71487e103d4025f1e9e444317aca38b',
-            highlighted: [/*reference your db and add id here*/],
+            highlighted: ["5591a6ab6934d3a3afb9a9d1"],
             repo: {url:'https://github.com/nyjy85', contributors: ['cschoi3', 'eueueleelee', 'nyjy85']}
         },
         {
             fileUrl: 'https://github.com/nyjy85/test_for_CR/blob/master/app.js',
             commit: '012cd717f44a97c9e559e5ed81255d128e20c415',
-            highlighted: [/*reference your db and add id here*/],
+            highlighted: ["5591a6ab6934d3a3afb9a9d2"],
             repo: {url:'https://github.com/nyjy85/code_review', contributors: ['cschoi3', 'eueueleelee', 'nyjy85']}
         }
     ];

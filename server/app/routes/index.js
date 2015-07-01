@@ -8,6 +8,7 @@ router.use('/members', require('./members'));
 router.use('/highlighted', require('./highlighted'));
 router.use('/file', require('./file'));
 router.use('/users', require('./users'));
+router.use('/git', require('./git'));
 
 // Make sure this is after all of
 // the registered routes!
