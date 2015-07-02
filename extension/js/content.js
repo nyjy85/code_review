@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input type="button" class="btn" value="Save"/></div><div class="arrow-down"></div>';
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn" value="Save"/><input style="float: right; " type="button" class="btn" value="Cancel"/></div>';
     $('body').append($popover);
 
 ///////////////////////////////////////
@@ -83,8 +83,8 @@ $(document).ready(function(){
             var top = e.pageY;
             var theHeight = $('.popover').height();
             $('.popover').show();
-            $('.popover').css('left', (left+100) + 'px');
-            $('.popover').css('top', (top-(theHeight/2)-150) + 'px');
+            $('.popover').css('left', (left-25) + 'px');
+            $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
 
 
     });
