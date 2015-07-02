@@ -7,19 +7,16 @@ $(document).ready(function(){
 
 //////////////////////////// box popover
     $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover({
+    var popOverSettings = {
         html: true,
+        placement: 'bottom',
+        selector: "[rel='popover']",
+        container: "body",
         content: function () {
-            var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
-            return clone;
+            return $('<div id="popover-content"><button class="pop-Add">Add</button></div>').html();
         }
-        }).click(function(e) {
-             e.preventDefault();
-         });
-    var box = '<div id="box" class="hide"><textarea id="comments" rows=5></textarea><button id="submit">Submit</button></div>'
-        $('p').mouseup(function(){
-            $(this).attr({ "data-toggle": "popover", "title": "Comment", "data-popover-content": box})
-        })
+    };
+        $('body').popover(popOverSettings);
 ///////////////////////////////////////
 
     // listens for events from AJAX calls/background.js and executes something
@@ -85,7 +82,20 @@ $(document).ready(function(){
         data = {newData:{comment: 'THIS BEETA WOIK', highlighted: section}, fileInfo: {fileUrl: href}}
             // console.log('THIS IS DATA FORM HIGHLIGHT', data);
             // chrome.runtime.sendMessage({command: 'highlight-data', data: data})
+
+        var box = '<div id="box" rel="popover" class="hide"><textarea id="comments" rows=5></textarea><button id="submit">Submit</button></div>'
+        
+
+        // $(this).attr({ "data-toggle": "popover", "title": "Comment", "data-popover-content": box})
+
+
+
     });
+
+
+    $("#LC3").on("click", function() {
+        $(this).append("<li class='project-name'><a>project name 2<button class='pop-function' rel='popover'></button></a></li>");
+    })
 
     // tests to see if persisting highlighting works
     $('#joanne').on('click', function(){

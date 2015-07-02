@@ -21,7 +21,8 @@
     },
    "content_scripts": [ {
     "matches": ["http://*/*", "https://*/*"],
-    "js": ["js/dependencies/jquery.min.js", "js/content.js", "js/modules/highlight.js", "js/modules/deserialize.js"],
+    "css": ["css/bootstrap.min.css"],
+    "js": ["js/dependencies/jquery.min.js", "js/content.js", "js/modules/highlight.js", "js/modules/deserialize.js", "js/dependencies/bootstrap.min.js"],
     "all_frames": true
   }]
 }
