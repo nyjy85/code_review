@@ -1,27 +1,29 @@
-function Serialize(range, node){
+function DeSerialize(range, node){
   this.range = range;
   this.node = node;
 }
 
-Serialize.prototype.setStart = function(){
-    this.serializeIt(this.node, this.range.startContainer);
+DeSerialize.prototype.setStart = function(){
+    this.serializeIt(this.node, this.range.startContainer.textContent);
     return this;
 }
 
-Serialize.prototype.setEnd = function(){
-    this.serializeIt(this.node, this.range.endContainer);
+DeSerialize.prototype.setEnd = function(){
+    this.serializeIt(this.node, this.range.endContainer.textContent);
     return this;
 }
 
-
-Serialize.prototype.serializeIt = function(node, container){
-    if (node.textContent === container.textContent && node.nodeType === 3) {
-       this.newNode = this.node;
-   } else if (node.childNodes) {
-       for (var i = 0; i < node.childNodes.length;i++) {
-           this.serializeIt(node.childNodes[i], container);
+DeSerialize.prototype.serializeIt = function(node, text){
+    if (node.textContent === text) this.newNode = this.node;
+    else if (node.childNodes) {
+       for (var i = 0; i < node.childNodes.length; i++) {
+           this.serializeIt(node.childNodes[i], text);
        }
-   } else {
-       console.log("getDocument: no document found for node");
-   }
+   } else console.log("getDocument: no document found for node");
 }
+
+// function DeSerialize(range, node){
+//   Serialize.call(this, range, node)
+// }
+// DeSerialize.prototype = Object.create(Serialize.prototype)
+// DeSerialize.prototype.constructor = DeSerialize;
