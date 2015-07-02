@@ -5,6 +5,22 @@ $(document).ready(function(){
     $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
     $('body').append('<button id="submit">Submit Comment</button>')
 
+//////////////////////////// box popover
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        content: function () {
+            var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
+            return clone;
+        }
+        }).click(function(e) {
+             e.preventDefault();
+         });
+    var box = '<div id="box" class="hide"><textarea id="comments" rows=5></textarea><button id="submit">Submit</button></div>'
+        $('p').mouseup(function(){
+            $(this).attr({ "data-toggle": "popover", "title": "Comment", "data-popover-content": box})
+        })
+///////////////////////////////////////
 
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
