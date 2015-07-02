@@ -44,6 +44,14 @@ app.factory('popupGitFactory', function($http) {
           .then(function(res) {
             return res.data;
           })
+        },
+
+        listFiles: function(repo) {
+          console.log('list file names under the repo', repo)
+          return $http.get(domain + "/api/file/repo/" + repo.name)
+          .then(function(res) {
+            return res.data;
+          })
         }
 
     }

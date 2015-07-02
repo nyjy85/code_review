@@ -22,24 +22,20 @@
 
   <!-- Menu -->
 
-  <!-- <div class="md-menu-demo" ng-controller="BasicDemoCtrl as ctrl">
-  <div class="menu-demo-container" layout-align="center center" layout="column">
-    <h2 class="md-title">Simple dropdown menu</h2>
-    <p>Note that applying the <code>md-menu-origin</code> and <code>md-menu-align-target</code> attributes ensure that the menu elements align</p>
-    <md-menu>
+  <md-menu>
       <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-        <md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>
+        Dropdown example
       </md-button>
-      <md-menu-content width="4">
+      <md-menu-content width="2">
         <md-menu-item>
           <md-button ng-click="ctrl.redial($event)">
-            <md-icon md-svg-icon="call:dialpad" md-menu-align-target></md-icon>
+            <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" md-menu-align-target></md-icon>
             Redial
           </md-button>
         </md-menu-item>
         <md-menu-item>
           <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg"></md-icon>
             Check voicemail
           </md-button>
         </md-menu-item>
@@ -52,9 +48,6 @@
         </md-menu-item>
       </md-menu-content>
     </md-menu>
-  </div>
-</div>
- -->
 
  <!-- Side bar------------------------------------------------------------- -->
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
@@ -123,6 +116,8 @@
 
     <md-list-item class="your-repos" ng-repeat="repo in showYourRepos">
       <md-checkbox></md-checkbox>
+      <!-- <md-divider></md-divider> -->
+
       <div class="repo-name" ng-click="selectRepo(repo)">{{ repo.name }}</div>
       <!-- <div class="options" ng-show="repo.showOptions"> -->
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_list_black_24px.svg" ng-click="listFiles(repo)"></md-icon>
@@ -133,6 +128,7 @@
         <!-- <button ng-click="goToRepo(repo)">Go</button> -->
       <!-- </div> -->
       <md-divider></md-divider>
+
     </md-list-item>
 
     <!-- <div class="mode">

@@ -20,7 +20,7 @@ app.config(function ($stateProvider) {
 });
 
 //add Factory
-app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log) {
+app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
@@ -54,10 +54,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		popupGitFactory.addRepoToProfile($scope.user).then(function(res) {
 			console.log(res)
 		})
-
-		// popupGitFactory.addRepoToProfile($scope.user, $scope.addRepo).then(function(res) {
-		// 	console.log(res)
-		// })
 	}
 
 	$scope.selectRepo = function(repo) {
@@ -81,6 +77,23 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
         url: repo.url
     });
 	}
+
+	$scope.listFiles = function(repo) {
+
+		var modalInstance = $modal.open({
+      templateUrl: 'js/application/states/files/file.html',
+      controller: 'FileCtrl',
+      resolve: {
+        repo: function() {
+          return repo;
+        }
+      }
+    });
+
+		
+	}
+
+
 
 	//sidebar
 	$scope.toggleLeft = buildToggler('left');

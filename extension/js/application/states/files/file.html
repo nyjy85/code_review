@@ -3,7 +3,7 @@
       <div class="files-in-repo" ng-repeat="file in filesUnderRepo">
         <p>Branch</p>
         <!-- 1504-Library/solutions/angular-day-1/seed.js -->
-        <div class="file-name" ng-click="">{{ file.name }}</div>
+        <div class="file-name" ng-click="">{{ file.repo.name }}</div>
         <p>Commenter: </p>
         <button ng-click="goToFile(file)">See Comments</button>
     </div>

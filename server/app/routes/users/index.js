@@ -50,7 +50,7 @@ router.put('/addRepo/:user', function(req, res, next){
 			res.send(data)
 		})
 	})
-	// .then(null, next)
+	.then(null, next)
 });
 
 // delete a repo to the user's repo array
@@ -65,5 +65,5 @@ router.put('/deleteRepo/:user', function(req, res, next){
 			res.send(data)
 		})
 	})
-	// .then(null, next)
+	.then(null, next)
 });
