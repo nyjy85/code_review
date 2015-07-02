@@ -1,9 +1,9 @@
 $(document).ready(function(){
     console.log('document is ready!')
-    $('body').append('<button id="joanne">Show DB Highlight</button>')
-    $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
-    $('body').append('<button id="submit">Submit Comment</button>')
-    // sends events back to background.js 
+    // $('body').append('<button id="joanne">Show DB Highlight</button>')
+    // $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
+    // $('body').append('<button id="submit">Submit Comment</button>')
+    // sends events back to background.js
 
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
@@ -36,7 +36,7 @@ $(document).ready(function(){
 
 
             }
-            
+
             if(res.command === 'create-CommentBox'){
                 console.log('message 3!', res.message)
                 var box = document.createElement('input');
@@ -73,14 +73,14 @@ $(document).ready(function(){
         var end = new Serialize(range, range.endContainer);
         var endNode = end.setEnd().newNode.textContent;
         var endOffset = range.endOffset;
-        
+
         zss_editor.backuprange();
         highlight = {
-            startId: startId, 
-            endId: endId, 
-            startNode: startNode, 
-            endNode: endNode, 
-            startOffset: startOffset, 
+            startId: startId,
+            endId: endId,
+            startNode: startNode,
+            endNode: endNode,
+            startOffset: startOffset,
             endOffset: endOffset
         }
 
@@ -139,7 +139,7 @@ function setStart(node, text) {
    }
 }
 
-function setNewRange(startNode, startOffset, endNode, endOffset, newRange){ 
+function setNewRange(startNode, startOffset, endNode, endOffset, newRange){
     if(startNode.nodeType !==3) startNode = startNode.parentElement;
     newRange.setStart(startNode, startOffset);
     if(endNode.nodeType !==3) endNode = endNode.parentElement;
@@ -193,7 +193,7 @@ zss_editor.backuprange = function(){
     document.designMode = "on";
     document.execCommand("BackColor", false, '#ceff63');
     document.designMode = 'off';
-    var range = selection.getRangeAt(0);  
+    var range = selection.getRangeAt(0);
     zss_editor.currentSelection.push({"startContainer": range.startContainer, "startOffset":range.startOffset,"endContainer":range.endContainer, "endOffset":range.endOffset});
 }
 
@@ -236,8 +236,3 @@ zss_editor.clear = function(ele){
 // document.designMode = "on";
 //     document.execCommand("BackColor", false, 'yellow');
 //     document.designMode = 'off';
-
-
-
-
-
