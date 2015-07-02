@@ -78,7 +78,6 @@ $(document).ready(function(){
     });
 
     $('#submit').on('click', function(){
-        // var data = {newData:{comment: 'THIS BEETA WOIK', highlighted: highlight}, fileInfo: {fileUrl: href}}
         chrome.runtime.sendMessage({command: 'highlight-data', data: data})
     });
 

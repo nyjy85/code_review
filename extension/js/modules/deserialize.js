@@ -5,6 +5,7 @@ function reSelect(hl){
     setStart(startId, hl.startNode);
     setEnd(endId, hl.endNode);
 
+    //setNewRange(hl)
     var selection = window.getSelection();
     selection.removeAllRanges();
     var newRange = document.createRange();
@@ -17,6 +18,21 @@ function reSelect(hl){
     // gets rid of nasty blue line
     selection.removeAllRanges();
 }
+
+// function setNewRange(hl){
+//     var selection = window.getSelection();
+//     selection.removeAllRanges();
+//     var newRange = document.createRange();
+
+//     newRange.setStart(newStartNode, hl.startOffset);
+//     newRange.setEnd(newEndNode, hl.endOffset);
+//     selection.addRange(newRange);
+// }
+
+// function reHighlight(selection){
+//   highlight.set('yellow');
+//   selection.removeAllRanges();
+// }
 
 function getNode(id){
     return document.getElementById(id)
