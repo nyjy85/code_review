@@ -5,6 +5,12 @@ $(document).ready(function(){
     $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
     $('body').append('<button id="submit">Submit Comment</button>')
 
+//////////////////////////// box popover
+
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn" value="Save"/><input style="float: right; " type="button" class="btn" value="Cancel"/></div>';
+    $('body').append($popover);
+
+///////////////////////////////////////
 
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
@@ -41,7 +47,7 @@ $(document).ready(function(){
         startId = $(this).attr('id');
     });
 
-    $('td').mouseup(function(){
+    $('td').mouseup(function(e){
         endId = $(this).attr('id');
         var href = window.location.href;
         var selection = window.getSelection();
@@ -69,7 +75,20 @@ $(document).ready(function(){
         data = {newData:{comment: 'THIS BEETA WOIK', highlighted: section}, fileInfo: {fileUrl: href}}
             // console.log('THIS IS DATA FORM HIGHLIGHT', data);
             // chrome.runtime.sendMessage({command: 'highlight-data', data: data})
+
+            console.log('yopu do all the timesssss', e)
+
+            var offset = $(this).offset();
+            var left = e.pageX;
+            var top = e.pageY;
+            var theHeight = $('.popover').height();
+            $('.popover').show();
+            $('.popover').css('left', (left-25) + 'px');
+            $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
+
+
     });
+
 
     // tests to see if persisting highlighting works
     $('#joanne').on('click', function(){
