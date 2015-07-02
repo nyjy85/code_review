@@ -16,10 +16,10 @@ var schema = new mongoose.Schema({
       token: String,
       id: String,
       name: String,
-      profileUrl: String, 
+      profileUrl: String,
       username: String
     },
-    repos: [{url: String, name: String}]
+    repos: [{url: String, name: String}] //for sharing to other users
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

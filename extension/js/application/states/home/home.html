@@ -20,15 +20,60 @@
 
   <md-divider></md-divider>
 
+  <!-- Menu -->
 
+  <div class="md-menu-demo" ng-controller="BasicDemoCtrl as ctrl">
+  <div class="menu-demo-container" layout-align="center center" layout="column">
+    <h2 class="md-title">Simple dropdown menu</h2>
+    <p>Note that applying the <code>md-menu-origin</code> and <code>md-menu-align-target</code> attributes ensure that the menu elements align</p>
+    <md-menu>
+      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+        <md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-click="ctrl.redial($event)">
+            <md-icon md-svg-icon="call:dialpad" md-menu-align-target></md-icon>
+            Redial
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            Check voicemail
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="ctrl.toggleNotifications()">
+            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+</div>
+
+
+ <!-- Side bar------------------------------------------------------------- -->
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-      <md-toolbar class="md-theme-light">
+      <!-- <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">Sidenav Right</h1>
-      </md-toolbar>
+      </md-toolbar> -->
+      <div>
+      <md-button class="md-primary">
+        <md-icon md-svg-icon="img/icons/ic_inbox_black_24px.svg"></md-icon>
+        Inbox
+      </md-button>
+      </div>
 
-      <!-- <sidebar></sidebar> -->
+      <md-button class="md-primary">
+        <md-icon md-svg-icon="img/icons/ic_archive_black_24px.svg"></md-icon>
+        Archive
+      </md-button>
 
-      <md-content layout-padding>
+      <!-- <md-content layout-padding>
         <form>
           <md-input-container>
             <label for="testInput">Test input</label>
@@ -39,11 +84,10 @@
         <md-button ng-click="close()" class="md-primary">
           Close Sidenav Right
         </md-button>
-      </md-content>
-
-
+      </md-content> -->
     </md-sidenav>
 
+<!-- Add Repo---------------------------------------------------------- -->
 <!--
 
   ng-disabled="ctrl.isDisabled"

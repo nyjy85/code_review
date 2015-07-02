@@ -1,8 +1,10 @@
 $(document).ready(function(){
     console.log('document is ready!')
+
     $('body').append('<button id="joanne">Show DB Highlight</button>')
     $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
     $('body').append('<button id="submit">Submit Comment</button>')
+
 
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
@@ -22,7 +24,7 @@ $(document).ready(function(){
                 reSelect(hl)
                 // setNewRange(newStartNode, hl.startOffset, newEndNode, hl.endOffset, newRange);
             }
-            
+
             if(res.command === 'create-CommentBox'){
                 console.log('message 3!', res.message)
                 var box = document.createElement('input');
@@ -82,8 +84,4 @@ $(document).ready(function(){
     });
 
 });
-
-
-
-
 
