@@ -6,17 +6,10 @@ $(document).ready(function(){
     $('body').append('<button id="submit">Submit Comment</button>')
 
 //////////////////////////// box popover
-    $('[data-toggle="tooltip"]').tooltip();
-    var popOverSettings = {
-        html: true,
-        placement: 'bottom',
-        selector: "[rel='popover']",
-        container: "body",
-        content: function () {
-            return $('<div id="popover-content"><button class="pop-Add">Add</button></div>').html();
-        }
-    };
-        $('body').popover(popOverSettings);
+
+    var $popover = '<div class="popover"><input type="text" class="span1"/><input type="button" class="btn" value="Save"/></div>';
+    $('body').append($popover);
+
 ///////////////////////////////////////
 
     // listens for events from AJAX calls/background.js and executes something
@@ -54,7 +47,7 @@ $(document).ready(function(){
         startId = $(this).attr('id');
     });
 
-    $('td').mouseup(function(){
+    $('td').mouseup(function(e){
         endId = $(this).attr('id');
         var href = window.location.href;
         var selection = window.getSelection();
@@ -83,11 +76,15 @@ $(document).ready(function(){
             // console.log('THIS IS DATA FORM HIGHLIGHT', data);
             // chrome.runtime.sendMessage({command: 'highlight-data', data: data})
 
-        var box = '<div id="box" rel="popover" class="hide"><textarea id="comments" rows=5></textarea><button id="submit">Submit</button></div>'
-        
+            console.log('yopu do all the timesssss', e)
 
-        // $(this).attr({ "data-toggle": "popover", "title": "Comment", "data-popover-content": box})
-
+            var offset = $(this).offset();
+            var left = e.pageX;
+            var top = e.pageY;
+            var theHeight = $('.popover').height();
+            $('.popover').show();
+            $('.popover').css('left', (left+10) + 'px');
+            $('.popover').css('top', (top-(theHeight/2)-10) + 'px');
 
 
     });
