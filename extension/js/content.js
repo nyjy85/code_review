@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><input type="text" class="span1"/><input type="button" class="btn" value="Save"/></div>';
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input type="button" class="btn" value="Save"/></div><div class="arrow-down"></div>';
     $('body').append($popover);
 
 ///////////////////////////////////////
@@ -83,16 +83,12 @@ $(document).ready(function(){
             var top = e.pageY;
             var theHeight = $('.popover').height();
             $('.popover').show();
-            $('.popover').css('left', (left+10) + 'px');
-            $('.popover').css('top', (top-(theHeight/2)-10) + 'px');
+            $('.popover').css('left', (left+100) + 'px');
+            $('.popover').css('top', (top-(theHeight/2)-150) + 'px');
 
 
     });
 
-
-    $("#LC3").on("click", function() {
-        $(this).append("<li class='project-name'><a>project name 2<button class='pop-function' rel='popover'></button></a></li>");
-    })
 
     // tests to see if persisting highlighting works
     $('#joanne').on('click', function(){
