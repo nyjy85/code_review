@@ -22,10 +22,25 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
-        addRepoToProfile: function(user, repo) {
-          console.log('addRepoToProfile factory',user, repo)
-          var repo = {repo: {url: repo.html_url, name: repo.name}}
+        addRepoToProfile: function(user) {
+          console.log('addRepoToProfile factory',user.repos)
+          var repo = {repo: user.repos}
           return $http.put(domain + "/api/users/addRepo/" + user.github.username, repo)
+          .then(function(res) {
+            return res.data;
+          })
+
+          // var repo = {repo: {url: repo.html_url, name: repo.name}}
+          // return $http.put(domain + "/api/users/addRepo/" + user.github.username, repo)
+          // .then(function(res) {
+          //   return res.data;
+          // })
+        },
+
+        deleteRepo: function(user) {
+          console.log('deleting repo', user.repos)
+          var repo = {repo: user.repos}
+          return $http.put(domain + '/api/users/deleteRepo/' + user.github.username, repo)
           .then(function(res) {
             return res.data;
           })

@@ -33,7 +33,7 @@ router.post('/', function(req, res, next){
 		console.log('user has been created!', user)
 		res.send({message: 'user saved!'})
 	})
-	.then(next, null)
+	.then(null, next)
 });
 
 // adds a repo to the user's repo array
@@ -43,11 +43,27 @@ router.put('/addRepo/:user', function(req, res, next){
 	.exec()
 	.then(function(user){
 		console.log('an in herrrr', user)
-		user.repos.push(req.body.repo);
+		user.repos = req.body.repo;
+		// user.repos.push(req.body.repo);
 		user.save(function(err, data){
 			console.log('this be data', data)
 			res.send(data)
 		})
 	})
-	.then(next, null)
+	// .then(null, next)
+});
+
+// delete a repo to the user's repo array
+router.put('/deleteRepo/:user', function(req, res, next){
+	User.findOne({'github.username': req.params.user})
+	.exec()
+	.then(function(user){
+		user.repos = req.body.repo;
+		console.log('new repos', user.repos)
+		user.save(function(err, data){
+			console.log('this be data')
+			res.send(data)
+		})
+	})
+	// .then(null, next)
 });

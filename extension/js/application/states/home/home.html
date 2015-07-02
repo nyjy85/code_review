@@ -22,7 +22,7 @@
 
   <!-- Menu -->
 
-  <div class="md-menu-demo" ng-controller="BasicDemoCtrl as ctrl">
+  <!-- <div class="md-menu-demo" ng-controller="BasicDemoCtrl as ctrl">
   <div class="menu-demo-container" layout-align="center center" layout="column">
     <h2 class="md-title">Simple dropdown menu</h2>
     <p>Note that applying the <code>md-menu-origin</code> and <code>md-menu-align-target</code> attributes ensure that the menu elements align</p>
@@ -54,7 +54,7 @@
     </md-menu>
   </div>
 </div>
-
+ -->
 
  <!-- Side bar------------------------------------------------------------- -->
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
@@ -95,13 +95,14 @@
   md-selected-item="ctrl.selectedItem"
   md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
   md-search-text="ctrl.searchText"
-  md-selected-item-change="ctrl.selectedItemChange(item)" -->
+ -->
 
   <!-- md-highlight-text="ctrl.searchText"  -->
   <div ng-show="showAddBar">
     <md-autocomplete
             md-items="repo in reposToAdd"
             md-selected-item="reposToAdd"
+            md-selected-item-change="addingRepo(repo)"
             md-item-text="repo.name"
             md-min-length="0"
             placeholder="Choose repo to add">
@@ -125,7 +126,10 @@
       <div class="repo-name" ng-click="selectRepo(repo)">{{ repo.name }}</div>
       <!-- <div class="options" ng-show="repo.showOptions"> -->
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_list_black_24px.svg" ng-click="listFiles(repo)"></md-icon>
+
+        <md-button class="md-icon-button md-primary" ng-click="deleteRepo(repo)">
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
+        </md-button>
         <!-- <button ng-click="goToRepo(repo)">Go</button> -->
       <!-- </div> -->
       <md-divider></md-divider>

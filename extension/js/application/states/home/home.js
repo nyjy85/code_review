@@ -42,17 +42,38 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		$scope.showAddBar = !$scope.showAddBar;
 	}
 
+	$scope.addingRepo = function(repo) {
+		$scope.addRepo = repo;
+	}
 
-	$scope.addRepoToProfile = function (repo) {
-		console.log('add repo to profile', $scope.addRepo)
+	$scope.addRepoToProfile = function () {
+		console.log('add repo to profile')
 		$scope.showAddBar = !$scope.showAddBar;
-		popupGitFactory.addRepoToProfile($scope.user, repo).then(function(res) {
+		$scope.user.repos.push($scope.addRepo);
+
+		popupGitFactory.addRepoToProfile($scope.user).then(function(res) {
 			console.log(res)
 		})
+
+		// popupGitFactory.addRepoToProfile($scope.user, $scope.addRepo).then(function(res) {
+		// 	console.log(res)
+		// })
 	}
 
 	$scope.selectRepo = function(repo) {
 		repo.showOptions = !repo.showOptions;
+	}
+
+	$scope.deleteRepo = function(repo) {
+		console.log('deleting repo', repo)
+		//update user repo
+		$scope.user.repos.forEach(function(userrepo, i) {
+			if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
+		})
+
+		popupGitFactory.deleteRepo($scope.user).then(function(res) {
+			console.log('deleted repo', res)
+		})
 	}
 
 	$scope.goToRepo = function(repo) {
