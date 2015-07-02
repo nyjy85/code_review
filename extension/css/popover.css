@@ -44,4 +44,40 @@
     display: block;
 }
 
+.commentbox {
+    position: absolute;
+    display: none;
+}
 
+.commentbox:after, .commentbox:before {
+    right: 100%;
+    border: solid transparent;
+    content:" ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.commentbox:after {
+    /*border-color: rgba(0, 0, 0, 0);
+    border-right-color: #ffffff;
+    border-width: 20px 15px 0 15px;*/
+    border-top: 10px solid #ffffff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    bottom: -10.65px;
+    left: 5%;
+    margin-top: -10px;
+}
+.commentbox:before {
+    /*border-color: rgba(201, 201, 201, 0);
+    border-right-color: #c9c9c9;
+    border-width: 20px 20px 0 20px;*/
+    border-top: 10px solid #c9c9c9;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    bottom: -10.65px;
+    left: 6%;
+    margin-top: -11px;
+
+}
