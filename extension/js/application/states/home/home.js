@@ -26,12 +26,16 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		$scope.user = user.user;
 		$scope.showYourRepos = $scope.user.repos;
 
+		$scope.loadRepos();
+
+	})
+
+	$scope.loadRepos = function () {
 		var tokenObj = {token: $scope.user.github.token};
 		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
 				$scope.reposToAdd = repos;
 		}).catch($log.log.bind($log));
-
-	})
+	}
 
 
 	$scope.toggleAddBar = function () {
@@ -51,17 +55,21 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 			console.log(res)
 		})
 
-		$scope.addRepo = null;
+		$scope.loadRepos();
 	}
 
 	$scope.selectRepo = function(repo) {
 		repo.showOptions = !repo.showOptions;
 	}
 
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!WHY U NO FUCKING WORK
 	$scope.deleteRepo = function(repo) {
-		console.log('deleting repo', repo)
+		console.log('deleting repo', repo, $scope.user.repos)
 		//update user repo
+
 		$scope.user.repos.forEach(function(userrepo, i) {
+			console.log('hello userrepo',userrepo)
+			console.log('hello repo',repo)
 			if (userrepo.name === repo.name) $scope.user.repos.splice(i,1);
 		})
 
