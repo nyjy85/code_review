@@ -51,7 +51,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 		$scope.user.repos.push($scope.addRepo);
 
-		popupGitFactory.addRepoToProfile($scope.user).then(function(res) {
+		popupGitFactory.editRepo($scope.user).then(function(res) {
 			console.log(res)
 		})
 
@@ -62,18 +62,15 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		repo.showOptions = !repo.showOptions;
 	}
 
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!WHY U NO FUCKING WORK
 	$scope.deleteRepo = function(repo) {
 		console.log('deleting repo', repo, $scope.user.repos)
 		//update user repo
 
 		$scope.user.repos.forEach(function(userrepo, i) {
-			console.log('hello userrepo',userrepo)
-			console.log('hello repo',repo)
 			if (userrepo.name === repo.name) $scope.user.repos.splice(i,1);
 		})
 
-		popupGitFactory.deleteRepo($scope.user).then(function(res) {
+		popupGitFactory.editRepo($scope.user).then(function(res) {
 			console.log('deleted repo', res)
 		})
 	}
