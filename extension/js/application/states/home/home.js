@@ -20,14 +20,13 @@ app.config(function ($stateProvider) {
 });
 
 //add Factory
-app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal) {
+app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
-		$scope.showYourRepos = $scope.user.repos;
-
+		console.log('current user', $scope.user)
+		$scope.showRepos = $scope.user.repos;
 		$scope.loadRepos();
-
 	})
 
 	$scope.loadRepos = function () {
@@ -42,34 +41,45 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		$scope.showAddBar = !$scope.showAddBar;
 	}
 
-	$scope.addingRepo = function(repo) {
-		$scope.addRepo = repo;
+
+	var cannotAddBox = function () {
+		$mdDialog.show(
+		$mdDialog.alert()
+			.parent(angular.element(document.body))
+			.title('Unfortunately')
+			.content('You cannot add a repo you already added.')
+			.ok('Got it!')
+		);
 	}
 
-	$scope.addRepoToProfile = function () {
-		console.log('add repo to profile')
+	$scope.addRepo = function (repo) {
+		console.log('adding repo')
 
-		$scope.user.repos.push($scope.addRepo);
-
-		popupGitFactory.editRepo($scope.user).then(function(res) {
-			console.log(res)
+		// checking if repo exist
+		var check;
+		$scope.showRepos.forEach(function(current) {
+			if (current.name === repo.name) {
+				check = true;
+				cannotAddBox();
+			}
 		})
 
-		$scope.loadRepos();
-	}
+		if (!check) {
+			var saveRepo = {url: repo.html_url, name: repo.name}
+			$scope.user.repos.push(saveRepo);
+			popupGitFactory.editRepo($scope.user).then(function(res) {
+				console.log('added repo', res)
+			})
+		}
 
-	$scope.selectRepo = function(repo) {
-		repo.showOptions = !repo.showOptions;
 	}
 
 	$scope.deleteRepo = function(repo) {
-		console.log('deleting repo', repo, $scope.user.repos)
-		//update user repo
+		console.log('deleting repo')
 
 		$scope.user.repos.forEach(function(userrepo, i) {
-			if (userrepo.name === repo.name) $scope.user.repos.splice(i,1);
+			if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
 		})
-
 		popupGitFactory.editRepo($scope.user).then(function(res) {
 			console.log('deleted repo', res)
 		})
@@ -92,8 +102,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
         }
       }
     });
-
-
 	}
 
 

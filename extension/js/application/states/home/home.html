@@ -95,7 +95,7 @@
     <md-autocomplete
             md-items="repo in reposToAdd"
             md-selected-item="reposToAdd"
-            md-selected-item-change="addingRepo(repo)"
+            md-selected-item-change="repoSelected=repo"
             md-item-text="repo.name"
             md-min-length="0"
             placeholder="Choose repo to add">
@@ -109,12 +109,12 @@
           </md-not-found>
     </md-autocomplete>
 
-    <md-button class="md-primary" ng-click="addRepoToProfile(); toggleAddBar()">Add</md-button>
-    <md-button class="md-warn" ng-click="toggleAddBar()">Cancel</md-button>
+    <md-button class="md-primary" ng-click="addRepo(repoSelected); toggleAddBar(); loadRepos()">Add</md-button>
+    <md-button class="md-warn" ng-click="toggleAddBar(); loadRepos()">Cancel</md-button>
 
   </div>
 
-    <md-list-item class="your-repos" ng-repeat="repo in showYourRepos">
+    <md-list-item class="your-repos" ng-repeat="repo in showRepos">
       <md-checkbox></md-checkbox>
       <!-- <md-divider></md-divider> -->
 

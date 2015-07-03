@@ -30,12 +30,12 @@ router.post('/', function(req, res, next){
 
 // add or delete a repo to the user's repo array
 router.put('/:username/editRepo', function(req, res, next){
-	User.findOne({'github.username': req.params.user})
+	User.findOne({'github.username': req.params.username})
 	.exec()
 	.then(function(user){
 		user.repos = req.body.repo;
 		user.save(function(err, data){
-			console.log('this be data', data)
+			console.log('editRepo', data)
 			res.send(data)
 		})
 	})
