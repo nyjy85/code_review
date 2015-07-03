@@ -11,7 +11,7 @@ router.post('/', function(req, res){
 		.then(function(file){
 			console.log("this is the file in the post", file)
 			res.send({message: "file successfully added"});
-		}).then(null,function(err){
+		}).then(null, function(err){
 			res.status(500).send(err.message);
 		});
 });
