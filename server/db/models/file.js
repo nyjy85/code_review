@@ -3,7 +3,11 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    fileUrl: String,
+    timestamp: {
+      type: Date,
+      default: Date.now()
+    },
+    fileUrl: String, //required
     commit: String,
     highlighted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}],
     repo: {

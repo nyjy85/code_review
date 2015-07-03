@@ -10,7 +10,7 @@ app.factory('popupGitFactory', function($http) {
         // },
         getUserInfo: function() {
           return $http.get(domain + "/session").then(function(res){
-            return res.data;
+            return res.data; //res.data.user
           });
         },
 

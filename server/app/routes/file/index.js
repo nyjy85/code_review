@@ -11,9 +11,9 @@ router.post('/', function(req, res){
 		.then(function(file){
 			console.log("this is the file in the post", file)
 			res.send({message: "file successfully added"});
-		}, function(err){
+		}).then(null,function(err){
 			res.status(500).send(err.message);
-		})
+		});
 });
 
 // find by file_id - grabs all the data and sends to front
@@ -30,6 +30,7 @@ router.get('/:id', function(req, res, next){
 });
 
 // find files by repo
+// :id/file (repo.id)
 router.get('/repo/:repo', function(req, res, next){
 	console.log('find files by repo')
 	File.find({"repo.name": req.params.repo})

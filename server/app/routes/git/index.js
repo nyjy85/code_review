@@ -6,7 +6,10 @@ var User = mongoose.model('User');
 
 module.exports = router;
 
+//Authentication
+
 //grab all repos of the users
+// ./
 router.get('/reposFromGit', function(req, res, next){
   console.log('repoFromGit', req.query)
   var accessToken = req.query.token;

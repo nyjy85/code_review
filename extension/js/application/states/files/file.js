@@ -28,6 +28,8 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 
 	})
 
+	$scope.repoName = repo.name;
+
 	popupGitFactory.listFiles(repo).then(function(files){
 		console.log('list files', files)
 		$scope.filesUnderRepo = files;
@@ -35,7 +37,7 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 
 	// $scope.showYourFiles = $scope.user.repos;
 
-	$scope.goToFile = function(repo) {
+	$scope.goToFile = function(file) {
 		chrome.tabs.create({
         url: file.url
     });

@@ -24,21 +24,17 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
-		$scope.displayName = $scope.user.github.name;
 		$scope.showYourRepos = $scope.user.repos;
+
+		var tokenObj = {token: $scope.user.github.token};
+		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
+				$scope.reposToAdd = repos;
+		}).catch($log.log.bind($log));
 
 	})
 
 
-	$scope.showAddBar = false;
-
-	$scope.showRepoSelections = function() {
-		//Load repos to add
-		var tokenObj = {token: $scope.user.github.token}
-		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
-			$scope.reposToAdd = repos;
-		})
-
+	$scope.toggleAddBar = function () {
 		$scope.showAddBar = !$scope.showAddBar;
 	}
 
@@ -48,12 +44,14 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 	$scope.addRepoToProfile = function () {
 		console.log('add repo to profile')
-		$scope.showAddBar = !$scope.showAddBar;
+
 		$scope.user.repos.push($scope.addRepo);
 
 		popupGitFactory.addRepoToProfile($scope.user).then(function(res) {
 			console.log(res)
 		})
+
+		$scope.addRepo = null;
 	}
 
 	$scope.selectRepo = function(repo) {
@@ -64,7 +62,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		console.log('deleting repo', repo)
 		//update user repo
 		$scope.user.repos.forEach(function(userrepo, i) {
-			if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
+			if (userrepo.name === repo.name) $scope.user.repos.splice(i,1);
 		})
 
 		popupGitFactory.deleteRepo($scope.user).then(function(res) {
@@ -90,7 +88,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
       }
     });
 
-		
+
 	}
 
 

@@ -10,7 +10,7 @@
   </md-button>
 
   <md-button class="md-icon-button md-primary">
-        <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" ng-click="showRepoSelections()"></md-icon>
+        <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" ng-click="toggleAddBar()"></md-icon>
   </md-button>
 
   <md-button class="md-icon-button md-primary">
@@ -109,8 +109,8 @@
           </md-not-found>
     </md-autocomplete>
 
-    <md-button class="md-primary" ng-click="addRepoToProfile()">Add</md-button>
-    <md-button class="md-warn" ng-click="showRepoSelections()">Cancel</md-button>
+    <md-button class="md-primary" ng-click="addRepoToProfile(); toggleAddBar()">Add</md-button>
+    <md-button class="md-warn" ng-click="toggleAddBar()">Cancel</md-button>
 
   </div>
 

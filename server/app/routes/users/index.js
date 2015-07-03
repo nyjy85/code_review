@@ -5,6 +5,8 @@ var User = mongoose.model('User');
 
 module.exports = router;
 
+//Authentication
+
 router.get('/:id', function(req, res, next){
 	console.log('inside the get for user', req.params.id)
 	User.findOne({_id: req.params.id})
@@ -37,6 +39,7 @@ router.post('/', function(req, res, next){
 });
 
 // adds a repo to the user's repo array
+// :id/addrepo
 router.put('/addRepo/:user', function(req, res, next){
 	console.log('am i heerrr', req.params.user)
 	User.findOne({'github.username': req.params.user})
