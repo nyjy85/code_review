@@ -24,10 +24,10 @@ $(document).ready(function(){
         $('.span1').val("");
 
         // small post-it appears
-        var lastId = $('#'+ endId);
-        console.log("this is elelment nodnde", lastId)
-        var idx = lastId.children().length-1;
-        $(lastId.children()[idx]).after('<button class="btn btn-danger"></button>');
+        var x = document.getElementById(endId);
+        console.log("this is elelment nodnde", x)
+        var idx = x.childNodes.length-1;
+        $(x.childNodes[idx]).after('<button></button>');
 
         //submit comment, attach comment to the data attribute of the element
         //and on hover display the text
