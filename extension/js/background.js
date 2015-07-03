@@ -28,6 +28,10 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	if(req.command === 'get-file'){
 		getFile(req.url)
 	}
+
+	if(req.command === 'delete-highlight'){
+		deleteHighlight(req.data.id, req.data.url)
+	}
 })
 
 function returnMessage(msg, cmd){

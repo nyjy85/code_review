@@ -1,4 +1,4 @@
-function reSelect(hl){
+function reSelect(hl, color){
     var startId = getNode(hl.startId)
     var endId = getNode(hl.endId);
 
@@ -14,7 +14,7 @@ function reSelect(hl){
     newRange.setEnd(newEndNode, hl.endOffset);
     selection.addRange(newRange);
     
-    highlight.set('yellow');
+    highlight.set(color);
     // gets rid of nasty blue line
     selection.removeAllRanges();
 }

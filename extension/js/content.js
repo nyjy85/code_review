@@ -6,13 +6,23 @@ $(document).ready(function(){
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/></div>';
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/><input style="float: right; " type="button" class="btn delete-button pop-button" value="Delete"/></div>';
     $('body').append($popover);
 
     var $commentShow = '<div></div>';
     $('body').append($commentShow);
 
 ///////////////////////////////////////
+
+    $(".delete-button").on('click', function(e){
+        console.log('this 1', $(this).parent())
+        var id = $(this).parent().data("highlight-data")._id
+        var data = $(this).parent().data("highlight-data").highlighted;
+        console.log('id is id is id', data)
+        highlight.clear(data.startId, data.endId, 'white')
+        chrome.runtime.sendMessage({command: 'delete-highlight', data: {id: id, url: window.location.href}})
+    })
+
     $(".save-button").on('click', function(e){
         console.log('hit save button', data.newData.comment)
         data.newData.comment = $('.span1').val();
@@ -55,7 +65,7 @@ $(document).ready(function(){
             if(res.command === 'highlight-retrieved'){
                 console.log('Highlight info from backend', res)
                 var hl = res.message.highlighted;
-                reSelect(hl)
+                reSelect(hl, 'yellow')
                 // setNewRange(newStartNode, hl.startOffset, newEndNode, hl.endOffset, newRange);
             }
 
@@ -64,8 +74,8 @@ $(document).ready(function(){
                 var hl = res.message;
                 // repopulate highlight
                 hl.highlighted.forEach(function(selection){
-                    reSelect(selection.highlighted);
-                    postIt(selection.highlighted.endId, selection.comment);
+                    reSelect(selection.highlighted, 'yellow');
+                    postIt(selection.highlighted.endId, selection);
                 });
                 // repopulate comment
             }
@@ -89,7 +99,7 @@ $(document).ready(function(){
 
     $('td').mouseup(function(e){
         endId = $(this).attr('id');
-        var section = setData(startId, endId);
+        var section = setData(startId, endId, '#ceff63');
         var href = window.location.href;
         data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: href}}
         console.log('this is data after mousup and hightlihgt', data)
@@ -124,18 +134,19 @@ function popOver(e, ele){
     $('.popover').css('left', (left-25) + 'px');
     $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
     // adding comments
-    $('.span1').val($(ele).data("comment"))
+    $('.popover').data("highlight-data", $(ele).data("data"))
+    $('.span1').val($(ele).data("data").comment)
 }
 
-function postIt(endId, feedback){
+function postIt(endId, data){
     var x = $('#'+endId);
     var idx = x.contents().length-1;
     $(x.contents()[idx]).after('<button class="post-it" id="post-it-'+endId+'"></button>');
     // bind data to the postit
-    $('#post-it-'+endId).data("comment", feedback);
+    $('#post-it-'+endId).data("data", data);
 }
 
-function setData(startId, endId){
+function setData(startId, endId, color){
     var selection = window.getSelection();
     var range = selection.getRangeAt(0);
 
@@ -145,7 +156,7 @@ function setData(startId, endId){
     var endNode = range.endContainer.textContent;
     var endOffset = range.endOffset;
     
-    highlight.set('#ceff63');
+    highlight.set(color);
 
     var section = {
         startId: startId, 
