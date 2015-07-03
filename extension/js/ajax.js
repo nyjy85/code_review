@@ -58,6 +58,19 @@ function getFile(url){
    })
 }
 
+function deleteHighlight(id, url){ 
+   console.log('this is the hiliglsdkfjs id', id);
+   $.ajax({
+      type: 'DELETE',
+      data: {url: url},
+      url: 'http://localhost:1337/api/highlighted/'+id,
+      success: function(response){
+         console.log('highlight successfully deleted', response)
+         // returnMessage(response)
+      }
+   })
+
+}
 
 // for backend
 // url.replace(/(http)/g, 'https').replace(/(wwww)\./g, '')
