@@ -45,5 +45,19 @@ function getHighlightData(id){
    })
 }
 
+function getFile(url){
+   console.log('this is the file url', url)
+   $.ajax({
+      type: 'GET',
+      data: {url: url},
+      url: 'http://localhost:1337/api/file/',
+      success: function(response){
+         console.log('File from the backend', response);
+         returnMessage(response, 'file-retrieved');
+      }
+   })
+}
+
+
 // for backend
 // url.replace(/(http)/g, 'https').replace(/(wwww)\./g, '')

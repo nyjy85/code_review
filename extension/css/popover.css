@@ -55,4 +55,8 @@
     padding-left: 5px;
 }
 
-
+#post-it{
+    background-color: red;
+    height: 17px;
+    width: 10px;
+}

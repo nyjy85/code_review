@@ -17,9 +17,10 @@ router.post('/', function(req, res){
 });
 
 // find by file_id - grabs all the data and sends to front
-	// perhaps make it so that we find by fileUrl?
-router.get('/:id', function(req, res, next){
-	File.findOne({_id: req.params.id})
+// 	perhaps make it so that we find by fileUrl?
+router.get('/', function(req, res, next){
+	console.log('this be req.query', req.query)
+	File.findOne({fileUrl: req.query.url})
 	.populate('highlighted')
 	.exec()
 	.then(function(file){
@@ -28,6 +29,7 @@ router.get('/:id', function(req, res, next){
 	})
 	.then(null, next);
 });
+
 
 // find files by repo
 // :id/file (repo.id)
