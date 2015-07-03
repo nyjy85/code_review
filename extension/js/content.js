@@ -28,7 +28,13 @@ $(document).ready(function(){
         var x = document.getElementById(endId);
         console.log("this is elelment nodnde", x)
         var idx = x.childNodes.length-1;
-        $(x.childNodes[idx]).after('<button >Comment...</button>');
+        $(x.childNodes[idx]).after('<button></button>');
+
+        //submit comment, attach comment to the data attribute of the element
+        //and on hover display the text
+        //delegate for on hover, where only the one you are on shows the hover
+        // $(this).on('hover', 'delegate the class name here' function () {}) 
+        //data-comment .attr()
 
     })
 
