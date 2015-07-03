@@ -13,7 +13,7 @@ var schema = new mongoose.Schema({
     repo: {
       name: String,
     	url: String,
-    	contributors: [String] // this will be collaborators (for sharing to other users)
+    	contributors: [String] // (any github username) this will be collaborators (for sharing to other users)
     }
 });
 

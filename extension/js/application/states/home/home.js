@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 						return
 					}
 					else {
-						// $state.go('login')
+						$state.go('login')
 					}
 				});
 			}
@@ -62,15 +62,16 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 				check = true;
 				cannotAddBox();
 			}
-		})
+		});
 
+		// add if repo doesn't exist
 		if (!check) {
 			var saveRepo = {url: repo.html_url, name: repo.name}
 			$scope.user.repos.push(saveRepo);
 			popupGitFactory.editRepo($scope.user).then(function(res) {
 				console.log('added repo', res)
 			})
-		}
+		};
 
 	}
 
@@ -85,14 +86,15 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		})
 	}
 
-	$scope.goToRepo = function(repo) {
-		chrome.tabs.create({
-        url: repo.url
-    });
-	}
 
+	// $scope.goToRepo = function(repo) {
+	// 	chrome.tabs.create({
+  //       url: repo.url
+  //   });
+	// }
+
+	//list files under a repo
 	$scope.listFiles = function(repo) {
-
 		var modalInstance = $modal.open({
       templateUrl: 'js/application/states/files/file.html',
       controller: 'FileCtrl',
@@ -104,7 +106,12 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
     });
 	}
 
-
+	//log out
+	$scope.logout = function () {
+		popupGitFactory.logout().then(function(){
+			$state.go('login');
+		})
+	}
 
 	//sidebar
 	$scope.toggleLeft = buildToggler('left');

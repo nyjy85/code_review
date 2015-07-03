@@ -20,7 +20,7 @@
 // });
 
 //add Factory
-app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInstance, repo) {
+app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInstance, repo, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
@@ -32,6 +32,11 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 
 	popupGitFactory.listFiles(repo).then(function(files){
 		console.log('list files', files)
+		files.forEach(function(file) {
+			var url = file.fileUrl;
+			var i = url.match(/blob/).index + 5;
+			file.display = url.slice(i);
+		})
 		$scope.filesUnderRepo = files;
 	})
 
@@ -39,9 +44,13 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 
 	$scope.goToFile = function(file) {
 		chrome.tabs.create({
-        url: file.url
+        url: file.fileUrl
     });
 	}
+
+	$scope.close = function () {
+    $modalInstance.close();
+  }
 
 
 })

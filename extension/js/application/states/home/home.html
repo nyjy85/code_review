@@ -1,6 +1,4 @@
 <div>
-  <!-- <h3>Welcome {{displayName}}</h3>
-  <p>Let's review code!</p> -->
   <md-button class="md-icon-button md-primary" ng-click="toggleLeft()">
         <md-icon md-svg-icon="img/icons/ic_view_headline_black_24px.svg"></md-icon>
   </md-button>
@@ -13,41 +11,17 @@
         <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" ng-click="toggleAddBar()"></md-icon>
   </md-button>
 
-  <md-button class="md-icon-button md-primary">
+  <!-- class="md-icon-button md-primary" -->
+  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <md-icon md-svg-icon="img/icons/ic_settings_black_24px.svg"></md-icon>
   </md-button>
+
+  <!-- Sign out -->
+  <button ng-click="logout()">Log out</button>
 
 
   <md-divider></md-divider>
 
-  <!-- Menu -->
-
-  <md-menu>
-      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-        Dropdown example
-      </md-button>
-      <md-menu-content width="2">
-        <md-menu-item>
-          <md-button ng-click="ctrl.redial($event)">
-            <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" md-menu-align-target></md-icon>
-            Redial
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-            <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg"></md-icon>
-            Check voicemail
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider></md-menu-divider>
-        <md-menu-item>
-          <md-button ng-click="ctrl.toggleNotifications()">
-            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
 
  <!-- Side bar------------------------------------------------------------- -->
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
