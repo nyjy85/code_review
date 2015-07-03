@@ -31,6 +31,16 @@ $(document).ready(function(){
                 // setNewRange(newStartNode, hl.startOffset, newEndNode, hl.endOffset, newRange);
             }
 
+            if(res.command === 'file-retrieved'){
+                console.log('Highlight info from backend', res.message)
+                var hl = res.message;
+                // repopulate highlight
+                hl.highlighted.forEach(function(selection){
+                    reSelect(selection.highlighted);
+                });
+                // repopulate comment
+            }
+
             if(res.command === 'create-CommentBox'){
                 console.log('message 3!', res.message)
                 var box = document.createElement('input');
@@ -41,7 +51,7 @@ $(document).ready(function(){
         }
     )
 
-    var startId, endId, data;
+    var endId, data;
 
     $('td').mousedown(function(){
         startId = $(this).attr('id');
@@ -49,28 +59,8 @@ $(document).ready(function(){
 
     $('td').mouseup(function(e){
         endId = $(this).attr('id');
+        var section = setData(startId, endId);
         var href = window.location.href;
-        var selection = window.getSelection();
-        var range = selection.getRangeAt(0);
-
-        var startNode = range.startContainer.textContent;
-        var startOffset = range.startOffset;
-
-        var endNode = range.endContainer.textContent;
-        var endOffset = range.endOffset;
-        
-        highlight.set('#ceff63');
-
-        section = {
-            startId: startId, 
-            endId: endId, 
-            startNode: startNode, 
-            endNode: endNode, 
-            startOffset: startOffset, 
-            endOffset: endOffset
-        }
-
-        console.log('this is all the highlighted data', section)
 
         data = {newData:{comment: 'THIS BEETA WOIK', highlighted: section}, fileInfo: {fileUrl: href}}
             // console.log('THIS IS DATA FORM HIGHLIGHT', data);
@@ -92,11 +82,14 @@ $(document).ready(function(){
 
     // tests to see if persisting highlighting works
     $('#joanne').on('click', function(){
-        chrome.runtime.sendMessage({command: 'get-highlight', id: '5594c9fb5a8b4ac1761146fb'})
+        chrome.runtime.sendMessage({command: 'get-highlight', id: '5595a1a3676e8ea2318479c9'})
         // highlight.currentSelection.forEach(function(ele){
             // highlight.setBackgroundColor(ele)
         // });
     });
+
+    // get file with highlight array
+    chrome.runtime.sendMessage({command: 'get-file', id: '5596122f5ce79d9502fde94e'});
 
     $('#submit').on('click', function(){
         chrome.runtime.sendMessage({command: 'highlight-data', data: data})
@@ -104,3 +97,28 @@ $(document).ready(function(){
 
 });
 
+function setData(startId, endId){
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);
+
+    var startNode = range.startContainer.textContent;
+    var startOffset = range.startOffset;
+
+    var endNode = range.endContainer.textContent;
+    var endOffset = range.endOffset;
+    
+    highlight.set('#ceff63');
+
+    var section = {
+        startId: startId, 
+        endId: endId, 
+        startNode: startNode, 
+        endNode: endNode, 
+        startOffset: startOffset, 
+        endOffset: endOffset
+    }
+
+    console.log('this is all the highlighted data', section)
+    return section;
+    
+}
