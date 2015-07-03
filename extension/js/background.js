@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	}
 
 	if(req.command === 'get-file'){
-		getFile(req.id)
+		getFile(req.url)
 	}
 })
 

@@ -45,11 +45,12 @@ function getHighlightData(id){
    })
 }
 
-function getFile(id){
-   console.log('this is the file url', id)
+function getFile(url){
+   console.log('this is the file url', url)
    $.ajax({
       type: 'GET',
-      url: 'http://localhost:1337/api/file/'+id,
+      data: {url: url},
+      url: 'http://localhost:1337/api/file/',
       success: function(response){
          console.log('File from the backend', response);
          returnMessage(response, 'file-retrieved');

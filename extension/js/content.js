@@ -1,16 +1,47 @@
 $(document).ready(function(){
     console.log('document is ready!')
 
-    $('body').append('<button id="joanne">Show DB Highlight</button>')
     $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
     $('body').append('<button id="submit">Submit Comment</button>')
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn" value="Save"/><input style="float: right; " type="button" class="btn" value="Cancel"/></div>';
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/></div>';
     $('body').append($popover);
 
+    var $commentShow = '<div></div>';
+    $('body').append($commentShow);
+
 ///////////////////////////////////////
+    $(".save-button").on('click', function(e){
+        console.log('hit save button', data.newData.comment)
+        data.newData.comment = $('.span1').val();
+        console.log(data)
+        console.log('after hit save button', data.newData.comment)
+        // sends to back end
+        chrome.runtime.sendMessage({command: 'highlight-data', data: data});
+        $('.popover').hide();
+        $('.span1').val("");
+
+        // small post-it appears
+        var lastId = $('#'+ endId);
+        console.log("this is elelment nodnde", lastId)
+        var idx = lastId.children().length-1;
+        $(lastId.children()[idx]).after('<button class="btn btn-danger"></button>');
+
+        //submit comment, attach comment to the data attribute of the element
+        //and on hover display the text
+        //delegate for on hover, where only the one you are on shows the hover
+        // $(this).on('hover', 'delegate the class name here' function () {}) 
+        //data-comment .attr()
+
+    })
+
+    $(".cancel-button").on('click', function(e){
+        $('.popover').hide();
+        $('.span1').val("");
+    })
+
 
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
@@ -51,7 +82,7 @@ $(document).ready(function(){
         }
     )
 
-    var endId, data;
+    var startId, endId, data, comment;
 
     $('td').mousedown(function(){
         startId = $(this).attr('id');
@@ -63,33 +94,22 @@ $(document).ready(function(){
         var href = window.location.href;
 
         data = {newData:{comment: 'THIS BEETA WOIK', highlighted: section}, fileInfo: {fileUrl: href}}
-            // console.log('THIS IS DATA FORM HIGHLIGHT', data);
-            // chrome.runtime.sendMessage({command: 'highlight-data', data: data})
+        console.log('this is data after mousup and hightlihgt', data)
 
-            console.log('yopu do all the timesssss', e)
-
-            var offset = $(this).offset();
-            var left = e.pageX;
-            var top = e.pageY;
-            var theHeight = $('.popover').height();
-            $('.popover').show();
-            $('.popover').css('left', (left-25) + 'px');
-            $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
+        // comment popover appears
+        var offset = $(this).offset();
+        var left = e.pageX;
+        var top = e.pageY;
+        var theHeight = $('.popover').height();
+        $('.popover').show();
+        $('.popover').css('left', (left-25) + 'px');
+        $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
 
 
-    });
-
-
-    // tests to see if persisting highlighting works
-    $('#joanne').on('click', function(){
-        chrome.runtime.sendMessage({command: 'get-highlight', id: '5595a1a3676e8ea2318479c9'})
-        // highlight.currentSelection.forEach(function(ele){
-            // highlight.setBackgroundColor(ele)
-        // });
     });
 
     // get file with highlight array
-    chrome.runtime.sendMessage({command: 'get-file', id: '5596122f5ce79d9502fde94e'});
+    chrome.runtime.sendMessage({command: 'get-file', url: window.location.href});
 
     $('#submit').on('click', function(){
         chrome.runtime.sendMessage({command: 'highlight-data', data: data})

@@ -11,16 +11,16 @@ router.post('/', function(req, res){
 		.then(function(file){
 			console.log("this is the file in the post", file)
 			res.send({message: "file successfully added"});
-		}, function(err){
+		}).then(null, function(err){
 			res.status(500).send(err.message);
-		})
+		});
 });
 
 // find by file_id - grabs all the data and sends to front
 // 	perhaps make it so that we find by fileUrl?
-router.get('/:id', function(req, res, next){
-	console.log('this be req.params.id', req.params.id)
-	File.findOne({_id: req.params.id})
+router.get('/', function(req, res, next){
+	console.log('this be req.query', req.query)
+	File.findOne({fileUrl: req.query.url})
 	.populate('highlighted')
 	.exec()
 	.then(function(file){
