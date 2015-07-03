@@ -7,11 +7,11 @@ $(document).ready(function(){
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button" value="Cancel"/></div>';
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/></div>';
     $('body').append($popover);
 
-    var $commentbox = '<div class="commentbox"></div>';
-    $('body').append($commentbox);
+    var $commentShow = '<div></div>';
+    $('body').append($commentShow);
 
 ///////////////////////////////////////
     $(".save-button").on('click', function(e){
@@ -22,16 +22,19 @@ $(document).ready(function(){
         // chrome.runtime.sendMessage({command: 'highlight-data', data: data})
         $('.popover').hide();
 
-            var offset = $(this).offset();
-            var left = e.pageX;
-            var top = e.pageY;
-            var x = $('.span1').val();
-            var theHeight = $('.commentbox').height();
-            $('.commentbox').text(x);
-            $('.commentbox').show();
-            $('.commentbox').css('left', left + 'px');
-            $('.commentbox').css('top', (top-(theHeight/2)-10) + 'px');
+        $('.span1').val("");
+        // $("#"+endId).after(data.newData.comment);
 
+        var x = document.getElementById(endId);
+        console.log("this is elelment nodnde", x)
+        var idx = x.childNodes.length-1;
+        $(x.childNodes[idx]).after('<button >Comment...</button>');
+
+    })
+
+    $(".cancel-button").on('click', function(e){
+        $('.popover').hide();
+        $('.span1').val("");
     })
     // $(document).on('click', function(clicked){
     //     console.log(clicked)

@@ -22,6 +22,9 @@ var checkForFileOnHighlight = function(newData, fileInfo, callback) {
 	var highlightPromise = this.create(newData);
 	var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
 
+    //return Q.all([highlightPromise, filePromise]).spread(function(highlight, file){
+        // var highlight = results[0], file = results[1];
+
 	return Q.all([highlightPromise, filePromise]).then(function(results){
 		var highlight = results[0], file = results[1];
         
