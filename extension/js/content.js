@@ -7,7 +7,7 @@ $(document).ready(function(){
 //////////////////////////// box popover
 
     var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/></div>';
-    // $('body').append($popover);
+    $('body').append($popover);
 
     var $commentShow = '<div></div>';
     $('body').append($commentShow);
@@ -65,7 +65,7 @@ $(document).ready(function(){
                 // repopulate highlight
                 hl.highlighted.forEach(function(selection){
                     reSelect(selection.highlighted);
-                    postIt(selection.highlighted.endId);
+                    postIt(selection.highlighted.endId, selection.comment);
                 });
                 // repopulate comment
             }
@@ -84,7 +84,6 @@ $(document).ready(function(){
 
     $('td').mousedown(function(){
         console.log('element on mousedown', $(this))
-        $(this).append($popover);
         startId = $(this).attr('id');
     });
 
@@ -92,7 +91,7 @@ $(document).ready(function(){
         endId = $(this).attr('id');
         var section = setData(startId, endId);
         var href = window.location.href;
-        data = {newData:{comment: 'THIS BEETA WOIK', highlighted: section}, fileInfo: {fileUrl: href}}
+        data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: href}}
         console.log('this is data after mousup and hightlihgt', data)
 
         // comment popover appears
@@ -101,7 +100,9 @@ $(document).ready(function(){
     });
 
     // post-it on hover
-    $("td").on('mouseenter', 'button#post-it', function(e){
+    $("td").on('mouseenter', 'button.post-it', function(e){
+        console.log('this is the id on mouseenter', $(this).attr('id'))
+        // var id = $(this).attr('id')
         popOver(e, this)
         console.log('this is THIIIS', this)
     });
@@ -123,14 +124,15 @@ function popOver(e, ele){
     $('.popover').css('left', (left-25) + 'px');
     $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
     // adding comments
-    $('.span1').val('this is just a test')
+    $('.span1').val($(ele).data("comment"))
 }
 
-function postIt(endId){
+function postIt(endId, feedback){
     var x = $('#'+endId);
     var idx = x.contents().length-1;
-    $(x.contents()[idx]).after('<button id="post-it"></button>');
+    $(x.contents()[idx]).after('<button class="post-it" id="post-it-'+endId+'"></button>');
     // bind data to the postit
+    $('#post-it-'+endId).data("comment", feedback);
 }
 
 function setData(startId, endId){
