@@ -24,11 +24,15 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	if(req.command === "get-highlight"){
 		getHighlightData(req.id)
 	}
+
+	if(req.command === 'get-file'){
+		getFile(req.url)
+	}
 })
 
 function returnMessage(msg, cmd){
-	chrome.tabs.getSelected(null, function(tab){
-		chrome.tabs.sendMessage(tab.id, {message: msg, command: cmd})
-	});
+   chrome.tabs.getSelected(null, function(tab){
+      chrome.tabs.sendMessage(tab.id, {message: msg, command: cmd})
+   });
 };
 
