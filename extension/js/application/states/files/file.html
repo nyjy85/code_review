@@ -1,10 +1,43 @@
-<div>
-  <p>Owner / Repo Name</p>
-      <div class="files-in-repo" ng-repeat="file in filesUnderRepo">
-        <p>Branch</p>
-        <!-- 1504-Library/solutions/angular-day-1/seed.js -->
-        <div class="file-name" ng-click="">{{ file.name }}</div>
-        <p>Commenter: </p>
-        <button ng-click="goToFile(file)">See Comments</button>
-    </div>
-</div>
+<md-dialog-content>
+  <div>
+      <h4 class='repo-name'>{{ repoName }}</h4>
+      <span><md-button class="md-icon-button" ng-click="close()">
+        <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button></span>
+      <md-divider></md-divider>
+
+        <md-content>
+        <md-list>
+          <md-list-item class="files-in-repo" ng-repeat="file in filesUnderRepo">
+            <!-- <div> -->
+              <h5 class="file file-name">{{ file.display }}</h5>
+              <!-- <p class="file commenter">Andy</p> -->
+              <span class='file commented'>5 minutes ago</span>
+              <!-- </div> -->
+
+              <md-button class="md-icon-button filego" ng-click="goToFile(file)">
+                <md-icon md-svg-src="img/icons/ic_send_black_24px.svg"></md-icon>
+              </md-button>
+
+
+              <md-divider></md-divider>
+          </md-list-item>
+      </md-list>
+      </md-content>
+
+  </div>
+</md-dialog-content>
+
+<!--
+<md-content>
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="item in messages">
+        <div class="md-list-item-text">
+          <h3>{{item.what}}</h3>
+          <h4>{{item.who}}</h4>
+          <p>{{item.notes}}</p>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content> -->

@@ -1,26 +1,26 @@
 'use strict';
-app.config(function ($stateProvider) {
-	$stateProvider.state('file', {
-		url: '/file',
-		templateUrl: 'js/application/states/files/file.html',
-		controller: 'FileCtrl',
-		resolve: {
-			Authenticate: function($http, $state) {
-				$http.get("http://localhost:1337/session").then(function(res) {
-					if (res.data) {
-						return
-					}
-					else {
-						$state.go('login')
-					}
-				});
-			}
-		}
-	});
-});
+// app.config(function ($stateProvider) {
+// 	$stateProvider.state('file', {
+// 		url: '/file',
+// 		templateUrl: 'js/application/states/files/file.html',
+// 		controller: 'FileCtrl',
+// 		resolve: {
+// 			Authenticate: function($http, $state) {
+// 				$http.get("http://localhost:1337/session").then(function(res) {
+// 					if (res.data) {
+// 						return
+// 					}
+// 					else {
+// 						$state.go('login')
+// 					}
+// 				});
+// 			}
+// 		}
+// 	});
+// });
 
 //add Factory
-app.controller('FileCtrl', function ($scope, $state, popupGitFactory) {
+app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInstance, repo, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
@@ -28,13 +28,29 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory) {
 
 	})
 
+	$scope.repoName = repo.name;
+
+	popupGitFactory.listFiles(repo).then(function(files){
+		console.log('list files', files)
+		files.forEach(function(file) {
+			var url = file.fileUrl;
+			var i = url.match(/blob/).index + 5;
+			file.display = url.slice(i);
+		})
+		$scope.filesUnderRepo = files;
+	})
+
 	// $scope.showYourFiles = $scope.user.repos;
 
-	$scope.goToFile = function(repo) {
+	$scope.goToFile = function(file) {
 		chrome.tabs.create({
-        url: file.url
+        url: file.fileUrl
     });
 	}
+
+	$scope.close = function () {
+    $modalInstance.close();
+  }
 
 
 })
