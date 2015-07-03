@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 						return
 					}
 					else {
-						// $state.go('login')
+						$state.go('login')
 					}
 				});
 			}
@@ -20,45 +20,97 @@ app.config(function ($stateProvider) {
 });
 
 //add Factory
-app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log) {
+app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
-		$scope.displayName = $scope.user.github.name;
-		$scope.showYourRepos = $scope.user.repos;
-
+		console.log('current user', $scope.user)
+		$scope.showRepos = $scope.user.repos;
+		$scope.loadRepos();
 	})
 
-
-	$scope.showAddBar = false;
-
-	$scope.showRepoSelections = function() {
-		//Load repos to add
-		var tokenObj = {token: $scope.user.github.token}
+	$scope.loadRepos = function () {
+		var tokenObj = {token: $scope.user.github.token};
 		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
-			$scope.reposToAdd = repos;
-		})
+				$scope.reposToAdd = repos;
+		}).catch($log.log.bind($log));
+	}
 
+
+	$scope.toggleAddBar = function () {
 		$scope.showAddBar = !$scope.showAddBar;
 	}
 
 
-	$scope.addRepoToProfile = function (repo) {
-		console.log('add repo to profile', $scope.addRepo)
-		$scope.showAddBar = !$scope.showAddBar;
-		popupGitFactory.addRepoToProfile($scope.user, repo).then(function(res) {
-			console.log(res)
+	var cannotAddBox = function () {
+		$mdDialog.show(
+		$mdDialog.alert()
+			.parent(angular.element(document.body))
+			.title('Unfortunately')
+			.content('You cannot add a repo you already added.')
+			.ok('Got it!')
+		);
+	}
+
+	$scope.addRepo = function (repo) {
+		console.log('adding repo')
+
+		// checking if repo exist
+		var check;
+		$scope.showRepos.forEach(function(current) {
+			if (current.name === repo.name) {
+				check = true;
+				cannotAddBox();
+			}
+		});
+
+		// add if repo doesn't exist
+		if (!check) {
+			var saveRepo = {url: repo.html_url, name: repo.name}
+			$scope.user.repos.push(saveRepo);
+			popupGitFactory.editRepo($scope.user).then(function(res) {
+				console.log('added repo', res)
+			})
+		};
+
+	}
+
+	$scope.deleteRepo = function(repo) {
+		console.log('deleting repo')
+
+		$scope.user.repos.forEach(function(userrepo, i) {
+			if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
+		})
+		popupGitFactory.editRepo($scope.user).then(function(res) {
+			console.log('deleted repo', res)
 		})
 	}
 
-	$scope.selectRepo = function(repo) {
-		repo.showOptions = !repo.showOptions;
-	}
 
-	$scope.goToRepo = function(repo) {
-		chrome.tabs.create({
-        url: repo.url
+	// $scope.goToRepo = function(repo) {
+	// 	chrome.tabs.create({
+  //       url: repo.url
+  //   });
+	// }
+
+	//list files under a repo
+	$scope.listFiles = function(repo) {
+		var modalInstance = $modal.open({
+      templateUrl: 'js/application/states/files/file.html',
+      controller: 'FileCtrl',
+      resolve: {
+        repo: function() {
+          return repo;
+        }
+      }
     });
+	}
+
+	//log out
+	$scope.logout = function () {
+		popupGitFactory.logout().then(function(){
+			$state.go('login');
+		})
 	}
 
 	//sidebar

@@ -65,7 +65,7 @@ router.put('/', function(req, res, next){
 router.delete('/:id', function(req, res, next){
 	var id = req.params.id;
 	var url = req.body.url;
-
+	console.log('this is req.body on highlight delete', req.body)
 	Highlight.deleteHighlight(id, url, next)
 	.then(function(updatedFile){
 		res.send('You have removed the highlight from the file');

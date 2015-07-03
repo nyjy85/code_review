@@ -31,7 +31,15 @@ router.get('/', function(req, res, next){
 });
 
 
-
-
-
-
+// find files by repo
+// :id/file (repo.id)
+router.get('/repo/:repo', function(req, res, next){
+	console.log('find files by repo')
+	File.find({"repo.name": req.params.repo})
+	.exec()
+	.then(function(files){
+		console.log('files', files)
+		res.send(files);
+	})
+	.then(null, next);
+})

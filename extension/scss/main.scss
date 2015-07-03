@@ -13,6 +13,26 @@ h3 {
   margin-top: 0px
 }
 
+.repo-name {
+  display: inline-block;
+}
+
+.file {
+  margin: 0 0 0 0;
+}
+
+.md-icon-button.filego {
+  float: right;
+}
+
+.commenter {
+  font-size: small;
+}
+
+.commented {
+  font-size: xx-small;
+}
+
 .editRepo.ng-isolate-scope.md-default-theme {
   margin: 0 0 0 0;
   float: left;

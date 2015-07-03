@@ -1,6 +1,4 @@
 <div>
-  <!-- <h3>Welcome {{displayName}}</h3>
-  <p>Let's review code!</p> -->
   <md-button class="md-icon-button md-primary" ng-click="toggleLeft()">
         <md-icon md-svg-icon="img/icons/ic_view_headline_black_24px.svg"></md-icon>
   </md-button>
@@ -10,50 +8,19 @@
   </md-button>
 
   <md-button class="md-icon-button md-primary">
-        <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" ng-click="showRepoSelections()"></md-icon>
+        <md-icon md-svg-icon="img/icons/ic_add_black_24px.svg" ng-click="toggleAddBar()"></md-icon>
   </md-button>
 
-  <md-button class="md-icon-button md-primary">
+  <!-- class="md-icon-button md-primary" -->
+  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <md-icon md-svg-icon="img/icons/ic_settings_black_24px.svg"></md-icon>
   </md-button>
 
+  <!-- Sign out -->
+  <button ng-click="logout()">Log out</button>
+
 
   <md-divider></md-divider>
-
-  <!-- Menu -->
-
-  <div class="md-menu-demo" ng-controller="BasicDemoCtrl as ctrl">
-  <div class="menu-demo-container" layout-align="center center" layout="column">
-    <h2 class="md-title">Simple dropdown menu</h2>
-    <p>Note that applying the <code>md-menu-origin</code> and <code>md-menu-align-target</code> attributes ensure that the menu elements align</p>
-    <md-menu>
-      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-        <md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button ng-click="ctrl.redial($event)">
-            <md-icon md-svg-icon="call:dialpad" md-menu-align-target></md-icon>
-            Redial
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-            <md-icon md-svg-icon="call:voicemail"></md-icon>
-            Check voicemail
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider></md-menu-divider>
-        <md-menu-item>
-          <md-button ng-click="ctrl.toggleNotifications()">
-            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-  </div>
-</div>
 
 
  <!-- Side bar------------------------------------------------------------- -->
@@ -95,13 +62,14 @@
   md-selected-item="ctrl.selectedItem"
   md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
   md-search-text="ctrl.searchText"
-  md-selected-item-change="ctrl.selectedItemChange(item)" -->
+ -->
 
   <!-- md-highlight-text="ctrl.searchText"  -->
   <div ng-show="showAddBar">
     <md-autocomplete
             md-items="repo in reposToAdd"
             md-selected-item="reposToAdd"
+            md-selected-item-change="repoSelected=repo"
             md-item-text="repo.name"
             md-min-length="0"
             placeholder="Choose repo to add">
@@ -115,20 +83,26 @@
           </md-not-found>
     </md-autocomplete>
 
-    <md-button class="md-primary" ng-click="addRepoToProfile()">Add</md-button>
-    <md-button class="md-warn" ng-click="showRepoSelections()">Cancel</md-button>
+    <md-button class="md-primary" ng-click="addRepo(repoSelected); toggleAddBar(); loadRepos()">Add</md-button>
+    <md-button class="md-warn" ng-click="toggleAddBar(); loadRepos()">Cancel</md-button>
 
   </div>
 
-    <md-list-item class="your-repos" ng-repeat="repo in showYourRepos">
+    <md-list-item class="your-repos" ng-repeat="repo in showRepos">
       <md-checkbox></md-checkbox>
+      <!-- <md-divider></md-divider> -->
+
       <div class="repo-name" ng-click="selectRepo(repo)">{{ repo.name }}</div>
       <!-- <div class="options" ng-show="repo.showOptions"> -->
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_list_black_24px.svg" ng-click="listFiles(repo)"></md-icon>
+
+        <md-button class="md-icon-button md-primary" ng-click="deleteRepo(repo)">
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
+        </md-button>
         <!-- <button ng-click="goToRepo(repo)">Go</button> -->
       <!-- </div> -->
       <md-divider></md-divider>
+
     </md-list-item>
 
     <!-- <div class="mode">

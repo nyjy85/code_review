@@ -5,6 +5,8 @@ var User = mongoose.model('User');
 
 module.exports = router;
 
+//Authentication
+
 router.get('/:id', function(req, res, next){
 	console.log('inside the get for user', req.params.id)
 	User.findOne({_id: req.params.id})
@@ -16,16 +18,6 @@ router.get('/:id', function(req, res, next){
 	.then(next, null)
 })
 
-// router.get('/test', function(req, res, next){
-// 	console.log('yo work dammit')
-// 	User.find({})
-// 	.exec()
-// 	.then(function(user){
-// 		res.send(user)
-// 	})
-// 	.then(next, null)
-// })
-
 // creates new user
 router.post('/', function(req, res, next){
 	User.create(req.body)
@@ -33,21 +25,19 @@ router.post('/', function(req, res, next){
 		console.log('user has been created!', user)
 		res.send({message: 'user saved!'})
 	})
-	.then(next, null)
+	.then(null, next)
 });
 
-// adds a repo to the user's repo array
-router.put('/addRepo/:user', function(req, res, next){
-	console.log('am i heerrr', req.params.user)
-	User.findOne({'github.username': req.params.user})
+// add or delete a repo to the user's repo array
+router.put('/:username/editRepo', function(req, res, next){
+	User.findOne({'github.username': req.params.username})
 	.exec()
 	.then(function(user){
-		console.log('an in herrrr', user)
-		user.repos.push(req.body.repo);
+		user.repos = req.body.repo;
 		user.save(function(err, data){
-			console.log('this be data', data)
+			console.log('editRepo', data)
 			res.send(data)
 		})
 	})
-	.then(next, null)
+	.then(null, next)
 });
