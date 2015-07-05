@@ -46,7 +46,6 @@ function getHighlightData(id){
 }
 
 function getFile(url){
-   console.log('this is the file url', url)
    $.ajax({
       type: 'GET',
       data: {url: url},
@@ -59,7 +58,6 @@ function getFile(url){
 }
 
 function deleteHighlight(id, url){ 
-   console.log('this is the hiliglsdkfjs id', id);
    $.ajax({
       type: 'DELETE',
       data: {url: url},

@@ -3,7 +3,6 @@
 chrome.runtime.onMessage.addListener(function(req, sender){
 
 	if(req.command === "get"){
-		console.log('get has been called')
 		populateFile(req.id)
 	}
 
