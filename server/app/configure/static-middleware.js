@@ -12,7 +12,7 @@ module.exports = function (app) {
     var publicPath = path.join(root, './public');
     var browserPath = path.join(root, './browser');
     var bowerPath = path.join(root, './bower_components');
-    var iconsPath = path.join(root, './img');
+    
 
     app.use(favicon(app.getValue('faviconPath')));
     app.use(express.static(uiBootstrapPath));
@@ -20,6 +20,5 @@ module.exports = function (app) {
     app.use(express.static(publicPath));
     app.use(express.static(browserPath));
     app.use(express.static(bowerPath));
-    app.use(express.static(iconsPath));
 
 };
