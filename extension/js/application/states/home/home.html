@@ -12,12 +12,38 @@
   </md-button>
 
   <!-- class="md-icon-button md-primary" -->
-  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <!--  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+      
+<!-- the setting button at the top -->
+  <md-menu>
+      <md-button type="button" aria-label="Open Settings Dropdown" class="md-icon-button md-primary" aria-haspopup="true" aria-expanded="false" ng-click="$mdOpenMenu()">
         <md-icon md-svg-icon="img/icons/ic_settings_black_24px.svg"></md-icon>
-  </md-button>
+      </md-button>
+      <md-menu-content width="5">
+        <md-menu-item>
+          <md-button ng-click="deleteRepo(repo)">
+            <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
+            Whatever settings
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            Settings part 2
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="ctrl.toggleNotifications()">
+            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
 
   <!-- Sign out -->
-  <button ng-click="logout()">Log out</button>
+  <button class="logout" ng-click="logout()">Log out</button>
 
 
   <md-divider></md-divider>
@@ -96,9 +122,37 @@
       <!-- <div class="options" ng-show="repo.showOptions"> -->
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_list_black_24px.svg" ng-click="listFiles(repo)"></md-icon>
 
+
+    <md-menu>
+      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+        <md-icon md-menu-origin="" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-click="deleteRepo(repo)">
+            <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
+            Remove repo
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            Check voicemail
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="ctrl.toggleNotifications()">
+            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+<!-- 
         <md-button class="md-icon-button md-primary" ng-click="deleteRepo(repo)">
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
-        </md-button>
+        </md-button> -->
         <!-- <button ng-click="goToRepo(repo)">Go</button> -->
       <!-- </div> -->
       <md-divider></md-divider>

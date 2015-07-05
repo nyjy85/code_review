@@ -29,3 +29,14 @@ h3 {
 
 .md-button.md-primary {
   color: black; }
+
+.menudemoBasicUsage .md-menu-demo {
+  padding: 24px; }
+
+.menudemoBasicUsage .menu-demo-container {
+  min-height: 200px; }
+
+.logout {
+  float: right;
+  margin: 10px; }
+
