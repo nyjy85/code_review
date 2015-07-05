@@ -17,16 +17,4 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     	})
     }
 
-    $scope.sendLogin = function (loginInfo) {
-
-        $scope.error = null;
-
-        AuthService.login(loginInfo).then(function () {
-            $state.go('home');
-        }).catch(function () {
-            $scope.error = 'Invalid login credentials.';
-        });
-
-    };
-
 });
