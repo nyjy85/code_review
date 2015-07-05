@@ -26,3 +26,9 @@ h3 {
 .editRepo.ng-isolate-scope.md-default-theme {
   margin: 0 0 0 0;
   float: left; }
+
+.menudemoBasicUsage .md-menu-demo {
+  padding: 24px; }
+
+.menudemoBasicUsage .menu-demo-container {
+  min-height: 200px; }

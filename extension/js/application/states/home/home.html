@@ -96,9 +96,37 @@
       <!-- <div class="options" ng-show="repo.showOptions"> -->
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_list_black_24px.svg" ng-click="listFiles(repo)"></md-icon>
 
+
+    <md-menu>
+      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+        <md-icon md-menu-origin="" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-click="deleteRepo(repo)">
+            <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
+            Remove repo
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+            <md-icon md-svg-icon="call:voicemail"></md-icon>
+            Check voicemail
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="ctrl.toggleNotifications()">
+            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+<!-- 
         <md-button class="md-icon-button md-primary" ng-click="deleteRepo(repo)">
         <md-icon class="editRepo" md-svg-icon="img/icons/ic_more_horiz_black_24px.svg"></md-icon>
-        </md-button>
+        </md-button> -->
         <!-- <button ng-click="goToRepo(repo)">Go</button> -->
       <!-- </div> -->
       <md-divider></md-divider>

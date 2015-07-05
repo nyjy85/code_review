@@ -1,8 +1,8 @@
 $(document).ready(function(){
     console.log('document is ready!')
 
-    $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
-    $('body').append('<button id="submit">Submit Comment</button>')
+    // $('body').append('<button id="yae">CLICK ME TO CLEAR BIIITCCCH</button>')
+    // $('body').append('<button id="submit">Submit Comment</button>')
 
 //////////////////////////// box popover
 
