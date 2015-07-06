@@ -4,3 +4,4 @@
 require('./user');
 require('./highlight');
 require('./file');
+require('./repo');

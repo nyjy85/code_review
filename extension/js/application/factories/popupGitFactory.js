@@ -17,6 +17,16 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
+        getContributors: function(token, contributorUrl) {
+          var i = contributorUrl.match(/repos/).index + 6;
+          var repo = contributorUrl.slice(i, -13);
+          console.log('!!!!!',repo)
+          // return $http.get(domain + "/api/git/" + repo + '/contributors', {params: token})
+          // .then(function(res) {
+          //   return res.data;
+          // })
+        },
+
         //adding or deleting repo from profile
         editRepo: function(user) {
           console.log('addRepoToProfile factory',user.repos)
@@ -27,9 +37,33 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
+        archiveRepo: function(user) {
+          console.log('archieve repo factory', user.archives);
+          var archives = {repo: user.archives}
+          return $http.put(domain + '/api/users/' + user.github.username + '/archiveRepo', archives)
+          .then(function(res) {
+            return res.data;
+          })
+        },
+
         listFiles: function(repo) {
           console.log('list file names under the repo', repo)
           return $http.get(domain + "/api/file/repo/" + repo.name)
+          .then(function(res) {
+            return res.data;
+          })
+        },
+
+        getARepo: function(repoUrl) {
+          console.log('is there such repo? factory', repoUrl)
+          return $http.get(domain + "/api/repo/", {params: repoUrl})
+          .then(function(res){
+            return res.data;
+          })
+        },
+
+        createARepo: function(repo) {
+          return $http.post(domain + "/api/repo", repo)
           .then(function(res) {
             return res.data;
           })
