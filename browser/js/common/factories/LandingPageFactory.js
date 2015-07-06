@@ -9,19 +9,8 @@ app.factory('LandingPageFactory', function($http) {
           });
         },
 
-        getReposToAdd: function(token) {
-          console.log('hit getrepo', token)
-          return $http.get(domain + "/api/git", {params: token})
-          .then(function(res) {
-            return res.data;
-          })
-        },
-
-        //adding or deleting repo from profile
-        editRepo: function(user) {
-          console.log('addRepoToProfile factory',user.repos)
-          var repo = {repo: user.repos}
-          return $http.put(domain + "/api/users/" + user.github.username + "/editRepo", repo)
+        getReposToAdd: function(id) {
+          return $http.get(domain + "/api/users/"+id)
           .then(function(res) {
             return res.data;
           })
