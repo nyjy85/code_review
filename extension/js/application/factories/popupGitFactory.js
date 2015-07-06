@@ -17,14 +17,17 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
-        getContributors: function(token, contributorUrl) {
+        getContributors: function(contributorUrl) {
           var i = contributorUrl.match(/repos/).index + 6;
-          var repo = contributorUrl.slice(i, -13);
-          console.log('!!!!!',repo)
-          // return $http.get(domain + "/api/git/" + repo + '/contributors', {params: token})
-          // .then(function(res) {
-          //   return res.data;
-          // })
+          var repoUrl = contributorUrl.slice(i, -13);
+          var owner = repoUrl.split('/')[0];
+          var repo = repoUrl.split('/')[1];
+
+          console.log('!!!!!',i , repoUrl, owner, repo)
+          return $http.get(domain + "/api/git/repos/" + owner + '/' + repo + '/contributors')
+          .then(function(res) {
+            return res.data;
+          })
         },
 
         //adding or deleting repo from profile
@@ -54,17 +57,10 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
-        getARepo: function(repoUrl) {
-          console.log('is there such repo? factory', repoUrl)
-          return $http.get(domain + "/api/repo/", {params: repoUrl})
+        repoFindOrInsert: function(repo) {
+          console.log('is there such repo? factory', repo)
+          return $http.get(domain + "/api/repo/", {params: repo})
           .then(function(res){
-            return res.data;
-          })
-        },
-
-        createARepo: function(repo) {
-          return $http.post(domain + "/api/repo", repo)
-          .then(function(res) {
             return res.data;
           })
         },

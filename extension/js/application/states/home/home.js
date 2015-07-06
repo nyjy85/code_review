@@ -24,6 +24,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
+		console.log('user', $scope.user)
 		$scope.tokenObj = {token: $scope.user.github.token};
 		console.log('current user', $scope.user)
 		$scope.showRepos = $scope.user.repos;
@@ -56,37 +57,38 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	$scope.addRepo = function (repo) {
 		console.log('adding repo', repo)
 
-		// checking if repo exist
-		var check;
-		$scope.showRepos.forEach(function(current) {
-			if (current.name === repo.name) {
-				check = true;
-				cannotAddBox();
-			}
-		});
+		// // checking if repo exist
+		// var check;
+		// $scope.showRepos.forEach(function(current) {
+		// 	if (current.name === repo.name) {
+		// 		check = true;
+		// 		cannotAddBox();
+		// 	}
+		// });
 
-		// add if repo doesn't exist
-		if (!check) {
-			// var contributors = [];
-			// popupGitFactory.getContributors($scope.tokenObj, repo.contributors_url)
-			// .then(function(names) {
-			// 	console.log('names', names)
-			// 	contributors = names;
-			// })
+		// add repo if repo doesn't exist in user.db
+		// if (!check) {
+
+			popupGitFactory.getContributors(repo.contributors_url)
+			.then(function(names) {
+				console.log('names', names)
+				repo.contributors = names;
+
+				var saverepo = {name: repo.name, url: repo.html_url, contributors: repo.contributors}
+				console.log(saverepo)
+
+				//create Repo if it doesn't exist in the Repo.db
+				popupGitFactory.repoFindOrInsert(saverepo).then(function(resData) {
+					console.log('check if there is such repo', resData)
 
 
-			//create Repo in the Repo.db if it doesn't exist
-			// popupGitFactory.getARepo(repo.html_url).then(function(res) {
-			// 	console.log('check if there is such repo', res)
-			// })
+				})
 
-			//adding repo_id to user.repo array in the User.db
-			var saveRepo = {url: repo.html_url, name: repo.name, contributors: repo.contributors}
-			$scope.user.repos.push(saveRepo);
-			popupGitFactory.editRepo($scope.user).then(function(res) {
-				console.log('added repo', res)
+				// //adding repo_id to user.repo array in the User.db
+				// $scope.user.repos.push(repo._id);
+
 			})
-		};
+		// };
 
 	}
 
@@ -109,8 +111,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 				console.log('deleted repo', res)
 			})
 
-    }, function() {
-      console.log('did not delete')
     });
 
 	}
@@ -144,9 +144,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 				console.log('deleted repo', res)
 			})
 
-
-    }, function() {
-      console.log('did not arch')
     });
 
   // };
