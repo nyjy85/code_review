@@ -1,0 +1,27 @@
+<div>
+
+  <!-- navbar -->
+  <md-button class="md-icon-button md-primary" ui-sref="home">
+      <md-icon md-svg-icon="img/icons/back.svg"></md-icon>
+  </md-button>
+
+  <md-button class="md-icon-button md-primary">
+      <md-icon md-svg-icon="img/icons/search.svg"></md-icon>
+  </md-button>
+
+  <md-divider></md-divider>
+
+  <!-- repo -->
+  <md-content>
+    <md-list>
+      <md-list-item ng-repeat="repo in showArch">
+        <div class="md-list-item-text">
+          <p>{{ repo.name }}</p>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+
+
+</div>

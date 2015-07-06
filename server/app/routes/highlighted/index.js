@@ -41,8 +41,9 @@ router.post('/', function(req, res, next){
 	console.log('req.body from da frrronnnt', req.body);
 	var newData = req.body.newData;
 	var fileInfo = req.body.fileInfo;
+	var repoUrl = req.body.url
 
-	Highlight.checkForFileOnHighlight(newData, fileInfo, next)
+	Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
 	.then(function(updatedFile){
 		//if you want something to res.send, you can change updatedFile in the static
 		//in the highlight

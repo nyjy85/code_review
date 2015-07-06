@@ -9,13 +9,12 @@ var schema = new mongoose.Schema({
     },
     fileUrl: String, //required
     commit: String,
-    highlighted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}],
-    repo: {
-      name: String,
-    	url: String,
-    	contributors: [String] // (any github username) this will be collaborators (for sharing to other users)
-    }
+    highlighted: [{type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}]
 });
 
 
 mongoose.model('File', schema);
+
+//grab the repo name of fileUrl (slice)
+//look for its repo_id in the repo database
+//push repo_id into File db's repo field

@@ -13,31 +13,38 @@ var schema = new mongoose.Schema({
         endNode: String,
         startOffset: Number,
         endOffset: Number
-    },  
+    },
     commenter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
-var checkForFileOnHighlight = function(newData, fileInfo, callback) {
-	
+var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
+
 	var highlightPromise = this.create(newData);
 	var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
+  var repoPromise = mongoose.model('Repo').findOne({url: repoUrl}).exec();
 
     //return Q.all([highlightPromise, filePromise]).spread(function(highlight, file){
         // var highlight = results[0], file = results[1];
 
-	return Q.all([highlightPromise, filePromise]).then(function(results){
-		var highlight = results[0], file = results[1];
-        
+	return Q.all([highlightPromise, filePromise, repoPromise]).then(function(results){
+		var highlight = results[0], file = results[1], repo = results[2];
+
             if(!file){
                 mongoose.model('File').create(fileInfo).then(function(fileCreated){
+                    repo.files.push(fileCreated._id);
+                    repo.save(callback);
+
                     fileCreated.highlighted.push(highlight._id)
                     fileCreated.save(callback);
                 })
+
             }else{
-                file.highlighted.push(highlight._id)
-                file.save(callback); 
+                file.highlighted.push(highlight._id);
+                repo.files.push(file._id);
+                repo.save(callback);
+                file.save(callback);
             }
-        return; 
+        return;
 	}, callback)
 };
 
@@ -47,7 +54,7 @@ var deleteHighlight = function(id, url, callback) {
 
     var removeHighlightPromise = this.remove({_id: id}).exec();
     var filePromise = mongoose.model("File").findOne({fileUrl: url}).exec();
-    
+
     return Q.all([removeHighlightPromise, filePromise]).then(function(results){
         var file = results[1];
             file.highlighted.splice(file.highlighted.indexOf(id),1);
@@ -65,7 +72,7 @@ var updateComment = function(id, comment, url, callback){
     return Q.all([updateP, fileP]).then(function(results){
         var highlight = results[0];
         var file = results[1];
-        var idx = file.highlighted.indexOf(id) 
+        var idx = file.highlighted.indexOf(id)
         file.highlighted[idx] = highlight._id;
         file.save(callback);
         return;
