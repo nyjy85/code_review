@@ -19,6 +19,7 @@ app.config(function ($stateProvider) {
 	});
 });
 
+
 //add Factory
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
 
@@ -133,5 +134,27 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
           $log.debug("close LEFT is done");
         });
   };
+
+  //dropdown box for the individual repos, the " ... "
+  var vm = this;
+  vm.notificationsEnabled = true;
+  vm.toggleNotifications = function() {
+    vm.notificationsEnabled = !vm.notificationsEnabled;
+  };
+
+  vm.redial = function(e) {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .title('Suddenly, a redial')
+        .content('You just called someone back. They told you the most amazing story that has ever been told. Have a cookie.')
+        .ok('That was easy')
+    );
+  };
+
+  vm.checkVoicemail = function() {
+    // This never happens.
+  };
+
+
 
 })
