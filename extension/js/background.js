@@ -3,7 +3,6 @@
 chrome.runtime.onMessage.addListener(function(req, sender){
 
 	if(req.command === "get"){
-		console.log('get has been called')
 		populateFile(req.id)
 	}
 
@@ -31,6 +30,11 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 
 	if(req.command === 'delete-highlight'){
 		deleteHighlight(req.data.id, req.data.url)
+	}
+
+	if(req.command === 'update-comment'){
+		console.log('hit me baby', req)
+		updateComment(req.data);
 	}
 })
 

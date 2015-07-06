@@ -17,7 +17,7 @@ router.get('/', function(req, res, next){
 })
 
 // just a test to get a highlight by id and see if persistence works
-router.get('/getit/:id', function(req, res, next){
+router.get('/:id', function(req, res, next){
 	Highlight.findOne({_id: req.params.id})
 	.exec()
 	.then(function(highlighted){
@@ -50,6 +50,15 @@ router.post('/', function(req, res, next){
 	})
 });
 
+router.put('/:id', function(req, res, next){
+	var id = req.params.id;
+	var comment = req.body.data.comment;
+	var url = req.body.data.url;
+	Highlight.updateComment(id, comment, url, next)
+	.then(function(response){
+		res.send('You have updated the comments')
+	})
+})
 
 // for when user makes updates to comment
 router.put('/', function(req, res, next){
@@ -65,7 +74,6 @@ router.put('/', function(req, res, next){
 router.delete('/:id', function(req, res, next){
 	var id = req.params.id;
 	var url = req.body.url;
-	console.log('this is req.body on highlight delete', req.body)
 	Highlight.deleteHighlight(id, url, next)
 	.then(function(updatedFile){
 		res.send('You have removed the highlight from the file');
