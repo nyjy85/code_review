@@ -18,23 +18,25 @@ function setData(startId, endId, color){
         startOffset: startOffset, 
         endOffset: endOffset
     }
-
+    // gets rid of blue selection highlight
+    selection.removeAllRanges();
     console.log('this is all the highlighted data', section)
     return section;   
 }
 
 
 function popOver(e, ele){
-    var offset = $(ele).offset();
+    // var offset = $(ele).offset();
     var left = e.pageX;
     var top = e.pageY;
-    var theHeight = $('.popover').height();
+    var height = $('.popover').height();
+    var data = $(ele).data("data")
     $('.popover').show();
     $('.popover').css('left', (left-25) + 'px');
-    $('.popover').css('top', (top-(theHeight/2)-107) + 'px');
+    $('.popover').css('top', (top-(height/2)-107) + 'px');
     // adding comments
     $('.popover').data("highlight-data", $(ele).data("data"))
-    $('.span1').val($(ele).data("data").comment)
+    data ? $('.span1').val(data.comment) : $('.span1').val('');
 }
 
 function postIt(endId, data){
@@ -44,4 +46,18 @@ function postIt(endId, data){
     // bind data to the postit
     $('#post-it-'+endId).data("data", data);
     $('.span1').val(data.comment)
+}
+
+function postNew(){
+    data.newData.comment = $('.span1').val();
+    chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
+    postIt(endId, data.newData)
+    data = null;
+}
+
+function update(){
+    var updated = $('.popover').data('highlight-data');
+    updated.comment = $('.span1').val();
+    updated.url = url();
+    chrome.runtime.sendMessage({command: 'update-comment', data: updated})
 }

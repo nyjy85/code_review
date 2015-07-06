@@ -3,12 +3,15 @@ $(document).ready(function(){
     // get file with highlight array
     if(window.location.href.indexOf("blob") > -1){
         runScript();
-    }
-    
+    }   
 }); 
 
+function url(){
+    return window.location.href;
+}
+
 function runScript(){
-    chrome.runtime.sendMessage({command: 'get-file', url: window.location.href});
+    chrome.runtime.sendMessage({command: 'get-file', url: url()});
     var startId, endId, data, comment;
 
 //////////////////////////// box popover
@@ -26,26 +29,22 @@ function runScript(){
         $('.span1').val('');
         $('.popover').hide();
         $('#post-it-'+data.endId).remove();
-        chrome.runtime.sendMessage({command: 'delete-highlight', data: {id: id, url: window.location.href}})
+        chrome.runtime.sendMessage({command: 'delete-highlight', data: {id: id, url: url()}})
     });
 
     $(".save-button").on('click', function(e){
-        data.newData.comment = $('.span1').val();
-        // sends to back end
-        chrome.runtime.sendMessage({command: 'highlight-data', data: data});
+        if(data) postNew();
+        else update();
         $('.popover').hide();
-        // $('.span1').val("");
-        // small post-it appears
-        postIt(endId, data.newData)
     });
 
     $(".cancel-button").on('click', function(e){
         $('.popover').hide();
         $('.span1').val("");
+        if(startId && endId) highlight.clear(startId, endId, 'white')
     });
 
     $('td').mousedown(function(){
-        console.log('element on mousedown', $(this))
         startId = $(this).attr('id');
     });
 
@@ -53,11 +52,10 @@ function runScript(){
         endId = $(this).attr('id');
         var section = setData(startId, endId, '#ceff63');
         var href = window.location.href;
-        data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: href}}
-
+        data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: url()}}
+        console.log('data', data)
         // comment popover appears
-        popOver(e, this)
-        $('.span1').val('');
+        popOver(e, endId) 
 
     });
 
@@ -65,14 +63,14 @@ function runScript(){
     $("td").on('mouseenter', 'button.post-it', function(e){
         popOver(e, this)
     });
-    $('td').on('click', function(){
-        $('.popover').hide();
-        $('.span1').val('');
+    
+    $('td').on('mouseleave', 'button.post-it', function(){
+        $('.popover').on('mouseleave', function(){
+            $('.popover').hide();
+            $('.span1').val('');
+            // if(startId && endId) highlight.clear(startId, endId, 'white')
+        });
     })
-
-    $('#submit').on('click', function(){
-        chrome.runtime.sendMessage({command: 'highlight-data', data: data})
-    });
 
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(

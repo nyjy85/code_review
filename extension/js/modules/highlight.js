@@ -19,6 +19,8 @@ highlight.clear = function(start, end, color){
 		k = $('#'+ id + ' span');
 		k.each(function(i, span){ $(span).css("background-color", color) });
 	});
+	var selection = window.getSelection();
+    selection.removeAllRanges();
 }
 
 

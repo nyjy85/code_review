@@ -37,7 +37,7 @@ function sendHighlightData(data){
 function getHighlightData(id){
    $.ajax({
       type: 'GET',
-      url: 'http://localhost:1337/api/highlighted/getit/'+id,
+      url: 'http://localhost:1337/api/highlighted/'+id,
       success: function(response){
          console.log('YOU GOT THE HIGLIHGT', response);
          returnMessage(response, 'highlight-retrieved');
@@ -68,6 +68,18 @@ function deleteHighlight(id, url){
       }
    })
 
+}
+
+function updateComment(data){
+   console.log('work data', data)
+   $.ajax({
+      type: 'PUT',
+      data: {data: data},
+      url: 'http://localhost:1337/api/highlighted/'+data._id,
+      success: function(response){
+         console.log('successfully updated', response)
+      }
+   })
 }
 
 // for backend
