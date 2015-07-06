@@ -4,17 +4,32 @@
 
 // A generic onclick callback function.
 function onClick(info, tab) {
-  
-  returnMessage("we are inside the content.js" , 'create-CommentBox');
-  // console.log("whats up", info.selectionText)
-  // console.log("item " + info.menuItemId + " was clicked");
-  // console.log("info: " + JSON.stringify(info));
-  // console.log("tab: " + JSON.stringify(tab));
+
+  var colorChoice = info.menuItemId-info.parentMenuItemId-1;
+  var color = colors[colorChoice];
+  returnMessage(color, 'change-color');
+
 }
  
-chrome.contextMenus.create({"title": "Add Comment", "contexts": ["all"], "onclick": onClick});
+var colors = ['#CEFF63','#FC1714','#FFA300', '#FEFF01', '#23CDFE', '#39FF14','#7C6EE6'];
+// var parent = chrome.contextMenus.create({"title": "Add Comment", "contexts": ["all"], "onclick": onClick});
 
+var parent = chrome.contextMenus.create({"title": "Change colors!"});
 
+var defaultColor = chrome.contextMenus.create(
+  {"title": "Default", "parentId": parent, "onclick": onClick});
+var red = chrome.contextMenus.create(
+  {"title": "Draw attention-Red", "parentId": parent, "onclick": onClick});
+var orange = chrome.contextMenus.create(
+  {"title": "Vitamin-C-Orange", "parentId": parent, "onclick": onClick});
+var yellow = chrome.contextMenus.create(
+  {"title": "Loud-Yellow", "parentId": parent, "onclick": onClick});
+var blue = chrome.contextMenus.create(
+  {"title": "Calming-Blue", "parentId": parent, "onclick": onClick});
+var green = chrome.contextMenus.create(
+  {"title": "Balanced-Green", "parentId": parent, "onclick": onClick});
+var violet = chrome.contextMenus.create(
+  {"title": "Express-Violet", "parentId": parent, "onclick": onClick});
 // // Create one test item for each context type.
 // var contexts = ["page","selection","link","editable","image","video",
 //                 "audio"];
@@ -29,8 +44,6 @@ chrome.contextMenus.create({"title": "Add Comment", "contexts": ["all"], "onclic
 
 // // Create a parent item and two children.
 // var parent = chrome.contextMenus.create({"title": "Test parent item"});
-// var child1 = chrome.contextMenus.create(
-//   {"title": "Child 1", "parentId": parent, "onclick": genericOnClick});
 // var child2 = chrome.contextMenus.create(
 //   {"title": "Child 2", "parentId": parent, "onclick": genericOnClick});
 // console.log("parent:" + parent + " child1:" + child1 + " child2:" + child2);
