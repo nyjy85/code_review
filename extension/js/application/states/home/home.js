@@ -74,6 +74,13 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 			// 	contributors = names;
 			// })
 
+
+			//create Repo in the Repo.db if it doesn't exist
+			// popupGitFactory.getARepo(repo.html_url).then(function(res) {
+			// 	console.log('check if there is such repo', res)
+			// })
+
+			//adding repo_id to user.repo array in the User.db
 			var saveRepo = {url: repo.html_url, name: repo.name, contributors: repo.contributors}
 			$scope.user.repos.push(saveRepo);
 			popupGitFactory.editRepo($scope.user).then(function(res) {

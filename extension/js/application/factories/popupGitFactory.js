@@ -54,6 +54,21 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
+        getARepo: function(repoUrl) {
+          console.log('is there such repo? factory', repoUrl)
+          return $http.get(domain + "/api/repo/", {params: repoUrl})
+          .then(function(res){
+            return res.data;
+          })
+        },
+
+        createARepo: function(repo) {
+          return $http.post(domain + "/api/repo", repo)
+          .then(function(res) {
+            return res.data;
+          })
+        },
+
         logout: function() {
           console.log('hitting the factory')
           return $http.get(domain +'/logout').then(function () {

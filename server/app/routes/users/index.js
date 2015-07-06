@@ -43,15 +43,15 @@ router.put('/:username/editRepo', function(req, res, next){
 });
 
 //archive repo
-router.put('/:username/archiveRepo', function(req, res, next){
-	User.findOne({'github.username': req.params.username})
-	.exec()
-	.then(function(user){
-		user.archives = req.body.archives;
-		user.save(function(err, data){
-			console.log('archiveRepo', data)
-			res.send(data)
-		})
-	})
-	.then(null, next)
-});
+// router.put('/:username/archiveRepo', function(req, res, next){
+// 	User.findOne({'github.username': req.params.username})
+// 	.exec()
+// 	.then(function(user){
+// 		user.archives = req.body.archives;
+// 		user.save(function(err, data){
+// 			console.log('archiveRepo', data)
+// 			res.send(data)
+// 		})
+// 	})
+// 	.then(null, next)
+// });
