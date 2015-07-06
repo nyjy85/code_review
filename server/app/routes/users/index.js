@@ -10,6 +10,7 @@ module.exports = router;
 router.get('/:id', function(req, res, next){
 	console.log('inside the get for user', req.params.id)
 	User.findOne({_id: req.params.id})
+	.populate('repos')
 	.exec()
 	.then(function(user){
 		console.log('got them users', user)

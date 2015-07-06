@@ -6,7 +6,7 @@ function reSelect(hl, color){
     setEnd(endId, hl.endNode);
 
     setNewRange(hl, color)
-}
+};
 
 function setNewRange(hl, color){
     var selection = window.getSelection();
