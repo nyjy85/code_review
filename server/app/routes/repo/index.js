@@ -7,22 +7,38 @@ var User = mongoose.model('User');
 module.exports = router;
 
 router.get('/', function(req, res, next){
-	Repo.findOne({url: req.query})
+	console.log('get repo from Repo.db', req.user.populate('repos'))
+	Repo.findOne({url: req.query.url})
 	.populate('files')
 	.exec()
 	.then(function(repo){
-		console.log('this be file yo', repo)
-		res.send(repo)
+		// console.log('this be file yo', repo)
+		if (!repo) {
+			return Repo.create(req.query)
+
+		}
+		else {
+			return repo;
+		}
+	})
+	.then(function(repo){
+		req.user.addRepo(repo, function(err, user){
+			if (err) return next(err);
+
+			if (user) return res.send({repo: repo});
+
+			return res.send({repo: repo, userAlreadyHad: true})
+		})
 	})
 	.then(null, next);
 
 })
 
 
-router.post('/', function(req, res, next){
-	Repo.create(req.body)
-	.then(function(repo){
-		console.log('repo created', repo)
-	})
-	.then(null, next)
-});
+// router.post('/', function(req, res, next){
+// 	Repo.create(req.body)
+// 	.then(function(repo){
+// 		// console.log('repo created', repo)
+// 	})
+// 	.then(null, next)
+// });

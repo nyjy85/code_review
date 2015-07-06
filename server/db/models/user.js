@@ -25,6 +25,20 @@ var schema = new mongoose.Schema({
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
+
+schema.method('addRepo', function(repo, cb) {
+  //access to all users repo
+  if (this.repos.indexOf(repo._id) === -1) {
+    this.repos.push(repo._id);
+    this.save(cb)
+  }
+  else {
+    cb(null, null)
+  }
+
+
+})
+
 var generateSalt = function () {
     return crypto.randomBytes(16).toString('base64');
 };
