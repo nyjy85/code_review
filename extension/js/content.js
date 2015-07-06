@@ -41,7 +41,7 @@ function runScript(){
     });
 
     $(".save-button").on('click', function(e){
-        if(data) postNew();
+        if(data) postNew(endId, data);
         else update();
         $('.popover').hide();
     });
