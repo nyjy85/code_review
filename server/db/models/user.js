@@ -19,7 +19,8 @@ var schema = new mongoose.Schema({
       profileUrl: String,
       username: String
     },
-    repos: [{url: String, name: String}] //for sharing to other users
+    repos: [{url: String, name: String, contributors: [String]}], //for sharing to other users
+    archives: [{url: String, name: String, contributors: [String]}]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

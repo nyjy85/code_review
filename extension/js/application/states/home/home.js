@@ -19,20 +19,20 @@ app.config(function ($stateProvider) {
 	});
 });
 
-
 //add Factory
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
+		$scope.tokenObj = {token: $scope.user.github.token};
 		console.log('current user', $scope.user)
 		$scope.showRepos = $scope.user.repos;
 		$scope.loadRepos();
 	})
 
 	$scope.loadRepos = function () {
-		var tokenObj = {token: $scope.user.github.token};
-		popupGitFactory.getReposToAdd(tokenObj).then(function(repos) {
+		popupGitFactory.getReposToAdd($scope.tokenObj)
+		.then(function(repos) {
 				$scope.reposToAdd = repos;
 		}).catch($log.log.bind($log));
 	}
@@ -54,7 +54,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	}
 
 	$scope.addRepo = function (repo) {
-		console.log('adding repo')
+		console.log('adding repo', repo)
 
 		// checking if repo exist
 		var check;
@@ -67,7 +67,14 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 		// add if repo doesn't exist
 		if (!check) {
-			var saveRepo = {url: repo.html_url, name: repo.name}
+			// var contributors = [];
+			// popupGitFactory.getContributors($scope.tokenObj, repo.contributors_url)
+			// .then(function(names) {
+			// 	console.log('names', names)
+			// 	contributors = names;
+			// })
+
+			var saveRepo = {url: repo.html_url, name: repo.name, contributors: repo.contributors}
 			$scope.user.repos.push(saveRepo);
 			popupGitFactory.editRepo($scope.user).then(function(res) {
 				console.log('added repo', res)
@@ -79,20 +86,71 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	$scope.deleteRepo = function(repo) {
 		console.log('deleting repo')
 
-		$scope.user.repos.forEach(function(userrepo, i) {
-			if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
-		})
-		popupGitFactory.editRepo($scope.user).then(function(res) {
-			console.log('deleted repo', res)
-		})
+		var confirm = $mdDialog.confirm()
+      .parent(angular.element(document.body))
+      .title('Confirm')
+      .content('Would you like to delete this repo?')
+      .ok('Yes!')
+      .cancel('No!');
+
+		$mdDialog.show(confirm).then(function() {
+			//after confirm delete
+			$scope.user.repos.forEach(function(userrepo, i) {
+				if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
+			})
+			popupGitFactory.editRepo($scope.user).then(function(res) {
+				console.log('deleted repo', res)
+			})
+
+    }, function() {
+      console.log('did not delete')
+    });
+
 	}
 
+	$scope.goArchive = function() {
+		$state.go('archive');
+	}
 
-	// $scope.goToRepo = function(repo) {
-	// 	chrome.tabs.create({
-  //       url: repo.url
-  //   });
-	// }
+	$scope.archiveRepo = function(repo) {
+		var confirm = $mdDialog.confirm()
+      .parent(angular.element(document.body))
+      .title('Confirm')
+      .content('Would you like to archive this repo?')
+      .ok('Yes!')
+      .cancel('No!');
+
+		$mdDialog.show(confirm).then(function() {
+			//after confirm to archive
+			//add repo to user.archives
+			$scope.user.archives.push(repo);
+			console.log($scope.user.archives);
+			popupGitFactory.archiveRepo($scope.user).then(function(res) {
+				console.log('archived to db', res)
+			})
+
+			//delete repo from user.repos
+			$scope.user.repos.forEach(function(userrepo, i) {
+				if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
+			})
+			popupGitFactory.editRepo($scope.user).then(function(res) {
+				console.log('deleted repo', res)
+			})
+
+
+    }, function() {
+      console.log('did not arch')
+    });
+
+  // };
+		// $scope.user.repos.forEach(function(userrepo, i){})
+	}
+
+	$scope.goToRepo = function(repo) {
+		chrome.tabs.create({
+        url: repo.url
+    });
+	}
 
 	//list files under a repo
 	$scope.listFiles = function(repo) {
@@ -134,27 +192,5 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
           $log.debug("close LEFT is done");
         });
   };
-
-  //dropdown box for the individual repos, the " ... "
-  var vm = this;
-  vm.notificationsEnabled = true;
-  vm.toggleNotifications = function() {
-    vm.notificationsEnabled = !vm.notificationsEnabled;
-  };
-
-  vm.redial = function(e) {
-    $mdDialog.show(
-      $mdDialog.alert()
-        .title('Suddenly, a redial')
-        .content('You just called someone back. They told you the most amazing story that has ever been told. Have a cookie.')
-        .ok('That was easy')
-    );
-  };
-
-  vm.checkVoicemail = function() {
-    // This never happens.
-  };
-
-
 
 })
