@@ -5,7 +5,10 @@ function reSelect(hl, color){
     setStart(startId, hl.startNode);
     setEnd(endId, hl.endNode);
 
-    //setNewRange(hl)
+    setNewRange(hl, color)
+}
+
+function setNewRange(hl, color){
     var selection = window.getSelection();
     selection.removeAllRanges();
     var newRange = document.createRange();
@@ -18,21 +21,6 @@ function reSelect(hl, color){
     // gets rid of nasty blue line
     selection.removeAllRanges();
 }
-
-// function setNewRange(hl){
-//     var selection = window.getSelection();
-//     selection.removeAllRanges();
-//     var newRange = document.createRange();
-
-//     newRange.setStart(newStartNode, hl.startOffset);
-//     newRange.setEnd(newEndNode, hl.endOffset);
-//     selection.addRange(newRange);
-// }
-
-// function reHighlight(selection){
-//   highlight.set('yellow');
-//   selection.removeAllRanges();
-// }
 
 function getNode(id){
     return document.getElementById(id)
@@ -62,6 +50,22 @@ function setStart(node, text) {
        console.log("getDocument: no document found for node");
    }
 }
+
+// function setNewRange(hl){
+//     var selection = window.getSelection();
+//     selection.removeAllRanges();
+//     var newRange = document.createRange();
+
+//     newRange.setStart(newStartNode, hl.startOffset);
+//     newRange.setEnd(newEndNode, hl.endOffset);
+//     selection.addRange(newRange);
+// }
+
+// function reHighlight(selection){
+//   highlight.set('yellow');
+//   selection.removeAllRanges();
+// }
+
 
 // function setNewRange(startNode, startOffset, endNode, endOffset, newRange){ 
 //     if(startNode.nodeType !==3) startNode = startNode.parentElement;
