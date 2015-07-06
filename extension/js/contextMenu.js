@@ -4,8 +4,8 @@
 
 // A generic onclick callback function.
 function onClick(info, tab) {
-  
-  returnMessage("we are inside the content.js" , 'create-CommentBox');
+  console.log('hellow?', returnMessage)
+  returnMessage('green' , 'change-color');
   // console.log("whats up", info.selectionText)
   // console.log("item " + info.menuItemId + " was clicked");
   // console.log("info: " + JSON.stringify(info));

@@ -6,10 +6,17 @@ $(document).ready(function(){
     }   
 }); 
 
-
 function url(){
     return window.location.href;
 }
+
+chrome.runtime.onMessage.addListener(function(res, sender){
+    if(res.command === 'change-color'){
+        color = res.message;
+    }
+})
+
+var color = '#ceff63';
 
 function runScript(){
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
@@ -51,7 +58,7 @@ function runScript(){
 
     $('td').mouseup(function(e){
         endId = $(this).attr('id');
-        var section = setData(startId, endId, '#ceff63');
+        var section = setData(startId, endId, 'blue');
         var href = window.location.href;
         data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: url()}}
         console.log('data', data)
