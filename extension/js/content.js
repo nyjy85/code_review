@@ -58,7 +58,7 @@ function runScript(){
 
     $('td').mouseup(function(e){
         endId = $(this).attr('id');
-        var section = setData(startId, endId, 'blue');
+        var section = setData(startId, endId, color);
         var href = window.location.href;
         data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: url()}}
         console.log('data', data)
