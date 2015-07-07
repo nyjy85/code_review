@@ -11,10 +11,8 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     $scope.login = {};
     $scope.error = null;
 
-    $scope.userInfo = function(user){
-    	LandingPageFactory.getUserInfo().then(function(response){
-    		console.log("this is in the LANDING controller", response)
-    	})
+    $scope.getFiles = function(url) {
+        console.log('whats uppppssss', url)
+        // LandingPageFactory.listFiles()
     }
-
 });
