@@ -29,8 +29,9 @@ router.post('/', function(req, res, next){
 	.then(null, next)
 });
 
-// add or delete a repo to the user's repo array
+// delete a repo to the user's repo array
 router.put('/:username/editRepo', function(req, res, next){
+
 	User.findOne({'github.username': req.params.username})
 	.exec()
 	.then(function(user){

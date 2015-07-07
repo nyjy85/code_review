@@ -30,14 +30,15 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 
 	$scope.repoName = repo.name;
 
-	popupGitFactory.listFiles(repo).then(function(files){
-		console.log('list files', files)
-		files.forEach(function(file) {
+	popupGitFactory.listFiles(repo).then(function(repo){
+		console.log('list files', repo)
+
+		repo.files.forEach(function(file) {
 			var url = file.fileUrl;
 			var i = url.match(/blob/).index + 5;
 			file.display = url.slice(i);
 		})
-		$scope.filesUnderRepo = files;
+		$scope.filesUnderRepo = repo.files;
 	})
 
 	// $scope.showYourFiles = $scope.user.repos;

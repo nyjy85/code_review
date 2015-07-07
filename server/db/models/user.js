@@ -27,15 +27,14 @@ var schema = new mongoose.Schema({
 // are all used for local authentication security.
 
 schema.method('addRepo', function(repo, cb) {
-  //access to all users repo
+
   if (this.repos.indexOf(repo._id) === -1) {
     this.repos.push(repo._id);
-    this.save(cb)
+    this.save(cb);
   }
   else {
-    cb(null, null)
+    cb(null, null);
   }
-
 
 })
 

@@ -26,19 +26,8 @@
             Logout
           </md-button>
         </md-menu-item>
-        <md-menu-item>
-          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-            <md-icon md-svg-icon="call:voicemail"></md-icon>
-            Settings part 2
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider></md-menu-divider>
-        <md-menu-item>
-          <md-button ng-click="ctrl.toggleNotifications()">
-            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-          </md-button>
-        </md-menu-item>
+        
+
       </md-menu-content>
     </md-menu>
 
@@ -147,19 +136,6 @@
               </md-button>
             </md-menu-item>
 
-            <md-menu-item>
-              <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-                <md-icon md-svg-icon="call:voicemail"></md-icon>
-                Check voicemail
-              </md-button>
-            </md-menu-item>
-            <md-menu-divider></md-menu-divider>
-            <md-menu-item>
-              <md-button ng-click="ctrl.toggleNotifications()">
-                <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-                {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-              </md-button>
-            </md-menu-item>
           </md-menu-content>
         </md-menu>
 
@@ -167,9 +143,5 @@
 
     </md-list-item>
 
-    <!-- <div class="mode">
-      <button>View</button>
-      <!-- <button>Comment</button> -->
-    <!-- </div> -->
 
 </div>

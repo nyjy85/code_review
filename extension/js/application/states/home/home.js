@@ -19,14 +19,12 @@ app.config(function ($stateProvider) {
 	});
 });
 
-//add Factory
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user.user;
 		console.log('user', $scope.user)
 		$scope.tokenObj = {token: $scope.user.github.token};
-		console.log('current user', $scope.user)
 		$scope.showRepos = $scope.user.repos;
 		$scope.loadRepos();
 	})
@@ -57,39 +55,18 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	$scope.addRepo = function (repo) {
 		console.log('adding repo', repo)
 
-		// // checking if repo exist
-		// var check;
-		// $scope.showRepos.forEach(function(current) {
-		// 	if (current.name === repo.name) {
-		// 		check = true;
-		// 		cannotAddBox();
-		// 	}
-		// });
-
-		// add repo if repo doesn't exist in user.db
-		// if (!check) {
-
 			popupGitFactory.getContributors(repo.contributors_url)
 			.then(function(names) {
-				console.log('names', names)
 				repo.contributors = names;
 
 				var saverepo = {name: repo.name, url: repo.html_url, contributors: repo.contributors}
-				console.log(saverepo)
 
 				//create Repo if it doesn't exist in the Repo.db
 				popupGitFactory.repoFindOrInsert(saverepo).then(function(resData) {
 					console.log('check if there is such repo', resData)
 
-
 				})
-
-				// //adding repo_id to user.repo array in the User.db
-				// $scope.user.repos.push(repo._id);
-
 			})
-		// };
-
 	}
 
 	$scope.deleteRepo = function(repo) {
@@ -104,7 +81,9 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 		$mdDialog.show(confirm).then(function() {
 			//after confirm delete
+			console.log('users repo', $scope.user.repos)
 			$scope.user.repos.forEach(function(userrepo, i) {
+				console.log('userrepo in deleterepo!!!', userrepo, repo)
 				if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
 			})
 			popupGitFactory.editRepo($scope.user).then(function(res) {

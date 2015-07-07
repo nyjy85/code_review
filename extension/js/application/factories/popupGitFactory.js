@@ -23,14 +23,13 @@ app.factory('popupGitFactory', function($http) {
           var owner = repoUrl.split('/')[0];
           var repo = repoUrl.split('/')[1];
 
-          console.log('!!!!!',i , repoUrl, owner, repo)
           return $http.get(domain + "/api/git/repos/" + owner + '/' + repo + '/contributors')
           .then(function(res) {
             return res.data;
           })
         },
 
-        //adding or deleting repo from profile
+        //deleting repo from profile
         editRepo: function(user) {
           console.log('addRepoToProfile factory',user.repos)
           var repo = {repo: user.repos}
@@ -51,7 +50,7 @@ app.factory('popupGitFactory', function($http) {
 
         listFiles: function(repo) {
           console.log('list file names under the repo', repo)
-          return $http.get(domain + "/api/file/repo/" + repo.name)
+          return $http.get(domain + "/api/file/repo/all", {params: {url: repo.url}})
           .then(function(res) {
             return res.data;
           })
@@ -75,8 +74,3 @@ app.factory('popupGitFactory', function($http) {
 
     }
 });
-
-
-//extension on
-//tab bar
-//

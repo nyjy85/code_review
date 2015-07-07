@@ -23,6 +23,8 @@ router.get('/', function(req, res, next){
 	})
 	.then(function(repo){
 		req.user.addRepo(repo, function(err, user){
+			console.log('repo', repo)
+			console.log('user', user)
 			if (err) return next(err);
 
 			if (user) return res.send({repo: repo});
@@ -34,6 +36,15 @@ router.get('/', function(req, res, next){
 
 })
 
+//get all
+router.get('/all', function(req, res, next){
+	Repo.findOne({url: req.query.url})
+	.populate('files')
+	.exec()
+	.then(function(repo){
+		res.send(repo);
+	})
+})
 
 // router.post('/', function(req, res, next){
 // 	Repo.create(req.body)
