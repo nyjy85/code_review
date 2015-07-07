@@ -7,17 +7,13 @@ var User = mongoose.model('User');
 module.exports = router;
 
 router.get('/', function(req, res, next){
-	console.log('get repo from Repo.db', req.user.populate('repos'))
 	Repo.findOne({url: req.query.url})
 	.populate('files')
 	.exec()
 	.then(function(repo){
-		// console.log('this be file yo', repo)
 		if (!repo) {
 			return Repo.create(req.query)
-
-		}
-		else {
+		} else {
 			return repo;
 		}
 	})
@@ -36,20 +32,13 @@ router.get('/', function(req, res, next){
 
 })
 
-//get all
-router.get('/all', function(req, res, next){
-	Repo.findOne({url: req.query.url})
-	.populate('files')
-	.exec()
-	.then(function(repo){
-		res.send(repo);
-	})
-})
 
-// router.post('/', function(req, res, next){
-// 	Repo.create(req.body)
-// 	.then(function(repo){
-// 		// console.log('repo created', repo)
-// 	})
-// 	.then(null, next)
-// });
+router.get('/all', function(req, res, next){
+	console.log('JOANNA BANANA!', req.query)
+    Repo.findOne({url: req.query.url})
+    .populate('files')
+    .exec()
+    .then(function(repo){
+        res.send(repo);
+    })
+})

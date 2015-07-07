@@ -28,7 +28,7 @@ router.get('/repos/:owner/:repo/contributors', function(req, res, next){
   var accessToken = req.user.github.token;
   var client = github.client(accessToken);
   var owner = req.params.owner;
-  var repo = req.params.repo;
+  var repo = req.params.repo; 
   var obj = owner + '/' + repo;
 
   client.repo(obj).contributors(function(err, status, body, header) {

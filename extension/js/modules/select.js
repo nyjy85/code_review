@@ -48,7 +48,7 @@ function postIt(endId, data){
     $('.span1').val(data.comment)
 }
 
-function postNew(){
+function postNew(endId, data){
     data.newData.comment = $('.span1').val();
     chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
     postIt(endId, data.newData)

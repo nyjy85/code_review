@@ -29,8 +29,10 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 	})
 
 	$scope.repoName = repo.name;
+	console.log('from the controller is the repo', repo)
 
 	popupGitFactory.listFiles(repo).then(function(repo){
+
 		console.log('list files', repo)
 
 		repo.files.forEach(function(file) {
@@ -40,6 +42,7 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 		})
 		$scope.filesUnderRepo = repo.files;
 	})
+
 
 	// $scope.showYourFiles = $scope.user.repos;
 
