@@ -1,12 +1,11 @@
 $(document).ready(function(){
     console.log('document is ready!');
+    $("#markItUp").markItUp(mySettings);
     // get file with highlight array
     chrome.runtime.sendMessage({command: 'verify', url: url()})
     chrome.runtime.onMessage.addListener(
         function(res, sender){
-            console.log('this be ressss')
             if(res.command === 'verified'){
-                console.log('all the way in the front')
                 runScript(res.message);
             }
         })
@@ -34,7 +33,7 @@ function runScript(repoUrl){
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/><input style="float: right; " type="button" class="btn delete-button pop-button" value="Delete"/></div>';
+    var $popover = '<div class="popover"><textarea id="markItUp" rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/><input style="float: right; " type="button" class="btn delete-button pop-button" value="Delete"/></div>';
     $('body').append($popover);
 
 ///////////////////////////////////////
