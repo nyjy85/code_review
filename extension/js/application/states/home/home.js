@@ -173,9 +173,11 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	$scope.logout = function () {
 		popupGitFactory.logout().then(function(){
 			$state.go('login');
-			chrome.tabs.reload({
-        		url: "http://localhost:1337/home"
-    		});
+			chrome.tabs.query({title: 'Highlight Your World'}, function(tabs){
+				tabs.forEach(function(tab){
+					chrome.tabs.reload(tab.id);
+				})
+			})
 		})
 	}
 

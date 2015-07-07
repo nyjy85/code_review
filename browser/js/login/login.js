@@ -21,7 +21,6 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
 
     $scope.logout = function() {
         AuthService.logout().then(function () {
-           console.log('why')
            $state.go('front');
         });
     }

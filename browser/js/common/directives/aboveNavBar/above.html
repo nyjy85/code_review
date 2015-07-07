@@ -3,7 +3,7 @@
 	<a ng-show="!user" ng-click="gitLogin()" class="welcome-above">Login</a>
         <div ng-show="user" class="welcome-above">
             <span>Welcome, {{ user.github.name }}!</span>
-            <a ng-click="logout()" ui-sref='front'>Logout</a>
+            <a ng-click="logout()">Logout</a>
         </div>
     </div>
 </div>
