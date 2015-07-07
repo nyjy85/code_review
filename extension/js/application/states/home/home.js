@@ -77,8 +77,12 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 				//create Repo if it doesn't exist in the Repo.db + add repo to User.db
 				popupGitFactory.repoFindOrInsert(saverepo).then(function(resData) {
-					if(!resData.userAlreadyHad) $scope.user.repos.push(resData.repo);
+					if(!resData.userAlreadyHad) {
+						$scope.user.repos.push(resData.repo);
+						chromeRefresh();
+					}
 					else cannotAddBox();
+
 				})
 			})
 
