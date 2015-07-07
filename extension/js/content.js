@@ -1,8 +1,7 @@
 $(document).ready(function(){
     console.log('document is ready!');
-    $("#markItUp").markItUp(mySettings);
     // get file with highlight array
-    chrome.runtime.sendMessage({command: 'verify', url: url()})
+    // chrome.runtime.sendMessage({command: 'verify', url: url()})
     chrome.runtime.onMessage.addListener(
         function(res, sender){
             if(res.command === 'verified'){
@@ -26,14 +25,22 @@ chrome.runtime.onMessage.addListener(function(res, sender){
 
 var color = '#ceff63';
 
+var highlighting = false;
 function runScript(repoUrl){
-    console.log('this is repoUrl', repoUrl)
+    document.addEventListener('DOMNodeInserted', function(e) {
+        if (highlighting) {
+            var target = e.target;
+            target.className = 'highlighted'+startId;
+
+        }
+    }, false);
+
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
     var startId, endId, data, comment;
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea id="markItUp" rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/><input style="float: right; " type="button" class="btn delete-button pop-button" value="Delete"/></div>';
+    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/><input style="float: right; " type="button" class="btn delete-button pop-button" value="Delete"/></div>';
     $('body').append($popover);
 
 ///////////////////////////////////////
@@ -52,6 +59,7 @@ function runScript(repoUrl){
     $(".save-button").on('click', function(e){
         if(data) postNew(endId, data);
         else update();
+        // getHighlight()
         $('.popover').hide();
     });
 
@@ -107,6 +115,18 @@ function runScript(repoUrl){
                     reSelect(selection.highlighted, 'yellow');
                     postIt(selection.highlighted.endId, selection);
                 });
+            }
+
+            if(res.command === 'highlight-posted'){
+                console.log('posted new highlight and got it from the back!', res)
+                var id = res.message._id;
+                var hl = res.message.highlighted;
+                // highlight.unhighlight('highlighted'+hl.startId);
+                // reSelect(hl, 'red');
+                postIt(hl.endId, res.message)
+                data = null;
+                // updated the dom with this new highlight ingo
+
             }
 
         }
