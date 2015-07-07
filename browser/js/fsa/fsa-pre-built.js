@@ -97,6 +97,13 @@
             });
         };
 
+        var callbackUrls = {github: "http://localhost:1337/auth/github"};
+
+        this.gitLogin = function() {
+            console.log('does this even get here?')
+            window.location.href = callbackUrls.github;
+        };
+
     });
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {
