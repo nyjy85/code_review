@@ -55,6 +55,8 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		$scope.showNotification = !$scope.showNotification;
 	}
 
+	// $scope.
+
 
 	var cannotAddBox = function () {
 		$mdDialog.show(

@@ -20,7 +20,8 @@ var schema = new mongoose.Schema({
       profileUrl: String,
       username: String
     },
-    repos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Repo'}]
+    repos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Repo'}],
+    notifications: [{type: String, file: {type: mongoose.Schema.Types.ObjectId, ref: 'File'}}]
     // archives: [{url: String, name: String, contributors: [String]}]
 });
 
