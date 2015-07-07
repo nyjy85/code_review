@@ -31,11 +31,12 @@ function popOver(e, ele){
     var top = e.pageY;
     var height = $('.popover').height();
     var data = $(ele).data("data")
+    console.log('YO THIS IS DAAAAATTTTAAA', data)
     $('.popover').show();
     $('.popover').css('left', (left-25) + 'px');
     $('.popover').css('top', (top-(height/2)-107) + 'px');
     // adding comments
-    $('.popover').data("highlight-data", $(ele).data("data"))
+    $('.popover').data("highlight-data", $(ele).data("data"));
     data ? $('.span1').val(data.comment) : $('.span1').val('');
 }
 
@@ -51,12 +52,13 @@ function postIt(endId, data){
 function postNew(endId, data){
     data.newData.comment = $('.span1').val();
     chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
-    postIt(endId, data.newData)
+    // postIt(endId, data.newData)
     data = null;
 }
 
 function update(){
     var updated = $('.popover').data('highlight-data');
+    console.log('this be updated whaaa', updated)
     updated.comment = $('.span1').val();
     updated.url = url();
     chrome.runtime.sendMessage({command: 'update-comment', data: updated})

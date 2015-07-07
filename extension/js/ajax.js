@@ -30,6 +30,7 @@ function sendHighlightData(data){
       data: data,
       success: function(response){
          console.log('POST has been successful!', response);
+         returnMessage(response, 'highlight-posted')
       }
    })
 }

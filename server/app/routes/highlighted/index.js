@@ -47,7 +47,8 @@ router.post('/', function(req, res, next){
 	.then(function(updatedFile){
 		//if you want something to res.send, you can change updatedFile in the static
 		//in the highlight
-		res.send("You made a new file/updated the file model with your highlight info");
+		console.log('POST THIS IS RESPONSE', updatedFile)
+		res.send(updatedFile);
 	})
 });
 
@@ -55,10 +56,13 @@ router.put('/:id', function(req, res, next){
 	var id = req.params.id;
 	var comment = req.body.data.comment;
 	var url = req.body.data.url;
-	Highlight.updateComment(id, comment, url, next)
-	.then(function(response){
-		res.send('You have updated the comments')
+	Highlight.update({_id: id}, {comment: comment})
+	.exec()
+	.then(function(response, glrop){
+		console.log('this is response so send it!', response)
+		res.send(response)
 	})
+	.then(null, next)
 })
 
 
