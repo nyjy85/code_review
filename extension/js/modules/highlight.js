@@ -1,9 +1,11 @@
 var highlight = {};
 
 highlight.set = function(color){
+	highlighting = true;
     document.designMode = "on";
     document.execCommand("BackColor", false, color);
-    document.designMode = 'off';   
+    document.designMode = 'off'; 
+    highlighting = false;  
 }
 
 highlight.clear = function(start, end, color){
@@ -21,6 +23,20 @@ highlight.clear = function(start, end, color){
 	});
 	var selection = window.getSelection();
     selection.removeAllRanges();
+}
+
+highlight.unhighlight = function(className){
+
+    // var highlighted = document.querySelectorAll('.highlighted');
+    console.log('ths be classss', className)
+    var highlighted = $('.'+ className);
+    highlighted.contents().unwrap();
+    // var i = highlighted.length;
+    // while (i--) {
+    //     var node = highlighted[i];
+    //     console.log('this is NODE', node)
+    //     node.parentNode.replaceChild(node.firstChild, node);
+    // }
 }
 
 

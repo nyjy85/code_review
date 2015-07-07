@@ -42,7 +42,7 @@ var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
                 file.highlighted.push(highlight._id);
                 file.save(callback);
             }
-        return;
+        return highlight;
 	}, callback)
 };
 
@@ -62,21 +62,5 @@ var deleteHighlight = function(id, url, callback) {
 };
 
 schema.statics.deleteHighlight = deleteHighlight;
-
-var updateComment = function(id, comment, url, callback){
-    var updateP = this.update({_id: id}, {comment: comment}).exec();
-    var fileP = mongoose.model("File").findOne({fileUrl: url}).exec();
-
-    return Q.all([updateP, fileP]).then(function(results){
-        var highlight = results[0];
-        var file = results[1];
-        var idx = file.highlighted.indexOf(id)
-        file.highlighted[idx] = highlight._id;
-        file.save(callback);
-        return;
-    }, callback)
-}
-
-schema.statics.updateComment = updateComment;
 
 mongoose.model('Highlight', schema);
