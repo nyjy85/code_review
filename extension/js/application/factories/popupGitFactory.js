@@ -67,12 +67,10 @@ app.factory('popupGitFactory', function($http) {
 
         logout: function() {
           console.log('hitting the factory')
-          return $http.get(domain +'/logout').then(function () {
-      			//this needs a logic remap
-            	console.log('logged out');
-      		});
-        }
-
+          return $http.get(domain +'/logout').then(function (res) {
+      			 return "Logged Out";
+    		});
+      }
     }
 });
 

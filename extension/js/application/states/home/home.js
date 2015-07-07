@@ -108,7 +108,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 				if (userrepo._id === repo._id) $scope.user.repos.splice(i,1);
 			})
 			popupGitFactory.editRepo($scope.user).then(function(res) {
-				console.log('deleted repo', res)
+				chromeRefresh();
 			})
 
     });
@@ -171,8 +171,13 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 	//log out
 	$scope.logout = function () {
-		popupGitFactory.logout().then(function(){
+		popupGitFactory.logout().then(function(res){
 			$state.go('login');
+			// chrome.tabs.query({title: 'Highlight Your World'}, function(tabs){
+   //        		tabs.forEach(function(tab){
+   //          	chrome.tabs.sendMessage(tab.id, message: 'logout');
+   //          	})
+   //        	});
 		})
 	}
 
@@ -195,6 +200,14 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
         .then(function () {
           $log.debug("close LEFT is done");
         });
-  };
+  	};
+
+  	function chromeRefresh () {
+  		chrome.tabs.query({title: 'Highlight Your World'}, function(tabs){
+		tabs.forEach(function(tab){
+			chrome.tabs.reload(tab.id);
+			})
+		})
+  	};
 
 })
