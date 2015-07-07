@@ -45,7 +45,6 @@ module.exports = function (app) {
         .populate('repos')
         .exec()
         .then(function(user){
-          console.log('user',user)
           done(null, user);
         }, done)
     });
@@ -54,7 +53,6 @@ module.exports = function (app) {
     // This is used by the browser application (Angular) to determine if a user is
     // logged in already.
     app.get('/session', function (req, res) {
-        console.log('/sesssionnnnn', req.user)
         if (req.user) {
 
             res.send({ user: _.omit(req.user.toJSON(), ['salt', 'password']) });

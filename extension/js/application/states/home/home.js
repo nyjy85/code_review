@@ -22,8 +22,7 @@ app.config(function ($stateProvider) {
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
 
   popupGitFactory.getUserInfo().then(function(user) {
-		$scope.user = user.user;
-		console.log('user', $scope.user)
+		$scope.user = user;
 		$scope.tokenObj = {token: $scope.user.github.token};
 		$scope.showRepos = $scope.user.repos;
 		$scope.loadRepos();
@@ -53,7 +52,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	}
 
 	$scope.addRepo = function (repo) {
-		console.log('adding repo', repo)
 
 			popupGitFactory.getContributors(repo.contributors_url)
 			.then(function(names) {
@@ -61,10 +59,9 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 				var saverepo = {name: repo.name, url: repo.html_url, contributors: repo.contributors}
 
-				//create Repo if it doesn't exist in the Repo.db
+				//create Repo if it doesn't exist in the Repo.db + add repo to User.db
 				popupGitFactory.repoFindOrInsert(saverepo).then(function(resData) {
-					console.log('check if there is such repo', resData)
-
+					if(!resData.userAlreadyHad) $scope.user.repos.push(resData.repo);
 				})
 			})
 	}
@@ -125,8 +122,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
     });
 
-  // };
-		// $scope.user.repos.forEach(function(userrepo, i){})
 	}
 
 	$scope.goToRepo = function(repo) {
