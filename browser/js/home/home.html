@@ -1,10 +1,17 @@
 <section id="home">
     <div class="col-md-2 first">List of repos(?) ---------------------------------------------------------------------------------------
-    	<repos></repos>
+       <p ng-repeat="repo in reposArray" ng-click="getFiles(repo.url)">{{repo.name}}</p>
     </div>
-    <div class='col-md-3 second'>Files(?)-----------------------------------------------------------------------------------------------------------------------------</div>
+    <!-- <h1>{{filesArray}}</h1> -->
+    <div class='col-md-3 second'>Files(?)-----------------------------------------------------------------------------------------------------------------------------
+    	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)"style="word-wrap:break-word;">{{file}}</p>
+    </div>
     <div class='col-md-7'>
-      List of comments(?) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
-      <button ng-click="userInfo()">Click for user info</button>
+      List of comments(?) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+      <p ng-repeat='high in highlight' style="word-wrap:break-word;" ng-show="showHighlight">{{high.comment}}  <a ng-show='showHighlight' ng-click='linkToGitPage()'>Link me to that page!</a></p>
+      
+
+  	</div>
       <!-- gotta figure out how to get access to files, comments and user info here -->
 </section>

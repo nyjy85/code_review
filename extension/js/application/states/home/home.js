@@ -19,25 +19,40 @@ app.config(function ($stateProvider) {
 	});
 });
 
-app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $log, $modal, $mdDialog) {
+app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $timeout, $q, $log, $modal, $mdDialog) {
 
-  popupGitFactory.getUserInfo().then(function(user) {
+  $scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user;
 		$scope.tokenObj = {token: $scope.user.github.token};
 		$scope.showRepos = $scope.user.repos;
-		$scope.loadRepos();
+		return $scope.loadRepos();
 	})
 
 	$scope.loadRepos = function () {
-		popupGitFactory.getReposToAdd($scope.tokenObj)
+		return popupGitFactory.getReposToAdd($scope.tokenObj)
 		.then(function(repos) {
 				$scope.reposToAdd = repos;
-		}).catch($log.log.bind($log));
+				return repos;
+		})
 	}
 
+	$scope.querySearch = function (query) {
+
+		return $scope.reposLoaded.then(function(){
+			return query ? $scope.reposToAdd.filter(filterFn) : $scope.reposToAdd;
+		});
+
+		function filterFn(repo) {
+			return (repo.name.toLowerCase().indexOf(angular.lowercase(query)) === 0);
+		};
+	}
 
 	$scope.toggleAddBar = function () {
 		$scope.showAddBar = !$scope.showAddBar;
+	}
+
+	$scope.toggleNotification = function () {
+		$scope.showNotification = !$scope.showNotification;
 	}
 
 
@@ -52,6 +67,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	}
 
 	$scope.addRepo = function (repo) {
+			$scope.repoSelected = null;
 
 			popupGitFactory.getContributors(repo.contributors_url)
 			.then(function(names) {
@@ -61,10 +77,15 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 				//create Repo if it doesn't exist in the Repo.db + add repo to User.db
 				popupGitFactory.repoFindOrInsert(saverepo).then(function(resData) {
-					if(!resData.userAlreadyHad) $scope.user.repos.push(resData.repo);
+					if(!resData.userAlreadyHad) {
+						$scope.user.repos.push(resData.repo);
+						chromeRefresh();
+					}
 					else cannotAddBox();
+
 				})
 			})
+
 	}
 
 	$scope.deleteRepo = function(repo) {
