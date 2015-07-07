@@ -30,7 +30,7 @@ router.get('/', function(req, res, next){
 	.then(null, next);
 });
 
-
+//api/file/repo/repowhatevers
 // find files by repo
 // :id/file (repo.id)
 router.get('/repo/:repo', function(req, res, next){

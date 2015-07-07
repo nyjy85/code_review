@@ -16,9 +16,9 @@ app.factory('LandingPageFactory', function($http) {
           })
         },
 
-        listFiles: function(repo) {
+        listFiles: function(url) {
           console.log('list file names under the repo', repo)
-          return $http.get(domain + "/api/file/repo/" + repo.name)
+          return $http.get(domain + "/api/repo/all", {params: url})
           .then(function(res) {
             return res.data;
           })

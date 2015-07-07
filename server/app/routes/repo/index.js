@@ -32,6 +32,7 @@ router.get('/', function(req, res, next){
 
 
 router.get('/all', function(req, res, next){
+	console.log('hitting the repo route', req.query)
     Repo.findOne({url: req.query.url})
     .populate('files')
     .exec()

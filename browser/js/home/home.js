@@ -11,8 +11,10 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     $scope.login = {};
     $scope.error = null;
 
+
     $scope.getFiles = function(url) {
         console.log('whats uppppssss', url)
         // LandingPageFactory.listFiles()
+        console.log('lol thats weird', $scope.repos, $scope.files)
     }
 });
