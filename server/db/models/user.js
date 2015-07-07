@@ -1,6 +1,7 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var _ = require('lodash');
 
 var schema = new mongoose.Schema({
     email: {
@@ -27,15 +28,19 @@ var schema = new mongoose.Schema({
 // are all used for local authentication security.
 
 schema.method('addRepo', function(repo, cb) {
-  //access to all users repo
-  if (this.repos.indexOf(repo._id) === -1) {
-    this.repos.push(repo._id);
-    this.save(cb)
-  }
-  else {
-    cb(null, null)
-  }
 
+  var allId = _.pluck(this.repos, "_id")
+
+  allId = allId.map(function(id) {
+    return JSON.stringify(id)
+  })
+
+  if (allId.indexOf(JSON.stringify(repo._id)) === -1) {
+    this.repos.push(repo._id);
+    this.save(cb);
+  } else {
+    cb(null, null);
+  }
 
 })
 

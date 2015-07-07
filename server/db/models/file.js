@@ -14,7 +14,3 @@ var schema = new mongoose.Schema({
 
 
 mongoose.model('File', schema);
-
-//grab the repo name of fileUrl (slice)
-//look for its repo_id in the repo database
-//push repo_id into File db's repo field
