@@ -1,12 +1,10 @@
 $(document).ready(function(){
     console.log('document is ready!');
     // get file with highlight array
-    chrome.runtime.sendMessage({command: 'verify', url: url()})
+    // chrome.runtime.sendMessage({command: 'verify', url: url()})
     chrome.runtime.onMessage.addListener(
         function(res, sender){
-            console.log('this be ressss')
             if(res.command === 'verified'){
-                console.log('all the way in the front')
                 runScript(res.message);
             }
         })
@@ -30,8 +28,16 @@ chrome.runtime.onMessage.addListener(function(res, sender){
 
 var color = '#ceff63';
 
+var highlighting = false;
 function runScript(repoUrl){
-    console.log('this is repoUrl', repoUrl)
+    document.addEventListener('DOMNodeInserted', function(e) {
+        if (highlighting) {
+            var target = e.target;
+            target.className = 'highlighted'+startId;
+
+        }
+    }, false);
+
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
     var startId, endId, data, comment;
 
@@ -56,6 +62,7 @@ function runScript(repoUrl){
     $(".save-button").on('click', function(e){
         if(data) postNew(endId, data);
         else update();
+        // getHighlight()
         $('.popover').hide();
     });
 
@@ -111,6 +118,18 @@ function runScript(repoUrl){
                     reSelect(selection.highlighted, 'yellow');
                     postIt(selection.highlighted.endId, selection);
                 });
+            }
+
+            if(res.command === 'highlight-posted'){
+                console.log('posted new highlight and got it from the back!', res)
+                var id = res.message._id;
+                var hl = res.message.highlighted;
+                // highlight.unhighlight('highlighted'+hl.startId);
+                // reSelect(hl, 'red');
+                postIt(hl.endId, res.message)
+                data = null;
+                // updated the dom with this new highlight ingo
+
             }
 
         }

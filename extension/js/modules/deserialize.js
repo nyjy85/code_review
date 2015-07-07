@@ -1,4 +1,8 @@
 function reSelect(hl, color){
+  //////////
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+  ///////
     var startId = getNode(hl.startId)
     var endId = getNode(hl.endId);
 
