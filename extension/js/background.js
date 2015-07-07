@@ -7,13 +7,12 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	}
 
 	if (req.command === "verify"){
-		chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-			// split get 4th element do repo name check
-	    	var parsedRepo = tab.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
-	    	var repo = parsedRepo.join("");
-	    	console.log('repo depp', repo)
-	    	getRepos(repo);
-		}); 
+		// split get 4th element do repo name check
+		console.log('in background for verification')
+    	var parsedRepo = req.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
+    	var repo = parsedRepo.join("");
+    	console.log('repo depp', repo)
+    	getRepos(repo); 
 	}
 
 	if (req.command === "highlight-data"){

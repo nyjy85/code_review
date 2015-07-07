@@ -51,7 +51,7 @@ app.factory('popupGitFactory', function($http) {
 
         listFiles: function(repo) {
           console.log('list file names under the repo', repo)
-          return $http.get(domain + "/api/file/repo/" + repo.name)
+          return $http.get(domain + "/api/repo/all", {params: repo})
           .then(function(res) {
             return res.data;
           })
