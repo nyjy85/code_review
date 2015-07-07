@@ -22,16 +22,16 @@ router.get('/', function(req, res, next){
 			if (err) return next(err);
 
 			if (user) return res.send({repo: repo});
+			else return res.send({repo: repo, userAlreadyHad: true})
 
-			return res.send({repo: repo, userAlreadyHad: true})
 		})
 	})
 	.then(null, next);
 
 })
 
+
 router.get('/all', function(req, res, next){
-	console.log('JOANNA BANANA!', req.query)
     Repo.findOne({url: req.query.url})
     .populate('files')
     .exec()

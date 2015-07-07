@@ -2,6 +2,7 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var _ = require('lodash');
 
 module.exports = router;
 
@@ -29,14 +30,16 @@ router.post('/', function(req, res, next){
 	.then(null, next)
 });
 
-// add or delete a repo to the user's repo array
+// delete a repo to the user's repo array
 router.put('/:username/editRepo', function(req, res, next){
+
 	User.findOne({'github.username': req.params.username})
 	.exec()
 	.then(function(user){
-		user.repos = req.body.repo;
+		var repoIds = _.pluck(req.body.repo, '_id');
+		user.repos = repoIds;
 		user.save(function(err, data){
-			console.log('editRepo', data)
+			console.log('editRepo', err, data)
 			res.send(data)
 		})
 	})

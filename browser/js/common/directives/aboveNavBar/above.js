@@ -1,20 +1,15 @@
-app.directive('above', function(AuthService){
+app.directive('above', function(AuthService, $rootScope, AUTH_EVENTS, $state){
 
 	return {
 		restrict: 'E',
 		scope: {},
 		templateUrl: 'js/common/directives/aboveNavBar/above.html',
+        controller: 'LoginCtrl',
 		link: function(scope) {
 			scope.user = null;
 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
-            };
-
-            scope.logout = function () {
-                AuthService.logout().then(function () {
-                   $state.go('home');
-                });
             };
 
             var setUser = function () {

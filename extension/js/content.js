@@ -21,6 +21,9 @@ chrome.runtime.onMessage.addListener(function(res, sender){
     if(res.command === 'change-color'){
         color = res.message;
     }
+    if(res.message === 'logout'){
+        console.log('logout is hit in the content.js')
+    }
 })
 
 var color = '#ceff63';
