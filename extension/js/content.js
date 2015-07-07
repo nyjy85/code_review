@@ -1,9 +1,18 @@
 $(document).ready(function(){
     console.log('document is ready!');
     // get file with highlight array
-    if(window.location.href.indexOf("blob") > -1){
-        runScript();
-    }   
+    chrome.runtime.sendMessage({command: 'verify', url: url()})
+    chrome.runtime.onMessage.addListener(
+        function(res, sender){
+            console.log('this be ressss')
+            if(res.command === 'verified'){
+                console.log('all the way in the front')
+                runScript(res.message);
+            }
+        })
+    // if(window.location.href.indexOf("blob") > -1){
+    //     runScript();
+    // }   
 }); 
 
 function url(){
@@ -18,7 +27,8 @@ chrome.runtime.onMessage.addListener(function(res, sender){
 
 var color = '#ceff63';
 
-function runScript(){
+function runScript(repoUrl){
+    console.log('this is repoUrl', repoUrl)
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
     var startId, endId, data, comment;
 
@@ -41,7 +51,7 @@ function runScript(){
     });
 
     $(".save-button").on('click', function(e){
-        if(data) postNew();
+        if(data) postNew(endId, data);
         else update();
         $('.popover').hide();
     });
@@ -60,7 +70,7 @@ function runScript(){
         endId = $(this).attr('id');
         var section = setData(startId, endId, color);
         var href = window.location.href;
-        data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: url()}}
+        data = {newData:{comment: 'joanne', highlighted: section}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
         console.log('data', data)
         // comment popover appears
         popOver(e, endId) 
@@ -83,11 +93,6 @@ function runScript(){
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
         function(res, sender){
-            if (res.command === 'verified'){
-                console.log('message 1!', res.message)
-                $('#LC26').html('<p>THERE IS A MATCH!</p>').css('background-color', 'green');
-            }
-
             if(res.command === 'highlight-retrieved'){
                 console.log('Highlight info from backend', res)
                 var hl = res.message.highlighted;

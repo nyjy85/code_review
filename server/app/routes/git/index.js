@@ -11,7 +11,7 @@ module.exports = router;
 
 //grab all repos of the users
 router.get('/', function(req, res, next){
-  console.log('repoFromGit', req.query)
+  // console.log('repoFromGit', req.query)
   var accessToken = req.query.token;
   var client = github.client(accessToken);
   client.get('/user/repos', {}, function(err, status, body, header) {
@@ -24,33 +24,27 @@ router.get('/', function(req, res, next){
 
 
 // GET /repos/:owner/:repo/contributors
-router.get('/contributors', function(req, res, next){
-  console.log('repo contributor', req.query)
-  // var accessToken = req.query.token;
-  // var client = github.client(accessToken);
-  // var repo = req.params.repo //'codingmeow/meowsic'
-  //
-  // client.repo(repo).contributors(function(err, status, body, header) {
-  //   if (err) return next(err);
-  //
-  //   var contributors = [];
-  //   status.forEach(function(i){
-  //     contributors.push(i.login)
-  //   })
-  //
-  //   res.send(contributors);
-  // })
+router.get('/repos/:owner/:repo/contributors', function(req, res, next){
+  console.log('repo contributor', req.user.github.token)
+
+  var accessToken = req.user.github.token;
+  var client = github.client(accessToken);
+  var owner = req.params.owner;
+  var repo = req.params.repo; 
+  var obj = owner + '/' + repo;
+  console.log('!!!!!',accessToken)
+
+  client.repo(obj).contributors(function(err, status, body, header) {
+    if (err) return next(err);
+
+    console.log('status', status)
+
+    var contributors = [];
+    status.forEach(function(i){
+      contributors.push(i.login)
+    })
+
+    res.send(contributors);
+  })
 
 })
-
-
-
-// var accessToken = '29831d100debca65c503105d2406ec68ccc89ea7';
-// var client = github.client(accessToken);
-// var repo = "eueuleelee/00_Assessment_Practice"
-//
-// client.repo(repo).contributors(function(err, status, body, header) {
-//   if (err) return next(err);
-//
-//   console.log('hello123',status);
-// })
