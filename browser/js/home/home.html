@@ -9,7 +9,8 @@
     <div class='col-md-7'>
       List of comments(?) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-      <p ng-repeat='high in highlight' style="word-wrap:break-word;" ng-show="showHighlight">{{high.comment}}</p>
+      <p ng-repeat='high in highlight' style="word-wrap:break-word;" ng-show="showHighlight">{{high.comment}}  <a ng-show='showHighlight' ng-click='linkToGitPage()'>Link me to that page!</a></p>
+      
 
   	</div>
       <!-- gotta figure out how to get access to files, comments and user info here -->

@@ -28,13 +28,20 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
             
             $scope.filesArray = response.files;
             $scope.highlightArray = response.highlights;
+            $scope.urlArray = response.fileUrls;
         });   
     }
 
     $scope.getHighlights = function(file, index) {
 
         $scope.highlight = $scope.highlightArray[index];
+        $scope.indexOfFile = index;
         $scope.showHighlight = true;
+    };
+
+    $scope.linkToGitPage = function(index){
+        var url = $scope.urlArray[$scope.indexOfFile];
+        LandingPageFactory.linkToGit(url);
     }
 
 });
