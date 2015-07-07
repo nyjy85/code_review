@@ -41,7 +41,7 @@ router.post('/', function(req, res, next){
 	console.log('req.body from da frrronnnt', req.body);
 	var newData = req.body.newData;
 	var fileInfo = req.body.fileInfo;
-	var repoUrl = req.body.url
+	var repoUrl = req.body.repoUrl;
 
 	Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
 	.then(function(updatedFile){
@@ -60,16 +60,6 @@ router.put('/:id', function(req, res, next){
 		res.send('You have updated the comments')
 	})
 })
-
-// for when user makes updates to comment
-router.put('/', function(req, res, next){
-	Highlight.update({commenter: req.body.commenter}, req.body.newData)
-	.exec()
-	.then(function(updated){
-		res.send({message: 'comment successfully updated'})
-	})
-	.then(null, next)
-});
 
 
 router.delete('/:id', function(req, res, next){
