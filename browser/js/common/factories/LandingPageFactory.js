@@ -17,15 +17,20 @@ app.factory('LandingPageFactory', function($http) {
         },
 
         listFiles: function(url) {
-          console.log('list file names under the repo', repo)
-          return $http.get(domain + "/api/repo/all", {params: url})
+          console.log('list file names under the repo')
+          var x = {url: url}
+          return $http.get(domain + "/api/repo/all", {params: x})
           .then(function(res) {
-            return res.data;
-          })
+            return res.data.files;
+          });
+        },
+
+        listHighlights: function(highlightIds){
+
         },
 
         logout: function() {
-          console.log('hitting the factory')
+          console.log('hitting the factory');
           return $http.get(domain +'/logout').then(function () {
       			//this needs a logic remap
             	console.log('logged out');
