@@ -1,5 +1,6 @@
 app.factory('LandingPageFactory', function($http) {
-    var domain = "http://localhost:1337";
+    var domain = "http://localhost:1337", fileUrls, fileNames, highlights,
+    data;
 
     return {
 
@@ -17,11 +18,18 @@ app.factory('LandingPageFactory', function($http) {
         },
 
         listFiles: function(url) {
-          console.log('list file names under the repo')
           var x = {url: url}
           return $http.get(domain + "/api/repo/all", {params: x})
           .then(function(res) {
-            return res.data.files;
+              fileUrls = _.pluck(res.data.files, 'fileUrl');
+              fileNames = fileUrls.map(function(fileurl){
+                return fileurl.split('/').pop();
+            });
+
+            highlights = _.pluck(res.data.files, 'highlighted');
+            data = {files: fileNames, highlights: highlights}
+            
+            return data;
           });
         },
 
@@ -30,7 +38,6 @@ app.factory('LandingPageFactory', function($http) {
         },
 
         logout: function() {
-          console.log('hitting the factory');
           return $http.get(domain +'/logout').then(function () {
       			//this needs a logic remap
             	console.log('logged out');
