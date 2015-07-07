@@ -19,9 +19,9 @@ var schema = new mongoose.Schema({
 
 var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
 
-	var highlightPromise = this.create(newData);
+    var highlightPromise = this.create(newData);
 	var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
-  var repoPromise = mongoose.model('Repo').findOne({url: repoUrl}).exec();
+    var repoPromise = mongoose.model('Repo').findOne({url: repoUrl}).exec();
 
     //return Q.all([highlightPromise, filePromise]).spread(function(highlight, file){
         // var highlight = results[0], file = results[1];
@@ -30,18 +30,16 @@ var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
 		var highlight = results[0], file = results[1], repo = results[2];
 
             if(!file){
-                mongoose.model('File').create(fileInfo).then(function(fileCreated){
-                    repo.files.push(fileCreated._id);
+                mongoose.model('File').create(fileInfo).then(function(file){
+                    repo.files.push(file._id);
                     repo.save(callback);
 
-                    fileCreated.highlighted.push(highlight._id)
-                    fileCreated.save(callback);
+                    file.highlighted.push(highlight._id)
+                    file.save(callback);
                 })
 
             }else{
                 file.highlighted.push(highlight._id);
-                repo.files.push(file._id);
-                repo.save(callback);
                 file.save(callback);
             }
         return;
