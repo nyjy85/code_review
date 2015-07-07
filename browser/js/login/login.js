@@ -1,28 +1,29 @@
-app.config(function ($stateProvider) {
+// app.config(function ($stateProvider) {
 
-    $stateProvider.state('login', {
-        url: '/login',
-        templateUrl: 'js/login/login.html',
-        controller: 'LoginCtrl'
-    });
+//     $stateProvider.state('login', {
+//         url: '/login',
+//         templateUrl: 'js/login/login.html',
+//         controller: 'LoginCtrl'
+//     });
 
-});
+// });
 
 app.controller('LoginCtrl', function ($scope, AuthService, $state) {
 
     $scope.login = {};
     $scope.error = null;
 
-    $scope.sendLogin = function (loginInfo) {
+    $scope.gitLogin = function() {
+        //need to change localhost:1337 to the appropriate domain name after deployment!!!
+        console.log('gitLogin')
+        AuthService.gitLogin();
+    }
 
-        $scope.error = null;
-
-        AuthService.login(loginInfo).then(function () {
-            $state.go('home');
-        }).catch(function () {
-            $scope.error = 'Invalid login credentials.';
+    $scope.logout = function() {
+        AuthService.logout().then(function () {
+           console.log('why')
+           $state.go('front');
         });
-
-    };
+    }
 
 });
