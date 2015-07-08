@@ -69,23 +69,25 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 						commenter = h.comment.commenter,
 						message = h.comment.message;
 
-				var message = {
-					{update: 'newHighlight', display: 'Joe just added 1 new comment on repo(master/app.js) timestamp'},
-					{update: 'newComment', display: 'Joe just responded on repo(master/app.js) timestamp'}
-				}
-
 				notification.repoName = fileUrl.split('/')[5];
 				notification.file = fileUrl.slice(fileUrl.match(/blob/).index + 5);
 
-				if (notification.update === message.update) {
-					notification.display = message.display;
-				}
+				var message = [
+					{update: 'newHighlight', display: commenter+' just added some new comments on '+ notification.repoName + "(" + notification.file + ")"},
+					{update: 'newComment', display: commenter+'just responded on'+ notification.repoName + "(" + notification.file +")"}
+				]
+
+				message.forEach(function(msg) {
+					// if (notification.update === msg.update) {
+					// 	notification.display = message.display;
+					// }
+				})
 
 
 			})
+
 			$scope.notifications = notifications;
 		})
-
 
 	}
 

@@ -40,40 +40,39 @@ router.get('/:user', function(req, res, next){
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
 router.post('/', function(req, res, next){
-	console.log('req.body from da frrronnnt');
+    console.log('req.body from da frrronnnt');
 
-	var newData = req.body.newData;
-	var fileInfo = req.body.fileInfo;
-	var repoUrl = req.body.repoUrl;
+    var newData = req.body.newData;
+    var fileInfo = req.body.fileInfo;
+    var repoUrl = req.body.repoUrl;
 
-	Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
-	.then(function(updatedFile){
-		//if you want something to res.send, you can change updatedFile in the static
-		//in the highlight
-		console.log('POST THIS IS RESPONSE', updatedFile)
+    Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
+    .then(function(updatedFile){
+        //if you want something to res.send, you can change updatedFile in the static
+        //in the highlight
+        console.log('POST THIS IS RESPONSE', updatedFile)
 
-		//sending notifications to user!!!!!!!!!!!!
-		var fileId = updatedFile._id;
-		Repo.findOne({url: repoUrl})
-		.exec()
-		.then(function(repo){
-			repo.contributors.forEach(function(contributor){
-				User.findOne({"github.username": contributor})
-				.exec()
-				.then(function(user){
-					if(user) {
-							user.notifications.push({update: 'newHighlight', highlight: fileId})
-							user.save()
-							console.log('user notification!!!!!',user)
-					}
-				})
-			})
-		})
-
-		res.send(updatedFile);
-	})
-
-	//search all user with that repo
+        //sending notifications to user!!!!!!!!!!!!
+        var fileId = updatedFile._id;
+        Repo.findOne({url: repoUrl})
+        .exec()
+        .then(function(repo){
+            console.log('inside the Repo query!', repo)
+            repo.contributors.forEach(function(contributor){
+                console.log('inside repo.contributors loop', contributor)
+                User.findOne({"github.username": contributor})
+                .exec()
+                .then(function(user){
+                    if(user) {
+                            user.notifications.push({update: 'newHighlight', highlight: fileId})
+                            user.save()
+                            console.log('user notification!!!!!',user)
+                    }
+                })
+            })
+        })
+        res.send(updatedFile);
+    })
 });
 
 router.put('/:id', function(req, res, next){
