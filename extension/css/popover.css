@@ -1,12 +1,15 @@
 .popover {
     position:absolute;
     display:none;
-    background:#fff;
+     background:#fff;
     border: 1px solid #999;
-    padding:10px;
+    /* padding:10px; */
     padding-bottom: 0px;
-    width:auto;
-    box-shadow:0 0 10px rgba(0, 0, 0, .5);
+    width: 300px;
+    box-shadow:0 0 5px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    overflow-y: scroll;
+    height: 200px;
 }
 .popover:after, .popover:before {
     right: 100%;
@@ -45,22 +48,80 @@
     display: block;
 }
 
-.pop-button{
+#pop-button{
     margin-top: 5px;
     margin-bottom:5px;
-    margin-left: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: auto; 
+    padding: 9px 15px; 
+    background: black; 
+    border: 0; 
+    font-size: 14px; 
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 1em;
 }
 
 .cancel-button{
-    padding-left: 5px;
+
+  /* background-color: yellow; */
 }
 
 .delete-button {
-    padding-left: 5px;
+  /* background-color: red */
 }
+.save-button{
+  /* background-color: green; */
+}
+#textarea{
+    width: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.chatbox{
+
+    border-bottom: 1px solid rgba(41, 115, 89, 0.45);
+    border-radius: 3px;
+    padding: 5px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  margin-top: -5px;
+  
+}
+.commenter p{
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: white;
+}
+.commenter{
+  display: block;
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  
+}
+
+
 
 .post-it{
     background-color: red;
     height: 17px;
     width: 10px;
 }
+
+
+
+
+
+
+
+
+
+

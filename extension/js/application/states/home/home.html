@@ -17,6 +17,7 @@
 <!-- Notification -->
       <md-button type="button" class="md-icon-button md-primary" ng-click="toggleNotification()">
         <md-icon md-svg-icon="img/icons/notification.svg"></md-icon>
+        <button>{{notiNum}}</button>
       </md-button>
 
 
@@ -52,7 +53,10 @@
 
   <!-- Notification -------------------------->
   <div ng-if="showNotification">
-    Hello
+    <div ng-repeat="notification in notifications">
+      <p>{{notification.comment[notification.comment.length-1].timestamp}}</p>
+      <p>{{notification.comment[notification.comment.length-1].commenter}} just commented on {{notification.fileUrl}}</p>
+    </div>
   </div>
 
 <!-- Add Repo---------------------------------------------------------- -->
