@@ -5,7 +5,7 @@ function getRepos(url){
    		success: function(response){
    			console.log('response please', response)
    			response.user.repos.forEach(function(repo){
-   				if (repo.url === url) returnMessage(repo.url, 'verified');
+   				if (repo.url === url) returnMessage({user: response.user, url:repo.url}, 'verified');
    			}) 
    			if(!response) console.log('user is not part of this repo')
    		}

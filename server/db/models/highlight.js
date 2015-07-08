@@ -5,15 +5,14 @@ var Q = require('q');
 
 var schema = new mongoose.Schema({
     code: [String], // array of code seperated by newline
-
     comment: [{
-      timestamp: {
-        type: Date,
-        default: Date.now()
-      },
-      commenter: String,
-      message: String}],
-
+        timestamp: {
+            type: Date,
+            default: Date.now()
+        },
+        commenter: String,
+        message: String
+    }],
     highlighted: {
         startId: String,
         endId: String,
@@ -26,6 +25,8 @@ var schema = new mongoose.Schema({
 });
 
 var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
+    console.log('newDATA.comment', newData)
+    newData.comment = [newData.comment];
 
     var highlightPromise = this.create(newData);
 	  var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
