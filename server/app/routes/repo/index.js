@@ -8,13 +8,31 @@ var User = mongoose.model('User');
 module.exports = router;
 
 router.get('/', function(req, res, next){
-	Repo.findOne({url: req.query.url})
+	var query = req.query;
+	// console.log('requser',req.user.github.username )
+
+	if (query.contributors.indexOf(req.user.github.username) === -1) {
+		query.contributors.push(req.user.github.username);
+	};
+
+	console.log('alsdkfjasdfa',query.contributors)
+
+	Repo.findOne({url: query.url})
 	.populate('files')
 	.exec()
 	.then(function(repo){
+		console.log('adding repooooo', repo)
 		if (!repo) {
-			return Repo.create(req.query)
+			return Repo.create(query)
+
 		} else {
+
+			//add contributors to a repo if that repo exist & if contributor is not a current one
+			if (repo.contributors.indexOf(req.user.github.username) === -1) {
+				repo.contributors.push(req.user.github.username);
+				repo.save();
+			};
+
 			return repo;
 		}
 	})

@@ -5,7 +5,7 @@ app.factory('popupGitFactory', function($http) {
 
         getUserInfo: function() {
           return $http.get(domain + "/session").then(function(res){
-            return res.data.user; 
+            return res.data.user;
           });
         },
 
@@ -60,6 +60,13 @@ app.factory('popupGitFactory', function($http) {
           console.log('is there such repo? factory', repo)
           return $http.get(domain + "/api/repo/", {params: repo})
           .then(function(res){
+            return res.data;
+          })
+        },
+
+        getNotification: function(user) {
+          return $http.get(domain + '/api/users/' + user.github.username + '/notifications')
+          .then(function(res) {
             return res.data;
           })
         },
