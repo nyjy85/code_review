@@ -2,6 +2,8 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Highlight = mongoose.model('Highlight');
+var User = mongoose.model('User');
+var Repo = mongoose.model('Repo');
 
 module.exports = router;
 
@@ -23,7 +25,7 @@ router.get('/:id', function(req, res, next){
 	.then(function(highlighted){
 		res.send(highlighted)
 	})
-	.then(null, next) 
+	.then(null, next)
 });
 
 router.get('/:user', function(req, res, next){
@@ -38,7 +40,8 @@ router.get('/:user', function(req, res, next){
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
 router.post('/', function(req, res, next){
-	console.log('req.body from da frrronnnt', req.body);
+	console.log('req.body from da frrronnnt');
+
 	var newData = req.body.newData;
 	var fileInfo = req.body.fileInfo;
 	var repoUrl = req.body.repoUrl;
@@ -48,8 +51,29 @@ router.post('/', function(req, res, next){
 		//if you want something to res.send, you can change updatedFile in the static
 		//in the highlight
 		console.log('POST THIS IS RESPONSE', updatedFile)
+
+		//sending notifications to user!!!!!!!!!!!!
+		var fileId = updatedFile._id;
+		Repo.findOne({url: repoUrl})
+		.exec()
+		.then(function(repo){
+			repo.contributors.forEach(function(contributor){
+				User.findOne({"github.username": contributor})
+				.exec()
+				.then(function(user){
+					if(user) {
+							user.notifications.push(fileId)
+							user.save()
+							console.log('user notification!!!!!',user)
+					}
+				})
+			})
+		})
+
 		res.send(updatedFile);
 	})
+
+	//search all user with that repo
 });
 
 router.put('/:id', function(req, res, next){
@@ -60,6 +84,25 @@ router.put('/:id', function(req, res, next){
 	.exec()
 	.then(function(response, glrop){
 		console.log('this is response so send it!', response)
+
+		//sending notifications to user!!!!!!!!!!!!
+		// var fileId = updatedFile._id;
+		// Repo.findOne({url: repoUrl})
+		// .exec()
+		// .then(function(repo){
+		// 	repo.contributors.forEach(function(contributor){
+		// 		User.findOne({"github.username": contributor})
+		// 		.exec()
+		// 		.then(function(user){
+		// 			if(user) {
+		// 					user.notifications.push(fileId)
+		// 					user.save()
+		// 					console.log('user notification!!!!!',user)
+		// 			}
+		// 		})
+		// 	})
+		// })
+
 		res.send(response)
 	})
 	.then(null, next)

@@ -20,7 +20,13 @@ var schema = new mongoose.Schema({
       profileUrl: String,
       username: String
     },
-    repos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Repo'}]
+    repos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Repo'}],
+    notifications: [{
+      update:
+          {type: String, enum: ['newComment', 'newHighlight']},
+      highlight:
+          {type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}
+      }]
     // archives: [{url: String, name: String, contributors: [String]}]
 });
 

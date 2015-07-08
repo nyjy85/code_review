@@ -46,6 +46,21 @@ router.put('/:username/editRepo', function(req, res, next){
 	.then(null, next)
 });
 
+//notifications
+router.get('/:username/notifications', function(req, res, next){
+	console.log('get notifications', req.params.username)
+	User.findOne({"github.username": req.params.username})
+	.populate('notifications')
+	.populate('commenter')
+	.exec()
+	.then(function(user){
+		// user.notifications = user.notifications.file.populate('notifications');
+		console.log('got them nottiiii', user)
+		res.send(user.notifications)
+	})
+	.then(next, null)
+})
+
 //archive repo
 // router.put('/:username/archiveRepo', function(req, res, next){
 // 	User.findOne({'github.username': req.params.username})
