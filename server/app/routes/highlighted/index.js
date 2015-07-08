@@ -62,7 +62,7 @@ router.post('/', function(req, res, next){
 				.exec()
 				.then(function(user){
 					if(user) {
-							user.notifications.push(fileId)
+							user.notifications.push({update: 'newHighlight', highlight: fileId})
 							user.save()
 							console.log('user notification!!!!!',user)
 					}

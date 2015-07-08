@@ -54,8 +54,8 @@
   <!-- Notification -------------------------->
   <div ng-if="showNotification">
     <div ng-repeat="notification in notifications">
-      <p>{{notification.comment[notification.comment.length-1].timestamp}}</p>
-      <p>{{notification.comment[notification.comment.length-1].commenter}} just commented on {{notification.fileUrl}}</p>
+      <p>{{timestamp}}</p>
+      <p>{{notification.fileUrl}}</p>
     </div>
   </div>
 
