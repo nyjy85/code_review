@@ -2,8 +2,9 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Highlight = mongoose.model('Highlight');
-var Repo = mongoose.model('Repo');
 var User = mongoose.model('User');
+var Repo = mongoose.model('Repo');
+
 module.exports = router;
 
 // gets all highilights. prob won't be necessary
@@ -24,7 +25,7 @@ router.get('/:id', function(req, res, next){
 	.then(function(highlighted){
 		res.send(highlighted)
 	})
-	.then(null, next) 
+	.then(null, next)
 });
 
 router.get('/:user', function(req, res, next){
@@ -87,8 +88,6 @@ router.post('/', function(req, res, next){
         })
         res.send(updatedFile);
     })
-
-    //search all user with that repo
 });
 
 
@@ -100,6 +99,25 @@ router.put('/:id', function(req, res, next){
 	.exec()
 	.then(function(response){
 		console.log('this is response so send it!', response)
+
+		//sending notifications to user!!!!!!!!!!!!
+		// var fileId = updatedFile._id;
+		// Repo.findOne({url: repoUrl})
+		// .exec()
+		// .then(function(repo){
+		// 	repo.contributors.forEach(function(contributor){
+		// 		User.findOne({"github.username": contributor})
+		// 		.exec()
+		// 		.then(function(user){
+		// 			if(user) {
+		// 					user.notifications.push(fileId)
+		// 					user.save()
+		// 					console.log('user notification!!!!!',user)
+		// 			}
+		// 		})
+		// 	})
+		// })
+
 		res.send(response)
 	})
 	.then(null, next)

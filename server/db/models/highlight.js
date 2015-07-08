@@ -5,16 +5,14 @@ var Q = require('q');
 
 var schema = new mongoose.Schema({
     code: [String], // array of code seperated by newline
-    comment:  [
-        {
-            timestamp: {
-                type: Date,
-                default: Date.now()
-            },
-            commenter: String,
-            message: String
-        }
-    ],
+    comment: [{
+        timestamp: {
+            type: Date,
+            default: Date.now()
+        },
+        commenter: String,
+        message: String
+    }],
     highlighted: {
         startId: String,
         endId: String,
@@ -23,7 +21,7 @@ var schema = new mongoose.Schema({
         startOffset: Number,
         endOffset: Number
     },
-    commenter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    fileUrl: String
 });
 
 var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
@@ -31,8 +29,9 @@ var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {
     newData.comment = [newData.comment];
 
     var highlightPromise = this.create(newData);
-	var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
+	  var filePromise = mongoose.model('File').findOne({fileUrl: fileInfo.fileUrl}).exec();
     var repoPromise = mongoose.model('Repo').findOne({url: repoUrl}).exec();
+    // var userPromise = mongoose.model('User').find({github.username: })
 
     //return Q.all([highlightPromise, filePromise]).spread(function(highlight, file){
         // var highlight = results[0], file = results[1];
@@ -73,5 +72,6 @@ var deleteHighlight = function(id, url, callback) {
 };
 
 schema.statics.deleteHighlight = deleteHighlight;
+
 
 mongoose.model('Highlight', schema);

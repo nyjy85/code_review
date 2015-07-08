@@ -25,6 +25,7 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		$scope.user = user;
 		$scope.tokenObj = {token: $scope.user.github.token};
 		$scope.showRepos = $scope.user.repos;
+		$scope.notiNum = $scope.user.notifications.length;
 		return $scope.loadRepos();
 	})
 
@@ -52,9 +53,22 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	}
 
 	$scope.toggleNotification = function () {
+		$scope.notifications();
 		$scope.showNotification = !$scope.showNotification;
 	}
 
+	$scope.notifications = function () {
+		popupGitFactory.getNotification($scope.user)
+		.then(function(notifications) {
+			console.log('notificatiosn!!!!!',notifications)
+			notifications.map(function(notification){
+				// notification.fileUrl.
+				// notification.repoName =
+				// notification.file =
+			})
+			$scope.notifications = notifications;
+		})
+	}
 
 	var cannotAddBox = function () {
 		$mdDialog.show(

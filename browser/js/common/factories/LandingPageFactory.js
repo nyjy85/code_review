@@ -1,4 +1,4 @@
-app.factory('LandingPageFactory', function($http) {
+app.factory('LandingPageFactory', function($http, $window) {
     var domain = "http://localhost:1337", fileUrls, fileNames, highlights,
     data;
 
@@ -21,20 +21,21 @@ app.factory('LandingPageFactory', function($http) {
           var x = {url: url}
           return $http.get(domain + "/api/repo/all", {params: x})
           .then(function(res) {
+              console.log('res in the factory', res)
               fileUrls = _.pluck(res.data.files, 'fileUrl');
               fileNames = fileUrls.map(function(fileurl){
                 return fileurl.split('/').pop();
             });
 
             highlights = _.pluck(res.data.files, 'highlighted');
-            data = {files: fileNames, highlights: highlights}
+            data = {files: fileNames, highlights: highlights, fileUrls: fileUrls};
             
             return data;
           });
         },
 
-        listHighlights: function(highlightIds){
-
+        linkToGit: function(link){
+          $window.open(link);
         },
 
         logout: function() {
