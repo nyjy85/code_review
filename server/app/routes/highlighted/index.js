@@ -39,6 +39,7 @@ router.get('/:user', function(req, res, next){
 
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
+<<<<<<< HEAD
 router.post('/', function(req, res, next){
     console.log('req.body from da frrronnnt');
 
@@ -46,6 +47,30 @@ router.post('/', function(req, res, next){
     var fileInfo = req.body.fileInfo;
     var repoUrl = req.body.repoUrl;
 
+=======
+// router.post('/', function(req, res, next){
+// 	console.log('req.body from da frrronnnt', req.body);
+// 	var newData = req.body.newData;
+// 	var fileInfo = req.body.fileInfo;
+// 	var repoUrl = req.body.repoUrl;
+
+// 	Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
+// 	.then(function(updatedFile){
+// 		//if you want something to res.send, you can change updatedFile in the static
+// 		//in the highlight
+// 		console.log('POST THIS IS RESPONSE', updatedFile)
+// 		res.send(updatedFile);
+// 	})
+// });
+
+router.post('/', function(req, res, next){
+    console.log('req.body from da frrronnnt');
+
+    var newData = req.body.newData;
+    var fileInfo = req.body.fileInfo;
+    var repoUrl = req.body.repoUrl;
+
+>>>>>>> master
     Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
     .then(function(updatedFile){
         //if you want something to res.send, you can change updatedFile in the static
@@ -57,9 +82,15 @@ router.post('/', function(req, res, next){
         Repo.findOne({url: repoUrl})
         .exec()
         .then(function(repo){
+<<<<<<< HEAD
             console.log('inside the Repo query!', repo)
             repo.contributors.forEach(function(contributor){
                 console.log('inside repo.contributors loop', contributor)
+=======
+        	console.log('inside the Repo query!', repo)
+            repo.contributors.forEach(function(contributor){
+            	console.log('inside repo.contributors loop', contributor)
+>>>>>>> master
                 User.findOne({"github.username": contributor})
                 .exec()
                 .then(function(user){
@@ -75,13 +106,14 @@ router.post('/', function(req, res, next){
     })
 });
 
+
 router.put('/:id', function(req, res, next){
 	var id = req.params.id;
 	var comment = req.body.data.comment;
-	var url = req.body.data.url;
+	console.log('THIS IS COMMENT ON TBE BAC', comment)
 	Highlight.update({_id: id}, {comment: comment})
 	.exec()
-	.then(function(response, glrop){
+	.then(function(response){
 		console.log('this is response so send it!', response)
 
 		//sending notifications to user!!!!!!!!!!!!

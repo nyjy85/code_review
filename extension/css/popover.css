@@ -7,6 +7,8 @@
     padding-bottom: 0px;
     width:auto;
     box-shadow:0 0 10px rgba(0, 0, 0, .5);
+    overflow-y: scroll;
+    height: 250px;
 }
 .popover:after, .popover:before {
     right: 100%;
@@ -63,4 +65,14 @@
     background-color: red;
     height: 17px;
     width: 10px;
+}
+
+textarea{
+    margin: 5px;
+    width: 100%;
+}
+.chatbox{
+    border: solid 1px; 
+    width: 100%;
+    padding: 5px;  
 }
