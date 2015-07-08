@@ -39,15 +39,7 @@ router.get('/:user', function(req, res, next){
 
 // make sure to send back the User._id
 // creates a new highlight doc and updates File
-<<<<<<< HEAD
-router.post('/', function(req, res, next){
-    console.log('req.body from da frrronnnt');
 
-    var newData = req.body.newData;
-    var fileInfo = req.body.fileInfo;
-    var repoUrl = req.body.repoUrl;
-
-=======
 // router.post('/', function(req, res, next){
 // 	console.log('req.body from da frrronnnt', req.body);
 // 	var newData = req.body.newData;
@@ -70,7 +62,6 @@ router.post('/', function(req, res, next){
     var fileInfo = req.body.fileInfo;
     var repoUrl = req.body.repoUrl;
 
->>>>>>> master
     Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
     .then(function(updatedFile){
         //if you want something to res.send, you can change updatedFile in the static
@@ -82,15 +73,10 @@ router.post('/', function(req, res, next){
         Repo.findOne({url: repoUrl})
         .exec()
         .then(function(repo){
-<<<<<<< HEAD
-            console.log('inside the Repo query!', repo)
-            repo.contributors.forEach(function(contributor){
-                console.log('inside repo.contributors loop', contributor)
-=======
+
         	console.log('inside the Repo query!', repo)
             repo.contributors.forEach(function(contributor){
             	console.log('inside repo.contributors loop', contributor)
->>>>>>> master
                 User.findOne({"github.username": contributor})
                 .exec()
                 .then(function(user){
