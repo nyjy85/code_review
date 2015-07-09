@@ -9,10 +9,10 @@
     <!-- <h1>{{filesArray}}</h1> -->
     <div class='col-md-3 second'>
     	<div class="list-of-files">Files</div>
-    	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)" id='files-btn'> <md-button>{{file}}</md-button></p>
+    	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)" id='files-btn'> <md-button ng-if="highlightArray.length">{{file}}</md-button></p>
     </div>
     <div class='col-md-7'>
-     	<div class="list-of-comments">List of comments <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" style="fill: grey;" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" style="fill: grey;" size="13"></ng-md-icon> 
+     	<div class="list-of-comments">List of comments <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon> 
      	 </div>
      	
 

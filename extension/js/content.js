@@ -131,6 +131,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
                 postIt.append(hl.endId, res.message)
                 data = null;
                 // updated the dom with this new highlight info
+
             }
 
             if(res.command === 'updated!'){

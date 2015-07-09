@@ -40,12 +40,21 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     };
 
     $scope.deleteComment = function(index){
-        LandingPageFactory.deleteHighlight($scope.highlight[index]._id)
-            .then(function(response){
-                // $scope.highlight = response;
-                console.log(response);
-            });
-        //$scope.codeArray[$scope.indexOfFile][index]
+        var highlightId = $scope.highlight[index]._id;
+        var url = $scope.urlArray[$scope.indexOfFile];
+        var fileUrl = $scope.urlArray[$scope.indexOfFile];
+
+        
+        LandingPageFactory.deleteHighlight(highlightId, url).then(function(){
+            
+            $scope.highlight.splice($scope.highlightArray[index],1);
+            
+            if(!$scope.highlight.length){
+                LandingPageFactory.deleteFile(fileUrl).then(function(){
+                    $scope.filesArray.splice(index,1); 
+                })
+            }
+        });
     };
 
     $scope.linkToGitPage = function(index){

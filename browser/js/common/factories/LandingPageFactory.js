@@ -6,7 +6,7 @@ app.factory('LandingPageFactory', function($http, $window) {
 
         getUserInfo: function() {
           return $http.get(domain + "/session").then(function(res){
-            return res.data; //res.data.user
+            return res.data;
           });
         },
 
@@ -21,26 +21,32 @@ app.factory('LandingPageFactory', function($http, $window) {
           var x = {url: url};
           return $http.get(domain + "/api/repo/all", {params: x})
           .then(function(res) {
-              console.log('res in the factory', res)
+            
               fileUrls = _.pluck(res.data.files, 'fileUrl');
               fileNames = fileUrls.map(function(fileurl){
                 return fileurl.split('/').pop();
               });
 
-            
               highlights = _.pluck(res.data.files, 'highlighted');
-              
               data = {files: fileNames, highlights: highlights, fileUrls: fileUrls};
               
               return data;
           });
         },
 
-        deleteHighlight: function(id){
-          return $http.delete(domain+'/api/highlighted/'+id).then(function(res){
-              // return res.data;
-              console.log("delete highlight in the factoyr", res);
-          })
+        deleteFile: function(url){
+          var x = {url: url};
+          return $http.delete(domain+'/api/file/', {params: x})
+          .then(function(res){
+            console.log('delete file, LandingPagefactory', res);
+          });
+        },
+
+        deleteHighlight: function(id, url){
+          var x = {url: url};
+          return $http.delete(domain+'/api/highlighted/'+id, {params: x}).then(function(res){
+            console.log("deleted highlight, LandingPagefactory", res);
+          });
         },
 
         linkToGit: function(link){

@@ -5,11 +5,15 @@
 }
 
 #repo-btn{
+	outline: none;
+	border: 0px;
 	color: grey;
 }
 
 #files-btn{
 	word-wrap: break-word;
+	outline: none;
+	border: 0px;
 	color: grey;
 }
 
@@ -17,11 +21,15 @@
 	float: right;
 	margin: 0px 3px;
 	padding-top: 15px;
+	outline: none;
+	border: 0px;
 }
 
 #git-circle {
 	float: right;
 	margin-top: 15px;
+	outline: none;
+	border: 0px;
 }
 
 #each-comment{
@@ -59,10 +67,16 @@
 	margin-bottom: 9px;
 	#up-icon{
 		margin-right: 2px;
+		outline: none;
+		border: 0px;
+		fill: grey;
+	}
+	#down-icon{
+		outline: none;
+		border: 0px;
+		fill: grey;
 	}
 }
-
-
 
 v-accordion {
   display: block; }

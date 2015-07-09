@@ -126,10 +126,12 @@ router.put('/:id', function(req, res, next){
 
 router.delete('/:id', function(req, res, next){
 	var id = req.params.id;
-	var url = req.body.url;
+	var url;
+	req.query.url ? url = req.query.url : url = req.body.url;
+
 	Highlight.deleteHighlight(id, url, next)
-	.then(function(updatedFile){
-		console.log('whats up in the route', updatedFile)
-		res.send(updatedFile);
+	.then(function(message){
+		
+		res.send(message);
 	})
 });
