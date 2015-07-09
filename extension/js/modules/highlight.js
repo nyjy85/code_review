@@ -1,11 +1,11 @@
 var highlight = {};
 
 highlight.set = function(color){
-	highlighting = true;
+	// highlighting = true;
     document.designMode = "on";
-    document.execCommand("BackColor", false, color);
+    document.execCommand("hiliteColor", false, color);
     document.designMode = 'off'; 
-    highlighting = false;  
+    // highlighting = false;  
 }
 
 highlight.clear = function(start, end, color){
@@ -25,21 +25,26 @@ highlight.clear = function(start, end, color){
     selection.removeAllRanges();
 }
 
-highlight.unhighlight = function(className){
-
-    // var highlighted = document.querySelectorAll('.highlighted');
-    console.log('ths be classss', className)
-    var highlighted = $('.'+ className);
-    highlighted.contents().unwrap();
-    // var i = highlighted.length;
-    // while (i--) {
-    //     var node = highlighted[i];
-    //     console.log('this is NODE', node)
-    //     node.parentNode.replaceChild(node.firstChild, node);
-    // }
+highlight.undo = function(section){
+    document.designMode = 'on';
+    var sel = window.getSelection();
+    restoreRange(section)
+    section = null;
+    document.execCommand('removeFormat', false, null)
+    sel.removeAllRanges();
+    document.designMode = 'off';
 }
 
+function restoreRange(section) {
+    var range = document.createRange();
+    console.log('this be section data in restorerange', section)
+    range.setStart(section.startContainer, section.startOffset);
+    range.setEnd(section.endContainer, section.endOffset);
 
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
 
 // highlight.restorerange = function(ele){
 //     var selection = window.getSelection();
