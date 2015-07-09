@@ -86,8 +86,10 @@
 .chatbox{
 
     border-bottom: 1px solid rgba(41, 115, 89, 0.45);
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     padding: 5px;
+    padding-left: 0;
+    padding-right: 0;
     /*width: 90%;*/
     margin-left: auto;
     margin-right: auto;
@@ -95,10 +97,11 @@
   
 }
 .commenter p{
-  text-align: center;
+  /*text-align: center;*/
   margin-top: 0;
   margin-bottom: 0;
   color: white;
+  margin-left: 5px;
 }
 .commenter{
   display: block;
@@ -107,10 +110,14 @@
   /*margin-left: auto;*/
   /*margin-right: auto;*/
   width: 50%;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
   
 }
 
-
+.msg {
+    padding-left: 5px;
+}
 
 .post-it{
     background-color: red;
