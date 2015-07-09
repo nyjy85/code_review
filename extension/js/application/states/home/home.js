@@ -20,6 +20,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $timeout, $q, $log, $modal, $mdDialog) {
+	
 
   $scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user;

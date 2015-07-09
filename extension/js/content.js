@@ -23,6 +23,7 @@ var color = '#ceff63';
 var highlighting = false;
 
 function runScript(repoUrl, user){
+chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
 
     console.log('hit runScript', repoUrl, user)
 
@@ -132,6 +133,10 @@ function runScript(repoUrl, user){
                 postIt.append(hl.endId, res.message)
                 data = null;
                 // updated the dom with this new highlight info
+            }
+
+            if(res.command === 'updated!'){
+                console.log('comment appended!!!', res.message)
             }
 
             if(res.command === 'change-color'){
