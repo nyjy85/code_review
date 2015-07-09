@@ -15,7 +15,8 @@
   "permissions": [
         "tabs",
         "notifications",
-        "contextMenus"
+        "contextMenus",
+        "fontSettings"
     ],
     "icons": {
       "16": "bear.png"

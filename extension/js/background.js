@@ -1,10 +1,14 @@
 //listens for event from content.js.  this is the purpose of background.js
 // it will be a bunch of if statements that will check for the command and do something on that command
- chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-        console.log('change!', tab.url);
-        chrome.runtime.sendMessage({command: 'verify', url: tab.url})
-    })
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+    console.log('change!', tab.url);
+    chrome.runtime.sendMessage({command: 'verify', url: tab.url})
+})
 chrome.runtime.onMessage.addListener(function(req, sender){
+ 	if (req.command === 'notification') {
+        chrome.browserAction.setBadgeText({text: req.len});
+    }
 
   if (req.command === 'notification') {
       chrome.browserAction.setBadgeText({text: req.message.toString()});
@@ -44,6 +48,8 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 		updateComment(req.data);
 	}
 })
+
+
 
 function returnMessage(msg, cmd){
    chrome.tabs.getSelected(null, function(tab){
