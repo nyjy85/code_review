@@ -20,7 +20,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $timeout, $q, $log, $modal, $mdDialog) {
-	
+
 
 	$scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user;
@@ -60,31 +60,24 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	$scope.notifications = function () {
 		popupGitFactory.getNotification($scope.user)
 		.then(function(notifications) {
-			notifications.map(function(notification){
 
-				var h = notification.highlight;
-			  var fileUrl = h.fileUrl;
-				var c = h.comment[h.comment.length - 1]; //array
-
-				var	timestamp = c.timestamp;
-				var commenter = c.commenter;
-				// var message = c.message;
-
-				console.log('notificatiosn!!!!!', c, timestamp, commenter)
-
+			//-----------------------------
+			notifications.map(function(n){
+				console.log('notificatiosn!!!!!')
+				var fileUrl = n.fileUrl;
 				var url = fileUrl.split('/');
-				notification.repoName = url[4];
-				notification.file = url[url.length-2] + '/' + url[url.length-1];
+				n.repoName = url[4];
+				n.file = url[url.length-2] + '/' + url[url.length-1];
+				// n.line.splice(0,2);
 
 				var message = [
-					{update: 'newHighlight', display: commenter+' just added a new comment on '+ notification.repoName + "(" + notification.file + ")"},
-					{update: 'newComment', display: commenter+' just responded on'+ notification.repoName + "(" + notification.file +")"}
+					{update: 'newHighlight', display: n.commenter+' just added ' + n.number + ' new comments on '+ n.repoName + "(" + n.file + ")"},
+					{update: 'newComment', display: n.commenter + ' just added '+ n.number + ' responses on ' + n.repoName + "(" + n.file +")"+' on line '+ n.line}
 				]
 
 				message.forEach(function(msg) {
-					if (notification.update === msg.update) {
-						notification.timestamp = timestamp;
-						notification.display = msg.display;
+					if (n.update === msg.update) {
+						n.display = msg.display;
 					}
 				})
 			})

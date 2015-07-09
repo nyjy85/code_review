@@ -22,12 +22,13 @@ var schema = new mongoose.Schema({
     },
     repos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Repo'}],
     notifications: [{
-      update:
-          {type: String, enum: ['newComment', 'newHighlight']},
-      highlight:
-          {type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'},
-      index: Number
-      }]
+      update: {type: String, enum: ['newComment', 'newHighlight']},
+      number: Number,
+      commenter: String,
+      timestamp: Date,
+      fileUrl: String,
+      line: String
+    }]
     // archives: [{url: String, name: String, contributors: [String]}]
 });
 
