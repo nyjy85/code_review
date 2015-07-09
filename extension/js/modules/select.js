@@ -8,10 +8,13 @@ function Events(startId, endId, color){
     this.endNode;
     this.endOffset;
     this.section;
+    this.code;
 }
 
 Events.prototype.createData = function(){
     this.selection = window.getSelection();
+    this.code = this.selection.toString();
+    console.log('THIS IS THE SELECTION CODE!', this.code)
     var range = this.selection.getRangeAt(0);
 
     this.startNode = range.startContainer.textContent;
@@ -59,7 +62,7 @@ popOver.bindData = function(data){
     var popData = $('.popover').data("highlight-data");
     popData.comment.forEach(function(comment){
         console.log('THIS IS COMMENT', comment)
-        $('.popover').prepend('<div class="chatbox">'+comment.message+'</div>');
+        $('.popover').prepend('<div class="chatbox"><div class="commenter"><p>'+comment.commenter+'</p></div><div class="msg">'+comment.message+'</div></div>');
     }); 
 }
 

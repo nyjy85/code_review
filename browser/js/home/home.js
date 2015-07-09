@@ -40,8 +40,11 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     };
 
     $scope.linkToGitPage = function(index){
+        // var startId = $scope.highlightArray[$scope.indexOfFile][index].highlighted.startId;
         var url = $scope.urlArray[$scope.indexOfFile];
         LandingPageFactory.linkToGit(url);
     }
 
 });
+
+
