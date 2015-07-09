@@ -25,18 +25,20 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
         $scope.showHighlight = false;
         console.log('whats uppppssss', url)
         LandingPageFactory.listFiles(url).then(function(response){
-            
+            console.log('WWYYYYHYYYYYYYYYY', response)
             $scope.filesArray = response.files;
-            $scope.highlightArray = response.highlights;
             $scope.urlArray = response.fileUrls;
+            $scope.commentsArray = response.comments;
+            $scope.highlightArray = response.highlights;
         });   
     }
 
     $scope.getHighlights = function(file, index) {
 
         $scope.highlight = $scope.highlightArray[index];
+        console.log('in the gethighlhts', $scope.highlight)
         $scope.indexOfFile = index;
-        $scope.showHighlight = true;
+        $scope.showHighlight = true; 
     };
 
     $scope.linkToGitPage = function(index){

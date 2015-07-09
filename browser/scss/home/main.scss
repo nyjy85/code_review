@@ -25,7 +25,18 @@
 }
 
 #each-comment{
-	margin-left: 15px;
+	margin-left: 10px;
+}
+
+#each-person{
+	font-size: 15px;
+	margin-left: 10px;
+	font-weight: 300;
+}
+
+#each-code{
+	color: black;
+	background-color: mediumaquamarine;
 }
 
 .list-of-repos {

@@ -1,6 +1,6 @@
 app.factory('LandingPageFactory', function($http, $window) {
     var domain = "http://localhost:1337", fileUrls, fileNames, highlights,
-    data;
+    data, code;
 
     return {
 
@@ -27,9 +27,15 @@ app.factory('LandingPageFactory', function($http, $window) {
                 return fileurl.split('/').pop();
             });
 
-            highlights = _.pluck(res.data.files, 'highlighted');
-            data = {files: fileNames, highlights: highlights, fileUrls: fileUrls};
             
+            highlights = _.pluck(res.data.files, 'highlighted');
+            code = highlights.map(function(highlight){
+               return _.pluck(highlight, 'code')
+            });
+
+            data = {files: fileNames, highlights: highlights, code: code, fileUrls: fileUrls};
+            
+                
             return data;
           });
         },
@@ -46,4 +52,6 @@ app.factory('LandingPageFactory', function($http, $window) {
         }
 
     }
+
+
 });
