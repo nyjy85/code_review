@@ -27,24 +27,26 @@ function url(){
 
 var color = '#ceff63';
 
-var highlighting = false;
-
 function runScript(repoUrl, user){
 chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
 
 
     console.log('hit runScript', repoUrl, user)
 
-    document.addEventListener('DOMNodeInserted', function(e) {
-        if (highlighting) {
-            var target = e.target;
-            target.className = 'highlighted'+startId;
-        }
-    }, false);
+// <<<<<<< HEAD
+//     document.addEventListener('DOMNodeInserted', function(e) {
+//         if (highlighting) {
+//             var target = e.target;
+//             target.className = 'highlighted'+startId;
+//         }
+//     }, false);
+//
+//     // chrome.runtime.sendMessage({command: 'get-file', url: url()});
+// =======
+    chrome.runtime.sendMessage({command: 'get-file', url: url()});
 
-    // chrome.runtime.sendMessage({command: 'get-file', url: url()});
     // INITIALIZE VARIABLES
-    var startId, endId, data, comment;
+    var startId, endId, data, comment, section;
 
 //////////////////////////// box popover
 
@@ -57,7 +59,10 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
         console.log('the parent of delete button', $(this).parent())
         var id = $(this).parent().data("highlight-data")._id
         var data = $(this).parent().data("highlight-data").highlighted;
+        console.log('THE DATA BEFORE THE DEL', data)
         highlight.clear(data.startId, data.endId, 'white')
+        // serialize the text data
+        // call highlight.undo
         // clears text area
         $('.span1').val('');
         $('.popover').hide();
@@ -66,7 +71,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     });
 
     $(".save-button").on('click', function(e){
-        $('.popover').prepend('<div class="chatbox">'+$('.span1').val()+'</div>');
+        // $('.popover').prepend('<div class="chatbox">'+$('.span1').val()+'</div>');
         if(data) Comment.postNew(endId, data, user);
         else Comment.update(user);
         // getHighlight()
@@ -76,7 +81,10 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     $(".cancel-button").on('click', function(e){
         $('.popover').hide();
         $('.span1').val("");
-        if(startId && endId) highlight.clear(startId, endId, 'white')
+        // if(startId && endId) highlight.clear(startId, endId, 'white')
+         // use serialized variable to toggleHilite()
+        highlight.undo(section);
+
     });
 
     $('td').mousedown(function(){
@@ -85,12 +93,12 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
 
     $('td').mouseup(function(e){
         endId = $(this).attr('id');
-        var section = new Events(startId, endId, color);
-        serialized = section.createData().setColor().setData().section;
+        section = new Events(startId, endId, color);
+        var serialized = section.createData().setColor().setData().section;
 
         var code = section.code;
         code = code.split('\n');
-
+        // cache data
         data = {newData:{highlighted: serialized, code: code}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
         console.log('data', data)
         // comment popover appears
@@ -105,6 +113,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
 
     $('td').on('mouseleave', 'button.post-it', function(){
         $('.popover').on('mouseleave', function(){
+            // if(!$('.span1').val()) highlight.undo(section)
             $('.popover').children('div').remove('.chatbox');
             $('.popover').hide();
             $('.span1').val('');

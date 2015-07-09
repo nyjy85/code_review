@@ -4,6 +4,8 @@ function Events(startId, endId, color){
     this.color = color;
     this.selection;
     this.startNode;
+    this.startContainer;
+    this.endContainer;
     this.startOffset;
     this.endNode;
     this.endOffset;
@@ -14,19 +16,20 @@ function Events(startId, endId, color){
 Events.prototype.createData = function(){
     this.selection = window.getSelection();
     this.code = this.selection.toString();
-    console.log('THIS IS THE SELECTION CODE!', this.code)
     var range = this.selection.getRangeAt(0);
 
     this.startNode = range.startContainer.textContent;
+    this.startContainer = range.startContainer;
     this.startOffset = range.startOffset;
 
     this.endNode = range.endContainer.textContent;
+    this.endContainer = range.endContainer;
     this.endOffset = range.endOffset;
     return this;
 }
 Events.prototype.setColor = function(){
     highlight.set(this.color);
-    this.selection.removeAllRanges();
+    // this.selection.removeAllRanges();
     return this;
 }
 
@@ -44,6 +47,7 @@ Events.prototype.setData = function(){
 
 var popOver = {};
 popOver.show = function(e, ele, noComment){
+    $('.popover').children('div').remove('.chatbox')
     var left = e.pageX, top = e.pageY;
     var height = $('.popover').height();
     // grabs button data
