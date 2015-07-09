@@ -9,7 +9,7 @@ $(document).ready(function(){
                 runScript(res.message.url, res.message.user);
             }
 
-            chrome.runtime.sendMessage({command: 'notification', message: res.message.user.notifications.length })
+            // chrome.runtime.sendMessage({command: 'notification', message: res.message.user.notifications.length })
 
         })
     // if(window.location.href.indexOf("blob") > -1){
