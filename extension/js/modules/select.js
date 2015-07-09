@@ -44,6 +44,7 @@ Events.prototype.setData = function(){
 
 var popOver = {};
 popOver.show = function(e, ele, noComment){
+    $('.popover').children('div').remove('.chatbox')
     var left = e.pageX, top = e.pageY;
     var height = $('.popover').height();
     // grabs button data
