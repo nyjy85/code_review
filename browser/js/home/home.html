@@ -6,7 +6,7 @@
 
 <!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon> 
  -->
-    <!-- <h1>{{filesArray}}</h1> -->
+
     <div class='col-md-3 second'>
     	<div class="list-of-files">Files</div>
     	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)" id='files-btn'> <md-button ng-if="highlightArray.length">{{file}}</md-button></p>
@@ -29,42 +29,18 @@
     </v-pane-header>
 
     <v-pane-content>
-   	    <!-- <span id="each-person">{{high.comment[0].commenter}}:</span>
-        <span id="each-comment">{{high.comment[0].message}}</span> -->
-
-      <!-- accordions can be nested :) -->
       <v-accordion>
         <v-pane ng-repeat="subcomments in high.comment">
           <v-pane-header>
             	{{high.comment[$index].commenter}}: {{ high.comment[$index].message}}
           </v-pane-header>
-          <v-pane-content>
-            	
-          </v-pane-content>
-        </v-pane>
-      </v-accordion>
+          		<v-pane-content>
+            		{{high.comment[$index].timestamp}}
+          		</v-pane-content>
+        	</v-pane>
+      	</v-accordion>
     </v-pane-content>
-  </v-pane>
-
-</v-accordion>
-
-
- <!--  <div ng-repeat='high in highlight track by $index' style="word-wrap:break-word;" ng-show="showHighlight"> <div id='blah'>{{high.comment}}</div> 
-
-        <ng-md-icon icon="delete" style="fill: grey" size="20"></ng-md-icon> 
-        <ng-md-icon icon='github-circle' style='fill: black' size='20' ng-click='linkToGitPage($index)'>  </ng-md-icon> 
-          
-    </div> -->
-
-	    <!-- <md-list>
-	  <md-list-item ng-repeat='high in highlight track by $index' style="word-wrap:break-word;" ng-show="showHighlight">
-	          {{high.comment}} <ng-md-icon icon="delete" style="fill: grey" size="20"></ng-md-icon> 
-	        <ng-md-icon icon='github-circle' style='fill: black' size='20' ng-click='linkToGitPage($index)'>  </ng-md-icon> 
-	  </md-list-item>
-	</md-list> -->
-
-
-</div>
-  	</div>
-      <!-- gotta figure out how to get access to files, comments and user info here -->
+  			</v-pane>
+		</v-accordion>
+	</div>
 </section>

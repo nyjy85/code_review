@@ -19,16 +19,13 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
         })
       })   
 
-
-
     $scope.getFiles = function(url) {
         $scope.showHighlight = false;
-        console.log('whats uppppssss', url)
         LandingPageFactory.listFiles(url).then(function(response){
-            console.log("WHYYYYYYY", response)
             $scope.filesArray = response.files;
             $scope.urlArray = response.fileUrls;
             $scope.highlightArray = response.highlights;
+            console.log('resource', x)
         });   
     };
 
@@ -42,15 +39,11 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     $scope.deleteComment = function(index){
         var highlightId = $scope.highlight[index]._id;
         var url = $scope.urlArray[$scope.indexOfFile];
-        var fileUrl = $scope.urlArray[$scope.indexOfFile];
 
-        
         LandingPageFactory.deleteHighlight(highlightId, url).then(function(){
-            
             $scope.highlight.splice($scope.highlightArray[index],1);
-            
             if(!$scope.highlight.length){
-                LandingPageFactory.deleteFile(fileUrl).then(function(){
+                LandingPageFactory.deleteFile(url).then(function(){
                     $scope.filesArray.splice(index,1); 
                 })
             }
@@ -58,7 +51,6 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
     };
 
     $scope.linkToGitPage = function(index){
-        // var startId = $scope.highlightArray[$scope.indexOfFile][index].highlighted.startId;
         var url = $scope.urlArray[$scope.indexOfFile];
         LandingPageFactory.linkToGit(url);
     }
