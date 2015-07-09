@@ -68,7 +68,7 @@ popOver.bindData = function(data){
 
 var Comment = {};
 Comment.postNew = function(endId, data, user){
-    data.newData.comment = {message: $('.span1').val(), commenter: user.github.username};
+    data.newData.comment = {commenter: user.github.username, message: $('.span1').val()};
     console.log('postNew data', data)
     chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
     // postIt(endId, data.newData)
@@ -77,6 +77,7 @@ Comment.postNew = function(endId, data, user){
 Comment.update = function(user){
     var updated = $('.popover').data('highlight-data');
     console.log('this be updated whaaa', updated)
+    // updated.comment.push({message: $('.span1').val(), commenter: user.github.username});
     updated.comment.push({message: $('.span1').val(), commenter: user.github.username});
     updated.url = url();
     console.log('updated Data', updated)

@@ -79,6 +79,7 @@ function updateComment(data){
       url: 'http://localhost:1337/api/highlighted/'+data._id,
       success: function(response){
          console.log('successfully updated', response)
+         returnMessage(response, 'updated!')
       }
    })
 }

@@ -1,4 +1,5 @@
 .popover {
+/*    font-family: 'Open Sans', sans-serif;*/
     position:absolute;
     display:none;
      background:#fff;
@@ -87,7 +88,7 @@
     border-bottom: 1px solid rgba(41, 115, 89, 0.45);
     border-radius: 3px;
     padding: 5px;
-    width: 90%;
+    /*width: 90%;*/
     margin-left: auto;
     margin-right: auto;
   margin-top: -5px;
@@ -101,9 +102,10 @@
 }
 .commenter{
   display: block;
-  background-color: black;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: rgba(41, 115, 89, 0.45);
+  border-radius: 3px;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
   width: 50%;
   
 }

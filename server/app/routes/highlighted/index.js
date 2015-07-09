@@ -93,9 +93,9 @@ router.post('/', function(req, res, next){
 
 router.put('/:id', function(req, res, next){
 	var id = req.params.id;
-	var comment = req.body.data.comment;
+	var comment = req.body.data.comment.pop();
 	console.log('THIS IS COMMENT ON TBE BAC', comment)
-	Highlight.update({_id: id}, {comment: comment})
+	Highlight.update({_id: id}, {$push: {comment: comment}})
 	.exec()
 	.then(function(response){
 		console.log('this is response so send it!', response)
