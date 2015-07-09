@@ -14,7 +14,8 @@
   },
   "permissions": [
         "tabs",
-        "contextMenus"
+        "contextMenus",
+        "fontSettings"
     ],
     "icons": {
       "16": "bear.png"
