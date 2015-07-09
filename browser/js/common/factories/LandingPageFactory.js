@@ -18,7 +18,7 @@ app.factory('LandingPageFactory', function($http, $window) {
         },
 
         listFiles: function(url) {
-          var x = {url: url}
+          var x = {url: url};
           return $http.get(domain + "/api/repo/all", {params: x})
           .then(function(res) {
               console.log('res in the factory', res)
