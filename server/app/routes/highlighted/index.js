@@ -129,6 +129,7 @@ router.delete('/:id', function(req, res, next){
 	var url = req.body.url;
 	Highlight.deleteHighlight(id, url, next)
 	.then(function(updatedFile){
-		res.send('You have removed the highlight from the file');
+		console.log('whats up in the route', updatedFile)
+		res.send(updatedFile);
 	})
 });

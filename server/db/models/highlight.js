@@ -65,9 +65,10 @@ var deleteHighlight = function(id, url, callback) {
 
     return Q.all([removeHighlightPromise, filePromise]).then(function(results){
         var file = results[1];
-            file.highlighted.splice(file.highlighted.indexOf(id),1);
-            file.save(callback);
-        return;
+        file.highlighted.splice(file.highlighted.indexOf(id),1);
+        file.save(callback);
+            console.log('the other train', file);
+        return file;
     }, callback)
 };
 

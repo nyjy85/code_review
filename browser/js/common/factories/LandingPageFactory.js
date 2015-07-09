@@ -1,6 +1,6 @@
 app.factory('LandingPageFactory', function($http, $window) {
     var domain = "http://localhost:1337", fileUrls, fileNames, highlights,
-    data, code;
+    data;
 
     return {
 
@@ -25,19 +25,22 @@ app.factory('LandingPageFactory', function($http, $window) {
               fileUrls = _.pluck(res.data.files, 'fileUrl');
               fileNames = fileUrls.map(function(fileurl){
                 return fileurl.split('/').pop();
-            });
+              });
 
             
-            highlights = _.pluck(res.data.files, 'highlighted');
-            code = highlights.map(function(highlight){
-               return _.pluck(highlight, 'code')
-            });
-
-            data = {files: fileNames, highlights: highlights, code: code, fileUrls: fileUrls};
-            
-                
-            return data;
+              highlights = _.pluck(res.data.files, 'highlighted');
+              
+              data = {files: fileNames, highlights: highlights, fileUrls: fileUrls};
+              
+              return data;
           });
+        },
+
+        deleteHighlight: function(id){
+          return $http.delete(domain+'/api/highlighted/'+id).then(function(res){
+              // return res.data;
+              console.log("delete highlight in the factoyr", res);
+          })
         },
 
         linkToGit: function(link){
