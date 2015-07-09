@@ -1,17 +1,66 @@
 <section id="home">
-    <div class="col-md-2 first">List of repos(?) ---------------------------------------------------------------------------------------
-       <p ng-repeat="repo in reposArray" ng-click="getFiles(repo.url)">{{repo.name}}</p>
+    <div class="col-md-2 first" style='height: 700px'>
+    	<div class="list-of-repos">List of repos</div>
+       <p ng-repeat="repo in reposArray" ng-click="getFiles(repo.url)"> <md-button id='repo-btn'>{{repo.name}}</md-button></p>
     </div>
+
+<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon> 
+ -->
     <!-- <h1>{{filesArray}}</h1> -->
-    <div class='col-md-3 second'>Files(?)-----------------------------------------------------------------------------------------------------------------------------
-    	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)"style="word-wrap:break-word;">{{file}}</p>
+    <div class='col-md-3 second'>
+    	<div class="list-of-files">Files</div>
+    	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)" id='files-btn'> <md-button>{{file}}</md-button></p>
     </div>
     <div class='col-md-7'>
-      List of comments(?) ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     	<div class="list-of-comments">List of comments <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" style="fill: grey;" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" style="fill: grey;" size="13"></ng-md-icon> 
+     	 </div>
+     	
 
-      <p ng-repeat='high in highlight' style="word-wrap:break-word;" ng-show="showHighlight">{{high.comment}}  <a ng-show='showHighlight' ng-click='linkToGitPage()'>Link me to that page!</a></p>
-      
+    <v-accordion id="vAccordion--default" multiple control="accordion">
 
+  <v-pane ng-repeat='high in highlight track by $index'>
+    <v-pane-header>
+      <span id="each-comment">{{ high.comment}}</span>
+      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete'></ng-md-icon> 
+        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon> 
+    </v-pane-header>
+
+    <v-pane-content>
+      {{ high }}
+
+      <!-- accordions can be nested :) -->
+      <v-accordion ng-if="pane.subpanes">
+        <v-pane ng-repeat="subpane in pane.subpanes">
+          <v-pane-header>
+            <!-- {{ subpane.header }} -->
+          </v-pane-header>
+          <v-pane-content>
+            <!-- {{ subpane.content }} -->
+          </v-pane-content>
+        </v-pane>
+      </v-accordion>
+    </v-pane-content>
+  </v-pane>
+
+</v-accordion>
+
+
+ <!--  <div ng-repeat='high in highlight track by $index' style="word-wrap:break-word;" ng-show="showHighlight"> <div id='blah'>{{high.comment}}</div> 
+
+        <ng-md-icon icon="delete" style="fill: grey" size="20"></ng-md-icon> 
+        <ng-md-icon icon='github-circle' style='fill: black' size='20' ng-click='linkToGitPage($index)'>  </ng-md-icon> 
+          
+    </div> -->
+
+	    <!-- <md-list>
+	  <md-list-item ng-repeat='high in highlight track by $index' style="word-wrap:break-word;" ng-show="showHighlight">
+	          {{high.comment}} <ng-md-icon icon="delete" style="fill: grey" size="20"></ng-md-icon> 
+	        <ng-md-icon icon='github-circle' style='fill: black' size='20' ng-click='linkToGitPage($index)'>  </ng-md-icon> 
+	  </md-list-item>
+	</md-list> -->
+
+
+</div>
   	</div>
       <!-- gotta figure out how to get access to files, comments and user info here -->
 </section>

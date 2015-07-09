@@ -47,7 +47,7 @@ function runScript(repoUrl, user){
 
 //////////////////////////// box popover
 
-    var $popover = '<div class="popover"><textarea rows=5 class="span1"></textarea><input style="float: right; " type="button" class="btn save-button pop-button" value="Save"/><input style="float: right; " type="button" class="btn cancel-button pop-button" value="Cancel"/><input style="float: right; " type="button" class="btn delete-button pop-button" value="Delete"/></div>';
+    var $popover = '<div class="popover"><textarea id="textarea" placeholder="Leave a comment" rows=5 class="span1"></textarea><input style="float: right; " type="button" class="save-button" id="pop-button" value="Save"/><input style="float: right; " type="button" class="cancel-button" id="pop-button" value="Cancel"/><input style="float: right; " type="button" class="delete-button" id="pop-button" value="Delete"/></div>';
     $('body').append($popover);
 
 ///////////////////////////////////////
@@ -84,12 +84,13 @@ function runScript(repoUrl, user){
 
     $('td').mouseup(function(e){
         endId = $(this).attr('id');
-        console.log('on mouse up', endId, startId, color )
         var section = new Events(startId, endId, color);
-        section = section.createData().setColor().setData().section
-        console.log('section created from class', section)
+        serialized = section.createData().setColor().setData().section;
 
-        data = {newData:{highlighted: section}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
+        var code = section.code;
+        code = code.split('\n');
+
+        data = {newData:{highlighted: serialized, code: code}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
         console.log('data', data)
         // comment popover appears
         popOver.show(e, endId, true)
