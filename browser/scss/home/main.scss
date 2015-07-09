@@ -15,17 +15,28 @@
 
 #delete{
 	float: right;
-	margin-right: 15px;
-	padding-top: 2px;
+	margin: 0px 3px;
+	padding-top: 7px;
 }
 
 #git-circle {
-	float: left;
-	padding-top: 2px;
+	float: right;
+	padding-top: 7px;
 }
 
 #each-comment{
-	margin-left: 15px;
+	margin-left: 10px;
+}
+
+#each-person{
+	font-size: 15px;
+	margin-left: 10px;
+	font-weight: 300;
+}
+
+#each-code{
+	color: black;
+	background-color: mediumaquamarine;
 }
 
 .list-of-repos {

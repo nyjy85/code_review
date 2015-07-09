@@ -20,22 +20,26 @@
 
   <v-pane ng-repeat='high in highlight track by $index'>
     <v-pane-header>
-      <span id="each-comment">{{ high.comment}}</span>
+      <div ng-repeat='light in highlight track by $index'>
+     	 <code id='each-code'>{{ high.code[$index]}}</code>
+  		</div>
+
       <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete'></ng-md-icon> 
         <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon> 
     </v-pane-header>
 
     <v-pane-content>
-      {{ high }}
+   	    <!-- <span id="each-person">{{high.comment[0].commenter}}:</span>
+        <span id="each-comment">{{high.comment[0].message}}</span> -->
 
       <!-- accordions can be nested :) -->
-      <v-accordion ng-if="pane.subpanes">
-        <v-pane ng-repeat="subpane in pane.subpanes">
+      <v-accordion ng-if="high.comment.length > 1">
+        <v-pane ng-repeat="subcomments in high.comment">
           <v-pane-header>
-            <!-- {{ subpane.header }} -->
+            	{{subcomments.commenter}}: {{ subcomments.message}}
           </v-pane-header>
           <v-pane-content>
-            <!-- {{ subpane.content }} -->
+            	
           </v-pane-content>
         </v-pane>
       </v-accordion>
