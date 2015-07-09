@@ -47,14 +47,24 @@ Events.prototype.setData = function(){
 
 var popOver = {};
 popOver.show = function(e, ele, noComment){
+    // console.log('popOver data', data)
     $('.popover').children('div').remove('.chatbox')
     var left = e.pageX, top = e.pageY;
     var height = $('.popover').height();
     // grabs button data
-    var data = $(ele).data("data");
+    
     this.applyCSS(left, top, height);
-    if(!noComment) this.bindData(data);
-    $('.span1').val('');
+    
+}
+popOver.buttonShow = function(e, ele){
+    $('.popover').children('div').remove('.chatbox')
+    var left = e.pageX, top = e.pageY;
+    var height = $('.popover').height();
+    var data2 = $(ele).data("data");
+    console.log('data2222222', data2)
+    this.bindData(data2);
+    this.applyCSS(left, top, height);
+    // $('.span1').val('');
 }
 popOver.applyCSS = function(left, top, height){
     $('.popover').show();
@@ -63,6 +73,7 @@ popOver.applyCSS = function(left, top, height){
 }
 popOver.bindData = function(data){
    $('.popover').data("highlight-data", data);
+   data = null;
     var popData = $('.popover').data("highlight-data");
     popData.comment.forEach(function(comment){
         console.log('THIS IS COMMENT', comment)
@@ -72,11 +83,13 @@ popOver.bindData = function(data){
 
 var Comment = {};
 Comment.postNew = function(endId, data, user){
+    console.log('this be the comment', $('.span1').val())
     data.newData.comment = {commenter: user.github.username, message: $('.span1').val()};
+    
     console.log('postNew data', data)
     chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
     // postIt(endId, data.newData)
-    data = null;
+    // data = null;
 }
 Comment.update = function(user){
     var updated = $('.popover').data('highlight-data');
