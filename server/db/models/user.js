@@ -25,7 +25,8 @@ var schema = new mongoose.Schema({
       update:
           {type: String, enum: ['newComment', 'newHighlight']},
       highlight:
-          {type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'}
+          {type: mongoose.Schema.Types.ObjectId, ref: 'Highlight'},
+      index: Number
       }]
     // archives: [{url: String, name: String, contributors: [String]}]
 });

@@ -21,7 +21,7 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $timeout, $q, $log, $modal, $mdDialog) {
 
-  $scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
+	$scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user;
 		$scope.tokenObj = {token: $scope.user.github.token};
 		$scope.showRepos = $scope.user.repos;
@@ -53,40 +53,42 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	}
 
 	$scope.toggleNotification = function () {
-		$scope.notifications();
 		$scope.showNotification = !$scope.showNotification;
 	}
 
 	$scope.notifications = function () {
 		popupGitFactory.getNotification($scope.user)
 		.then(function(notifications) {
-			console.log('notificatiosn!!!!!',notifications)
 			notifications.map(function(notification){
 
-				var h = notification.highlight,
-					  fileUrl = h.fileUrl,
-					  timestamp = h.comment.timestamp,
-						commenter = h.comment.commenter,
-						message = h.comment.message;
+				var h = notification.highlight;
+			  var fileUrl = h.fileUrl;
+				var c = h.comment[h.comment.length - 1]; //array
 
-				notification.repoName = fileUrl.split('/')[5];
-				notification.file = fileUrl.slice(fileUrl.match(/blob/).index + 5);
+				var	timestamp = c.timestamp;
+				var commenter = c.commenter;
+				// var message = c.message;
+
+				console.log('notificatiosn!!!!!', c, timestamp, commenter)
+
+				var url = fileUrl.split('/');
+				notification.repoName = url[4];
+				notification.file = url[url.length-2] + '/' + url[url.length-1];
 
 				var message = [
-					{update: 'newHighlight', display: commenter+' just added some new comments on '+ notification.repoName + "(" + notification.file + ")"},
-					{update: 'newComment', display: commenter+'just responded on'+ notification.repoName + "(" + notification.file +")"}
+					{update: 'newHighlight', display: commenter+' just added a new comment on '+ notification.repoName + "(" + notification.file + ")"},
+					{update: 'newComment', display: commenter+' just responded on'+ notification.repoName + "(" + notification.file +")"}
 				]
 
 				message.forEach(function(msg) {
-					// if (notification.update === msg.update) {
-					// 	notification.display = message.display;
-					// }
+					if (notification.update === msg.update) {
+						notification.timestamp = timestamp;
+						notification.display = msg.display;
+					}
 				})
-
-
 			})
 
-			$scope.notifications = notifications;
+			$scope.noti = notifications;
 		})
 
 	}

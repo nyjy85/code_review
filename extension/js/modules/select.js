@@ -29,11 +29,11 @@ Events.prototype.setColor = function(){
 
 Events.prototype.setData = function(){
     this.section = {
-        startId: this.startId, 
-        endId: this.endId, 
-        startNode: this.startNode, 
-        endNode: this.endNode, 
-        startOffset: this.startOffset, 
+        startId: this.startId,
+        endId: this.endId,
+        startNode: this.startNode,
+        endNode: this.endNode,
+        startOffset: this.startOffset,
         endOffset: this.endOffset
     }
     return this;
@@ -60,21 +60,21 @@ popOver.bindData = function(data){
     popData.comment.forEach(function(comment){
         console.log('THIS IS COMMENT', comment)
         $('.popover').prepend('<div class="chatbox">'+comment.message+'</div>');
-    }); 
+    });
 }
 
 var Comment = {};
 Comment.postNew = function(endId, data, user){
     data.newData.comment = {message: $('.span1').val(), commenter: user.github.username};
     console.log('postNew data', data)
-    chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
+    chrome.runtime.sendMessage({command: 'highlight-data', data: data});
     // postIt(endId, data.newData)
     data = null;
 }
 Comment.update = function(user){
     var updated = $('.popover').data('highlight-data');
     console.log('this be updated whaaa', updated)
-    updated.comment.push({message: $('.span1').val(), commenter: user.github.username});
+    updated.comment = {message: $('.span1').val(), commenter: user.github.username};
     updated.url = url();
     console.log('updated Data', updated)
     chrome.runtime.sendMessage({command: 'update-comment', data: updated})
@@ -84,7 +84,7 @@ var postIt = {};
 postIt.append = function(endId, data){
     var x = $('#'+endId);
     var idx = x.contents().length-1;
-    $(x.contents()[idx]).after('<button class="post-it" id="post-it-'+endId+'"></button>');   
+    $(x.contents()[idx]).after('<button class="post-it" id="post-it-'+endId+'"></button>');
     this.bindData(endId, data)
 }
 postIt.bindData = function(endId, data){
@@ -106,21 +106,21 @@ postIt.bindData = function(endId, data){
 
 //     var endNode = range.endContainer.textContent;
 //     var endOffset = range.endOffset;
-    
+
 //     highlight.set(color);
 
 //     var section = {
-//         startId: startId, 
-//         endId: endId, 
-//         startNode: startNode, 
-//         endNode: endNode, 
-//         startOffset: startOffset, 
+//         startId: startId,
+//         endId: endId,
+//         startNode: startNode,
+//         endNode: endNode,
+//         startOffset: startOffset,
 //         endOffset: endOffset
 //     }
 //     // gets rid of blue selection highlight
 //     selection.removeAllRanges();
 //     console.log('this is all the highlighted data', section)
-//     return section;   
+//     return section;
 // }
 
 
@@ -132,7 +132,7 @@ postIt.bindData = function(endId, data){
 //     var data = $(ele).data("data")
 //     console.log('YO THIS IS DAAAAATTTTAAA', data)
 //     console.log('THE KIDDIE KIDS', $('.popover').children('div'))
-    
+
 //     $('.popover').show();
 //     $('.popover').css('left', (left-25) + 'px');
 //     $('.popover').css('top', (top-(height/2)-107) + 'px');
@@ -144,9 +144,9 @@ postIt.bindData = function(endId, data){
 //         var popData = $('.popover').data("highlight-data");
 //         popData.comment.forEach(function(comment){
 //             $('.popover').prepend('<div class="chatbox">'+comment.message+'</div>');
-//         }); 
+//         });
 //     }
-    
+
 
 //     $('.span1').val('');
 // }
@@ -162,7 +162,7 @@ postIt.bindData = function(endId, data){
 
 // function postNew(endId, data){
 //     data.newData.comment = {message: $('.span1').val(), commenter: user.github.username};
-//     chrome.runtime.sendMessage({command: 'highlight-data', data: data}); 
+//     chrome.runtime.sendMessage({command: 'highlight-data', data: data});
 //     // postIt(endId, data.newData)
 //     data = null;
 // }

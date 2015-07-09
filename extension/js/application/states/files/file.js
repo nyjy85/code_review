@@ -36,9 +36,8 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 		console.log('list files', repo)
 
 		repo.files.forEach(function(file) {
-			var url = file.fileUrl;
-			var i = url.match(/blob/).index + 5;
-			file.display = url.slice(i);
+			var url = file.fileUrl.split('/');
+			file.display = url[url.length-2] + '/' + url[url.length-1];
 		})
 		$scope.filesUnderRepo = repo.files;
 	})

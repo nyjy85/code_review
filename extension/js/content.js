@@ -2,16 +2,23 @@ $(document).ready(function(){
     console.log('document is ready!');
     // get file with highlight array
     // chrome.runtime.sendMessage({command: 'verify', url: url()})
+
     chrome.runtime.onMessage.addListener(
         function(res, sender){
             if(res.command === 'verified'){
                 runScript(res.message.url, res.message.user);
             }
+
+            chrome.runtime.sendMessage({command: 'notification', message: res.message.user.notifications.length })
+
         })
     // if(window.location.href.indexOf("blob") > -1){
     //     runScript();
-    // }   
-}); 
+    // }
+});
+
+
+
 
 function url(){
     return window.location.href;
@@ -24,6 +31,7 @@ var highlighting = false;
 
 function runScript(repoUrl, user){
 
+
     console.log('hit runScript', repoUrl, user)
 
     document.addEventListener('DOMNodeInserted', function(e) {
@@ -33,7 +41,7 @@ function runScript(repoUrl, user){
         }
     }, false);
 
-    chrome.runtime.sendMessage({command: 'get-file', url: url()});
+    // chrome.runtime.sendMessage({command: 'get-file', url: url()});
     // INITIALIZE VARIABLES
     var startId, endId, data, comment;
 
@@ -84,7 +92,7 @@ function runScript(repoUrl, user){
         data = {newData:{highlighted: section}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
         console.log('data', data)
         // comment popover appears
-        popOver.show(e, endId, true) 
+        popOver.show(e, endId, true)
 
     });
 
@@ -92,7 +100,7 @@ function runScript(repoUrl, user){
     $("td").on('mouseenter', 'button.post-it', function(e){
         popOver.show(e, this)
     });
-    
+
     $('td').on('mouseleave', 'button.post-it', function(){
         $('.popover').on('mouseleave', function(){
             $('.popover').children('div').remove('.chatbox');
@@ -141,6 +149,6 @@ function runScript(repoUrl, user){
             }
 
         }
-    )   
+    )
 
 }

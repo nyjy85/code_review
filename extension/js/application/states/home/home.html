@@ -15,7 +15,7 @@
  <!--  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
 
 <!-- Notification -->
-      <md-button type="button" class="md-icon-button md-primary" ng-click="toggleNotification()">
+      <md-button type="button" class="md-icon-button md-primary" ng-click="notifications(); toggleNotification()">
         <md-icon md-svg-icon="img/icons/notification.svg"></md-icon>
         <button>{{notiNum}}</button>
       </md-button>
@@ -53,8 +53,8 @@
 
   <!-- Notification -------------------------->
   <div ng-if="showNotification">
-    <div ng-repeat="notification in notifications">
-      <p>{{timestamp}}</p>
+    <div ng-repeat="notification in noti">
+      <p>{{notification.timestamp}}</p>
       <p>{{notification.display}}</p>
     </div>
   </div>

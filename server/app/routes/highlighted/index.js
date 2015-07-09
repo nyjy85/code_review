@@ -56,11 +56,13 @@ router.get('/:user', function(req, res, next){
 // });
 
 router.post('/', function(req, res, next){
-    console.log('req.body from da frrronnnt');
+    console.log('req.body from da frrronnnt', req.body.fileInfo);
 
     var newData = req.body.newData;
     var fileInfo = req.body.fileInfo;
     var repoUrl = req.body.repoUrl;
+
+		newData.fileUrl = fileInfo.fileUrl;
 
     Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
     .then(function(updatedFile){
@@ -81,7 +83,7 @@ router.post('/', function(req, res, next){
                 .exec()
                 .then(function(user){
                     if(user) {
-                            user.notifications.push({update: 'newHighlight', highlight: fileId})
+                            user.notifications.push({update: 'newHighlight', highlight: fileId, index: 0})
                             user.save()
                             console.log('user notification!!!!!',user)
                     }
@@ -96,8 +98,10 @@ router.post('/', function(req, res, next){
 router.put('/:id', function(req, res, next){
 	var id = req.params.id;
 	var comment = req.body.data.comment;
+	var repoUrl = req.body.data.fileUrl.split('/').slice(0,5).join('/');
+
 	console.log('THIS IS COMMENT ON TBE BAC', comment)
-	Highlight.update({_id: id}, {comment: comment})
+	Highlight.update({_id: id}, {$push:{comment: comment}})
 	.exec()
 	.then(function(response){
 		console.log('this is response so send it!', response)
@@ -112,7 +116,7 @@ router.put('/:id', function(req, res, next){
 		// 		.exec()
 		// 		.then(function(user){
 		// 			if(user) {
-		// 					user.notifications.push(fileId)
+		// 					user.notifications.push({update: 'newComment', highlight: fileId, index:!!!!!})
 		// 					user.save()
 		// 					console.log('user notification!!!!!',user)
 		// 			}

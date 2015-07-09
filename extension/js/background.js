@@ -6,6 +6,10 @@
     })
 chrome.runtime.onMessage.addListener(function(req, sender){
 
+  if (req.command === 'notification') {
+      chrome.browserAction.setBadgeText({text: req.message.toString()});
+  }
+
 	if(req.command === "get"){
 		populateFile(req.id)
 	}
@@ -16,7 +20,7 @@ chrome.runtime.onMessage.addListener(function(req, sender){
     	var parsedRepo = req.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
     	var repo = parsedRepo.join("");
     	console.log('repo depp', repo)
-    	getRepos(repo); 
+    	getRepos(repo);
 	}
 
 	if (req.command === "highlight-data"){
@@ -46,4 +50,3 @@ function returnMessage(msg, cmd){
       chrome.tabs.sendMessage(tab.id, {message: msg, command: cmd})
    });
 };
-
