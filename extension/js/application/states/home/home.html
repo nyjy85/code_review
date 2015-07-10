@@ -17,12 +17,26 @@
    <!--  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
 
   <!-- Notification -->
+  <div class='repo-more'>
+    <md-menu>
         <span id="notiIcon">
-        <md-button type="button" class="md-icon-button md-primary" ng-click="notifications(); toggleNotification()">
+        <md-button type="button" class="md-icon-button md-primary" ng-click="notifications(); $mdOpenMenu()">
           <md-icon md-svg-icon="img/icons/notification.svg"></md-icon>
         </md-button>
         <button class="notiNum">{{notiNum}}</button>
         </span>
+
+        <md-menu-content width="6">
+            <div>
+              <div ng-repeat="notification in noti">
+                  <div class=noti-msg ng-click="openFile(notification.fileUrl)">
+                    <p><span class="noti-username">{{notification.commenter}}</span>{{notification.display}}<span class='noti-timestamp'>{{notification.timestamp}}</span></p>
+                  </div>
+              </div>
+            </div>
+        </md-menu-content>
+    </md-menu>
+  </div>
 
   </div>
 
@@ -57,15 +71,6 @@
       </div>
 
   </md-sidenav>
-
-  <!-- Notification -------------------------->
-  <div ng-if="showNotification">
-    <div ng-repeat="notification in noti">
-        <div class=noti-msg ng-click="openFile(notification.fileUrl)">
-          <p><span class="noti-username">{{notification.commenter}}</span>{{notification.display}}<span class='noti-timestamp'>{{notification.timestamp}}</span></p>
-        </div>
-    </div>
-  </div>
 
 <!-- Add Repo---------------------------------------------------------- -->
 
