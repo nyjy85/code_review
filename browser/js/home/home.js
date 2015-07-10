@@ -25,7 +25,6 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
             $scope.filesArray = response.files;
             $scope.urlArray = response.fileUrls;
             $scope.highlightArray = response.highlights;
-            console.log('resource', x)
         });   
     };
 

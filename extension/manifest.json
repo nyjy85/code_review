@@ -18,9 +18,9 @@
         "contextMenus",
         "fontSettings"
     ],
-    "icons": {
-      "16": "bear.png"
-    },
+  "icons": {
+    "16": "bear.png"
+  },
    "content_scripts": [ {
     "matches": ["http://*/*", "https://*/*"],
     "css": ["css/popover.css"],

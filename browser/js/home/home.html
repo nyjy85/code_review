@@ -32,11 +32,12 @@
       <v-accordion>
         <v-pane ng-repeat="subcomments in high.comment">
           <v-pane-header>
-            	{{high.comment[$index].commenter}}: {{ high.comment[$index].message}}
+            	<b>{{high.comment[$index].commenter}}</b>: {{ high.comment[$index].message}}
+              <p class="timestamp">{{high.comment[$index].timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</p>
           </v-pane-header>
-          		<v-pane-content>
-            		{{high.comment[$index].timestamp}}
-          		</v-pane-content>
+          		<!-- <v-pane-content>
+            		
+          		</v-pane-content> -->
         	</v-pane>
       	</v-accordion>
     </v-pane-content>
