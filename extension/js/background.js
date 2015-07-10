@@ -4,17 +4,14 @@
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     console.log('change!', tab.url);
     if(tab.url.indexOf('blob') > -1 && changeInfo.status == 'complete') {
-    	chrome.runtime.sendMessage({command: 'verify', url: tab.url})
+    	chrome.runtime.sendMessage({command: 'verify', url: tab.url});
+
     }
 })
 chrome.runtime.onMessage.addListener(function(req, sender){
  	if (req.command === 'notification') {
         chrome.browserAction.setBadgeText({text: req.len});
     }
-
-  if (req.command === 'notification') {
-      chrome.browserAction.setBadgeText({text: req.message.toString()});
-  }
 
 	if(req.command === "get"){
 		populateFile(req.id)
@@ -38,11 +35,13 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	}
 
 	if(req.command === 'get-file'){
+		console.count('git file')
 		getFile(req.url)
 	}
 
 	if(req.command === 'delete-highlight'){
 		deleteHighlight(req.data.id, req.data.url)
+		chrome.tabs.reload()
 	}
 
 	if(req.command === 'update-comment'){
