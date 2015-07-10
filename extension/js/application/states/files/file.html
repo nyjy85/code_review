@@ -5,19 +5,38 @@
         <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
       </md-button></span>
       <md-divider></md-divider>
+      <!-- <p>Contributors: {{contributors}}</p> -->
+      <p><span id="file-var">File created: </span>{{ fileCreated }}</p>
+      <p><span id="file-var">Commenters: </span><span ng-repeat="c in commenters" style="color:{{getRandomColor()}}">{{ c }}</span> </p>
+      <p></p>
 
         <md-content>
         <md-list>
-          <md-list-item class="files-in-repo" ng-repeat="file in filesUnderRepo">
+          <md-list-item class="files-in-repo">
             <!-- <div> -->
-              <h5 class="file file-name">{{ file.display }}</h5>
+            <table class="table table-hover">
+              <tr>
+                <td class="file-title">Files updated</td>
+                <td class="file-title">Highlights</td>
+                <td class="file-title">Comments</td>
+              </tr>
+              <tr ng-repeat="file in filesUnderRepo">
+                <td ng-click="goToFile(file)">{{ file.display }}</td>
+                <td>{{ file.highlighted.length }}</td>
+                <td>{{ file.numComments }}</td>
+              </tr>
+            </table>
+
+              <!-- <h5 class="file file-name">{{ file.display }}</h5>
+              <p>{{ file.highlighted.length }}</p>
+              <p>{{ file.numComments }}</p> -->
+
               <!-- <p class="file commenter">Andy</p> -->
-              <span class='file commented'>5 minutes ago</span>
               <!-- </div> -->
 
-              <md-button class="md-icon-button filego" ng-click="goToFile(file)">
+              <!-- <md-button class="md-icon-button filego" ng-click="goToFile(file)">
                 <md-icon md-svg-src="img/icons/ic_send_black_24px.svg"></md-icon>
-              </md-button>
+              </md-button> -->
 
 
               <md-divider></md-divider>
