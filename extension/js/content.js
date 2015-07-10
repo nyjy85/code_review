@@ -1,5 +1,7 @@
 
+
 $(document).ready(function(){
+
     console.log('document is ready!');
     // get file with highlight array
     // chrome.runtime.sendMessage({command: 'verify', url: url()})
@@ -8,7 +10,6 @@ $(document).ready(function(){
         function(res, sender){
             if(res.command === 'verified'){
                 $('.popover').remove();
-                console.log('window.location.href', window.location.href, 'res.message.url', res.message.url)
                 runScript(res.message.url, res.message.user);    
             }
 
@@ -26,9 +27,6 @@ function url(){
 var color = '#ceff63';
 
 function runScript(repoUrl, user){
-
-    var old = window.location.href;
-    console.log('href change!!!', old)
 
     console.log('the list', startId, endId, data, comment, section)
 chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
@@ -121,12 +119,6 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
         function(res, sender){
-            // if(res.command === 'highlight-retrieved'){
-            //     console.log('Highlight info from backend', res)
-            //     var hl = res.message.highlighted;
-            //     reSelect(hl, 'yellow')
-            //     // setNewRange(newStartNode, hl.startOffset, newEndNode, hl.endOffset, newRange);
-            // }
 
             if(res.command === 'file-retrieved'){
                 console.log('Highlight info from backend', res.message)
