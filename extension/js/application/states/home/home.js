@@ -20,9 +20,9 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, $mdSidenav, $mdUtil, $timeout, $q, $log, $modal, $mdDialog) {
-	
 
-  $scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
+
+	$scope.reposLoaded = popupGitFactory.getUserInfo().then(function(user) {
 		$scope.user = user;
 		$scope.tokenObj = {token: $scope.user.github.token};
 		$scope.showRepos = $scope.user.repos;
@@ -54,21 +54,43 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 	}
 
 	$scope.toggleNotification = function () {
-		$scope.notifications();
 		$scope.showNotification = !$scope.showNotification;
 	}
 
 	$scope.notifications = function () {
 		popupGitFactory.getNotification($scope.user)
 		.then(function(notifications) {
-			console.log('notificatiosn!!!!!',notifications)
-			notifications.map(function(notification){
-				// notification.fileUrl.
-				// notification.repoName =
-				// notification.file =
+
+			notifications.map(function(n){
+				console.log('notificatiosn!!!!!')
+				var fileUrl = n.fileUrl;
+				var url = fileUrl.split('/');
+				n.repoName = url[4];
+				n.file = url[url.length-2] + '/' + url[url.length-1];
+				n.timestamp = Math.floor((Date.now() - Date.parse(n.timestamp))/1000/60) + 'min ago';
+				if(n.line) n.line = n.line.slice(2);
+
+				var message = [
+					{update: 'newHighlight', display: ' added ' + n.number + ' new comments on '+ n.repoName + "(" + n.file + ")      "},
+					{update: 'newComment', display: ' added '+ n.number + ' responses on ' + n.repoName + "(" + n.file +")"+' on line '+ n.line + "    "}
+				]
+
+				message.forEach(function(msg) {
+					if (n.update === msg.update) {
+						n.display = msg.display;
+					}
+				})
 			})
-			$scope.notifications = notifications;
+
+			$scope.noti = notifications;
 		})
+
+	}
+
+	$scope.openFile = function(url) {
+		chrome.tabs.create({
+        url: url
+    });
 	}
 
 	var cannotAddBox = function () {

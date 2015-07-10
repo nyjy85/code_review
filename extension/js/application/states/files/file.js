@@ -29,17 +29,46 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 	})
 
 	$scope.repoName = repo.name;
-	console.log('from the controller is the repo', repo)
+
+	// console.log('from the controller is the repo', repo)
 
 	popupGitFactory.listFiles(repo).then(function(repo){
 
+    $scope.fileCreated = repo.files[0].timestamp.slice(0,10);
 		console.log('list files', repo)
 
 		repo.files.forEach(function(file) {
-			var url = file.fileUrl;
-			var i = url.match(/blob/).index + 5;
-			file.display = url.slice(i);
+			var url = file.fileUrl.split('/');
+			file.display = url[url.length-2] + '/' + url[url.length-1];
+
+      //number of comments
+      $scope.commenters = [];
+      $scope.displayCommenters = "";
+      file.numComments = 0;
+      file.highlighted.forEach(function(highlight) {
+        file.numComments += highlight.comment.length
+        highlight.comment.forEach(function(comment) {
+          if ($scope.commenters.indexOf(comment.commenter) === -1) $scope.commenters.push(comment.commenter);
+        })
+      })
 		})
+
+    // $scope.commenters.forEach(function(commmenter) {
+    //
+    // })
+    $scope.getRandomColor = function() {
+      // var colors = {
+      //   aqua: "#030303",
+      //   red: "red"
+      // }
+      var letters = '0123456789ABCDEF'.split('');
+      var color = '#';
+      for (var i = 0; i < 6; i++ ) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
 		$scope.filesUnderRepo = repo.files;
 	})
 
