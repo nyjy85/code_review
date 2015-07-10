@@ -1,32 +1,52 @@
-#bg {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 10%;
-  height: 70%;
-}
-#bg img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  min-width: 50%;
-  min-height: 50%;
+
+#logo {
+  font-family:  'Rock Salt', cursive;
+  font-weight: bold;
+  display: inline-block;
 }
 
-.background {
+#login {
+  float: right;
+}
+
+.container {
   // background-color: #F0F0F0;
   font-family: 'Quicksand', sans-serif;
+  // font-family: 'Anton', sans-serif;
 }
 
-.code {
+.intro {
+  padding-top: 100px;
+}
+
+.highlighter {
+  height: 50px;
+  padding-right: 100px;
+  // position: absolute;
+  // top: 50px;
+}
+
+#today {
+  padding-top: 10px;
+  display: inline-block;
+  position: relative;
+}
+
+.chart {
   float: right;
-  padding-right: 350px;
-  height: 250px;
+  width: 650px;
+
   // border-color: #29ABE2;
   // border-radius: 60px;
 }
 
+.download {
+  background-color: #E8ff59;
+  height: 30px;
+  width: 350px;
+}
+
+
+
+@import url(http://fonts.googleapis.com/css?family=Anton|Rock+Salt);
 @import url(http://fonts.googleapis.com/css?family=Quicksand);
