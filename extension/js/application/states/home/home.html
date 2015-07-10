@@ -1,4 +1,5 @@
 <div>
+
   <md-button class="md-icon-button md-primary" ng-click="toggleLeft()">
         <md-icon md-svg-icon="img/icons/hamburger.svg"></md-icon>
   </md-button>
@@ -7,18 +8,24 @@
         <md-icon md-svg-icon="img/icons/search.svg"></md-icon>
   </md-button>
 
-  <md-button class="md-icon-button md-primary">
-        <md-icon md-svg-icon="img/icons/add.svg" ng-click="toggleAddBar()"></md-icon>
-  </md-button>
+  <div class="right-menu" style="float:right;">
+    <md-button class="md-icon-button md-primary">
+          <md-icon md-svg-icon="img/icons/add.svg" ng-click="toggleAddBar()"></md-icon>
+    </md-button>
 
-  <!-- class="md-icon-button md-primary" -->
- <!--  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+    <!-- class="md-icon-button md-primary" -->
+   <!--  <md-button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
 
-<!-- Notification -->
-      <md-button type="button" class="md-icon-button md-primary" ng-click="toggleNotification()">
-        <md-icon md-svg-icon="img/icons/notification.svg"></md-icon>
-        <button>{{notiNum}}</button>
-      </md-button>
+  <!-- Notification -->
+        <span id="notiIcon">
+        <md-button type="button" class="md-icon-button md-primary" ng-click="notifications(); toggleNotification()">
+          <md-icon md-svg-icon="img/icons/notification.svg"></md-icon>
+        </md-button>
+        <button class="notiNum">{{notiNum}}</button>
+        </span>
+
+  </div>
+
 
 
   <md-divider></md-divider>
@@ -53,9 +60,10 @@
 
   <!-- Notification -------------------------->
   <div ng-if="showNotification">
-    <div ng-repeat="notification in notifications">
-      <p>{{notification.comment[notification.comment.length-1].timestamp}}</p>
-      <p>{{notification.comment[notification.comment.length-1].commenter}} just commented on {{notification.fileUrl}}</p>
+    <div ng-repeat="notification in noti">
+        <div class=noti-msg ng-click="openFile(notification.fileUrl)">
+          <p><span class="noti-username">{{notification.commenter}}</span>{{notification.display}}<span class='noti-timestamp'>{{notification.timestamp}}</span></p>
+        </div>
     </div>
   </div>
 
@@ -85,47 +93,53 @@
 
   </div>
 
-    <md-list-item class="your-repos" ng-repeat="repo in showRepos">
-      <md-checkbox></md-checkbox>
-      <!-- <md-divider></md-divider> -->
+<!-- no repo yet --------------------------------------->
+  <div id="noRepo" ng-if="user.repos.length === 0">
+    <p>Your repo folder is lonely. <md-icon md-svg-icon="img/icons/ic_face_black_24px.svg"></md-icon></p>
+    <p>Add a repo <md-button class="md-raised md-primary" id="now" ng-click="toggleAddBar()">Now </md-button> to start reviewing code!</p>
+  </div>
 
-      <div class="repo-name">{{ repo.name }}</div>
+<!-- repo list -------------------------------------------->
+    <div id="your-repos" ng-mouseenter="showIcon = true" ng-mouseleave="showIcon = false" ng-repeat="repo in showRepos">
 
-        <md-icon class="editRepo" md-svg-icon="img/icons/files.svg" ng-click="listFiles(repo)"></md-icon>
+        <div id='repo-list'>
+
+            <md-icon md-menu-origin="" md-svg-icon="img/icons/github-box.svg"></md-icon>
+            <span>{{ repo.name }}</span>
+            <md-icon md-svg-icon="img/icons/files.svg" ng-show="showIcon" ng-click="listFiles(repo)"></md-icon>
+
+                  <md-menu class='repo-more'>
+                    <md-icon md-menu-origin="" md-svg-icon="img/icons/more.svg" ng-show="showIcon" ng-click="$mdOpenMenu()"></md-icon>
+                          <md-menu-content width="4">
+                            <md-menu-item>
+                              <md-button ng-click="deleteRepo(repo)">
+                                <md-icon md-svg-icon="img/icons/ic_delete_black_24px.svg" md-menu-align-target=""></md-icon>
+                                Remove repo
+                              </md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                              <md-button ng-click="goToRepo(repo)">
+                                <md-icon md-svg-icon="img/icons/ic_arrow_forward_black_24px.svg" md-menu-align-target=""></md-icon>
+                                Go to Repo
+                              </md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                              <md-button ng-click="archiveRepo(repo)">
+                                <md-icon md-svg-icon="img/icons/archive.svg" md-menu-align-target=""></md-icon>
+                                Archive
+                              </md-button>
+                            </md-menu-item>
+
+                          </md-menu-content>
+                  </md-menu>
 
 
-        <md-menu>
-          <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-            <md-icon md-menu-origin="" md-svg-icon="img/icons/more.svg"></md-icon>
-          </md-button>
-          <md-menu-content width="4">
-            <md-menu-item>
-              <md-button ng-click="deleteRepo(repo)">
-                <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
-                Remove repo
-              </md-button>
-            </md-menu-item>
 
-            <md-menu-item>
-              <md-button ng-click="goToRepo(repo)">
-                <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
-                Go to Repo
-              </md-button>
-            </md-menu-item>
-
-            <md-menu-item>
-              <md-button ng-click="archiveRepo(repo)">
-                <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
-                Archive
-              </md-button>
-            </md-menu-item>
-
-          </md-menu-content>
-        </md-menu>
-
-      <md-divider></md-divider>
-
-    </md-list-item>
+        </div>
+        <md-divider></md-divider>
+    </div>
 
   </div>
 

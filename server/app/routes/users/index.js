@@ -50,8 +50,7 @@ router.put('/:username/editRepo', function(req, res, next){
 router.get('/:username/notifications', function(req, res, next){
 	console.log('get notifications', req.params.username)
 	User.findOne({"github.username": req.params.username})
-	.populate('notifications')
-	.populate('commenter')
+	.populate('notifications.highlight')
 	.exec()
 	.then(function(user){
 		// user.notifications = user.notifications.file.populate('notifications');

@@ -2,17 +2,24 @@ $(document).ready(function(){
     console.log('document is ready!');
     // get file with highlight array
     // chrome.runtime.sendMessage({command: 'verify', url: url()})
+
     chrome.runtime.onMessage.addListener(
         function(res, sender){
             if(res.command === 'verified'){
                 $('.popover').remove();
                 runScript(res.message.url, res.message.user);
             }
+
+            // chrome.runtime.sendMessage({command: 'notification', message: res.message.user.notifications.length })
+
         })
     // if(window.location.href.indexOf("blob") > -1){
     //     runScript();
-    // }   
-}); 
+    // }
+});
+
+
+
 
 function url(){
     return window.location.href;
@@ -25,9 +32,21 @@ function runScript(repoUrl, user){
     console.log('the list', startId, endId, data, comment, section)
 chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
 
+
     console.log('hit runScript', repoUrl, user)
 
+// <<<<<<< HEAD
+//     document.addEventListener('DOMNodeInserted', function(e) {
+//         if (highlighting) {
+//             var target = e.target;
+//             target.className = 'highlighted'+startId;
+//         }
+//     }, false);
+//
+//     // chrome.runtime.sendMessage({command: 'get-file', url: url()});
+// =======
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
+
     // INITIALIZE VARIABLES
     var startId, endId, data, comment, section;
 
@@ -89,7 +108,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
         data = {newData:{highlighted: serialized, code: code}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
         console.log('data', data)
         // comment popover appears
-        popOver.show(e, endId, true) 
+        popOver.show(e, endId, true)
 
     });
 
@@ -97,7 +116,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     $("td").on('mouseenter', 'button.post-it', function(e){
         popOver.buttonShow(e, this)
     });
-    
+
     $('td').on('mouseleave', 'button.post-it', function(){
         $('.popover').on('mouseleave', function(){
             // if(!$('.span1').val()) highlight.undo(section)
@@ -155,6 +174,6 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
             }
 
         }
-    )   
+    )
 
 }
