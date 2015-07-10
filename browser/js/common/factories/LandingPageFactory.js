@@ -25,7 +25,8 @@ app.factory('LandingPageFactory', function($http, $window) {
             
               fileUrls = _.pluck(res.data.files, 'fileUrl');
               fileNames = fileUrls.map(function(fileurl){
-                return fileurl.split('/').pop();
+                  var url = fileurl.split('/');
+                  return url.slice(url.indexOf('blob')+2).join('/');
               });
 
               highlights = _.pluck(res.data.files, 'highlighted');
