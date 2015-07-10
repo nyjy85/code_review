@@ -1,10 +1,13 @@
+<above></above>
+<!-- <navbar></navbar> -->
+
 <section id="home">
     <div class="col-md-2 first" style='height: 700px'>
     	<div class="list-of-repos">List of repos</div>
        <p ng-repeat="repo in reposArray" ng-click="getFiles(repo.url)"> <md-button id='repo-btn'>{{repo.name}}</md-button></p>
     </div>
 
-<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon> 
+<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon>
  -->
 
     <div class='col-md-3 second'>
@@ -12,9 +15,9 @@
     	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)" id='files-btn'> <md-button ng-if="highlightArray.length">{{file}}</md-button></p>
     </div>
     <div class='col-md-7'>
-     	<div class="list-of-comments">List of comments <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon> 
+     	<div class="list-of-comments">List of comments <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon>
      	 </div>
-     	
+
 
     <v-accordion id="vAccordion--default" multiple control="accordion">
 
@@ -24,8 +27,8 @@
      	 <code id='each-code'>{{high.code[$index]}}</code>
   		</div>
 
-      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete' ng-click='deleteComment($index)'></ng-md-icon> 
-        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon> 
+      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete' ng-click='deleteComment($index)'></ng-md-icon>
+        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon>
     </v-pane-header>
 
     <v-pane-content>

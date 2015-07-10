@@ -1,10 +1,33 @@
-<div>
-	<div class="above-nav-bar"> 
-	<a ng-show="!user" ng-click="gitLogin()" class="welcome-above">Login</a>
-        <div ng-show="user" class="welcome-above">
-            <span>Welcome, {{ user.github.name }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
-    </div>
-</div>
+<div class='bg'>
+	<h2 id="logo">Gitty</h2>
 
+
+				<div ng-show="user" class="welcome-above">
+						<div class="username">
+							<md-icon md-svg-icon="js/img/icons/ic_face_black_24px.svg"></md-icon>
+							<span>{{ user.github.name }}</span>
+							<md-icon md-svg-icon="js/img/icons/ic_arrow_drop_down_black_24px.svg" ng-click="logout()"></md-icon>
+						</div>
+
+						<md-menu>
+								<span id="notiIcon">
+								<md-button type="button" class="md-icon-button md-primary" ng-click="notifications(); $mdOpenMenu()">
+									<md-icon md-svg-icon="js/img/icons/notification.svg"></md-icon>
+								</md-button>
+								<button class="notiNum">{{notiNum}}2</button>
+								</span>
+
+								<md-menu-content width="6">
+										<div>
+											<div ng-repeat="notification in noti">
+													<!-- <div class=noti-msg ng-click="openFile(notification.fileUrl)"> -->
+														<p><span class="noti-username">{{notification.commenter}}</span>{{notification.display}}<span class='noti-timestamp'>{{notification.timestamp}}</span></p>
+													</div>
+											</div>
+										</div>
+								</md-menu-content>
+						</md-menu>
+
+    		</div>
+
+</div>
