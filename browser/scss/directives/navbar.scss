@@ -1,3 +1,7 @@
+#nav-y{
+  margin-bottom: 0px;
+}
+
 navbar {
 
   display: block;
@@ -19,7 +23,9 @@ navbar {
   }
 
   .brand-name {
-    color: #69B744;
+    color: black;
+    font-weight: 700;
+    font-family: 'Rock Salt', cursive;
   }
 
 
@@ -27,16 +33,19 @@ navbar {
     margin-top: 1px;
     width: 300px;
     height: 30px;
+    font-family: 'Quicksand', sans-serif;
   }
 
   .search{
     padding-left: 49px;
+    font-family: sans-serif;
   }
 
   .btn{
     margin-top: 2px;
     font-size: 12px;
     height: 30px;
+    font-family: 'Quicksand', sans-serif;
   }
 
 
@@ -60,3 +69,6 @@ navbar {
   }
 
 }
+
+@import url(http://fonts.googleapis.com/css?family=Rock+Salt);
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
