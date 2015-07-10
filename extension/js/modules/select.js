@@ -77,12 +77,17 @@ popOver.bindData = function(data){
     var popData = $('.popover').data("highlight-data");
     popData.comment.forEach(function(comment){
         console.log('THIS IS COMMENT', comment)
-
-        $('.popover').prepend('<div class="chatbox"><div class="commenter"><p>'+comment.commenter+'</p></div><div class="msg">'+comment.message+'</div></div>');
+        $('.popover').prepend('<div class="chatbox"><div class="commenter"><p>'+comment.commenter+'</p></div><div class="msg">'+comment.message+'</div><p class="timestamp">'+convertTime(comment.timestamp)+'</p></div>');
     });
 
 }
 
+function convertTime(date){
+    // var date = new Date(date); 
+    // var milliseconds = date.getTime();
+    var date2 = new Date(date).toString();
+    return date2.split(" ").slice(0,5).join(" ");
+}
 var Comment = {};
 Comment.postNew = function(endId, data, user){
     console.log('this be the comment', $('.span1').val())
@@ -97,7 +102,7 @@ Comment.update = function(user){
     var updated = $('.popover').data('highlight-data');
     console.log('this be updated whaaa', updated)
     // updated.comment.push({message: $('.span1').val(), commenter: user.github.username});
-    updated.comment.push({message: $('.span1').val(), commenter: user.github.username});
+    updated.comment.push({timestamp: Date.now(), message: $('.span1').val(), commenter: user.github.username});
     updated.url = url();
     console.log('updated Data', updated)
     chrome.runtime.sendMessage({command: 'update-comment', data: updated})
