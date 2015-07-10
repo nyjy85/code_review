@@ -5,6 +5,7 @@ $(document).ready(function(){
     chrome.runtime.onMessage.addListener(
         function(res, sender){
             if(res.command === 'verified'){
+                $('.popover').remove();
                 runScript(res.message.url, res.message.user);
             }
         })
@@ -21,6 +22,7 @@ function url(){
 var color = '#ceff63';
 
 function runScript(repoUrl, user){
+    console.log('the list', startId, endId, data, comment, section)
 chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
 
     console.log('hit runScript', repoUrl, user)
@@ -53,9 +55,11 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
 
     $(".save-button").on('click', function(e){
         // $('.popover').prepend('<div class="chatbox">'+$('.span1').val()+'</div>');
+        console.log('1. .save-button data', data)
         if(data) Comment.postNew(endId, data, user);
         else Comment.update(user);
         // getHighlight()
+        data = null;
         $('.popover').hide();
     });
 
@@ -69,10 +73,12 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     });
 
     $('td').mousedown(function(){
+        console.log('mousedown')
         startId = $(this).attr('id');
     });
 
     $('td').mouseup(function(e){
+        console.log('TRIGGER finger')
         endId = $(this).attr('id');
         section = new Events(startId, endId, color);
         var serialized = section.createData().setColor().setData().section;
@@ -89,7 +95,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
 
     // post-it on hover
     $("td").on('mouseenter', 'button.post-it', function(e){
-        popOver.show(e, this)
+        popOver.buttonShow(e, this)
     });
     
     $('td').on('mouseleave', 'button.post-it', function(){
@@ -120,6 +126,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
                     reSelect(selection.highlighted, 'yellow');
                     postIt.append(selection.highlighted.endId, selection);
                 });
+                res.command = null;
             }
 
             if(res.command === 'highlight-posted'){
@@ -130,7 +137,10 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
                 // reSelect(hl, 'red');
                 postIt.append(hl.endId, res.message)
                 data = null;
+                console.log('res.command data', data)
+                res.command = null;
                 // updated the dom with this new highlight info
+
             }
 
             if(res.command === 'updated!'){
