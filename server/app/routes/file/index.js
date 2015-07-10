@@ -42,4 +42,16 @@ router.get('/repo/:repo', function(req, res, next){
 		res.send(files);
 	})
 	.then(null, next);
+});
+
+router.delete('/', function(req, res, next){
+	console.log('delete files by url', req.query.url);
+	File.remove({fileUrl: req.query.url})
+	.exec()
+	.then(function(deleted){
+		console.log('files', deleted)
+		res.send({deleted: deleted});
+	})
+	.then(null, next);
 })
+
