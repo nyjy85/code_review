@@ -2,13 +2,13 @@
 /*    font-family: 'Open Sans', sans-serif;*/
     position:absolute;
     display:none;
-     background:#fff;
+    background:#fff;
     border: 1px solid #999;
     /* padding:10px; */
     padding-bottom: 0px;
     width: 300px;
-    box-shadow:0 0 5px rgba(0, 0, 0, .5);
-    border-radius: 5px;
+    /*box-shadow:rgba(0, 0, 0, 0.7) 0px 1px 1px 2px;*/
+    /*border-radius: 5px;*/
     overflow-y: scroll;
     height: 200px;
 }
@@ -21,34 +21,17 @@
     position: absolute;
     pointer-events: none;
 }
-.popover:after {
-    /*border-color: rgba(0, 0, 0, 0);
-    border-right-color: #ffffff;
-    border-width: 20px 15px 0 15px;*/
-    border-top: 10px solid #ffffff;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    bottom: -10.65px;
-    left: 5%;
-    margin-top: -10px;
-}
-.popover:before {
-    /*border-color: rgba(201, 201, 201, 0);
-    border-right-color: #c9c9c9;
-    border-width: 20px 20px 0 20px;*/
-    border-top: 10px solid #c9c9c9;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    bottom: -10.65px;
-    left: 6%;
-    margin-top: -11px;
 
-}
 
 .span1 {
     display: block;
 }
-
+.timestamp{
+    text-align: right;
+    font-size: 10px;
+    font-style: italic;
+    padding-left: 2px;
+}
 #pop-button{
     margin-top: 5px;
     margin-bottom:5px;
@@ -76,24 +59,22 @@
   /* background-color: green; */
 }
 #textarea{
-    width: 90%;
+    width: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .chatbox{
 
-    border-bottom: 1px solid rgba(41, 115, 89, 0.45);
+    border-bottom: 1px solid #29ABE2;
     /*border-radius: 3px;*/
-    padding: 5px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-top: 5px;
     /*width: 90%;*/
     margin-left: auto;
     margin-right: auto;
-  margin-top: -5px;
+    margin-top: -5px;
   
 }
 .commenter p{
@@ -105,13 +86,14 @@
 }
 .commenter{
   display: block;
-  background-color: rgba(41, 115, 89, 0.45);
-  border-radius: 3px;
+  /*background-color: rgba(41, 115, 89, 0.45);*/
+  background-color: #29ABE2;
+  /*border-radius: 3px;*/
   /*margin-left: auto;*/
   /*margin-right: auto;*/
   width: 50%;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  /*border-top-right-radius: 0;*/
+  /*border-top-left-radius: 0;*/
   
 }
 

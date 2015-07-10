@@ -1,4 +1,7 @@
+
+
 $(document).ready(function(){
+
     console.log('document is ready!');
     // get file with highlight array
     // chrome.runtime.sendMessage({command: 'verify', url: url()})
@@ -7,15 +10,11 @@ $(document).ready(function(){
         function(res, sender){
             if(res.command === 'verified'){
                 $('.popover').remove();
-                runScript(res.message.url, res.message.user);
+                runScript(res.message.url, res.message.user);    
             }
 
-            // chrome.runtime.sendMessage({command: 'notification', message: res.message.user.notifications.length })
-
-        })
-    // if(window.location.href.indexOf("blob") > -1){
-    //     runScript();
-    // }
+        }
+    )
 });
 
 
@@ -25,26 +24,16 @@ function url(){
     return window.location.href;
 }
 
-
 var color = '#ceff63';
 
 function runScript(repoUrl, user){
+
     console.log('the list', startId, endId, data, comment, section)
 chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
 
 
     console.log('hit runScript', repoUrl, user)
 
-// <<<<<<< HEAD
-//     document.addEventListener('DOMNodeInserted', function(e) {
-//         if (highlighting) {
-//             var target = e.target;
-//             target.className = 'highlighted'+startId;
-//         }
-//     }, false);
-//
-//     // chrome.runtime.sendMessage({command: 'get-file', url: url()});
-// =======
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
 
     // INITIALIZE VARIABLES
@@ -130,12 +119,6 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     // listens for events from AJAX calls/background.js and executes something
     chrome.runtime.onMessage.addListener(
         function(res, sender){
-            // if(res.command === 'highlight-retrieved'){
-            //     console.log('Highlight info from backend', res)
-            //     var hl = res.message.highlighted;
-            //     reSelect(hl, 'yellow')
-            //     // setNewRange(newStartNode, hl.startOffset, newEndNode, hl.endOffset, newRange);
-            // }
 
             if(res.command === 'file-retrieved'){
                 console.log('Highlight info from backend', res.message)
@@ -146,6 +129,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
                     postIt.append(selection.highlighted.endId, selection);
                 });
                 res.command = null;
+
             }
 
             if(res.command === 'highlight-posted'){
