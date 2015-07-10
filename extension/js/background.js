@@ -3,7 +3,10 @@
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     console.log('change!', tab.url);
-    chrome.runtime.sendMessage({command: 'verify', url: tab.url})
+    if(tab.url.indexOf('blob') > -1 && changeInfo.status == 'complete') {
+    	console.log('blllob')
+    	chrome.runtime.sendMessage({command: 'verify', url: tab.url})
+    }
 })
 chrome.runtime.onMessage.addListener(function(req, sender){
  	if (req.command === 'notification') {
@@ -47,9 +50,8 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 		console.log('hit me baby', req)
 		updateComment(req.data);
 	}
-})
 
-
+});
 
 function returnMessage(msg, cmd){
    chrome.tabs.getSelected(null, function(tab){

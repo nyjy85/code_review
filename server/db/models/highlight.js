@@ -64,10 +64,10 @@ var deleteHighlight = function(id, url, callback) {
     var filePromise = mongoose.model("File").findOne({fileUrl: url}).exec();
 
     return Q.all([removeHighlightPromise, filePromise]).then(function(results){
-        var file = results[1];
-            file.highlighted.splice(file.highlighted.indexOf(id),1);
-            file.save(callback);
-        return;
+        var file = results[1]; 
+        file.highlighted.splice(file.highlighted.indexOf(id),1);
+        file.save(callback);
+        return "Successfully deleted highlight";
     }, callback)
 };
 
