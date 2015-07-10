@@ -147,7 +147,7 @@ router.put('/:id', function(req, res, next){
 
 						//search user noti -> check if update + commenter + fileUrl already exist
 						var checkExist = user.notifications.filter(function(noti){
-								return noti.update === 'newComment' && noti.commenter === commenter && noti.fileUrl === fileUrl;
+								return noti.update === 'newComment' && noti.commenter === commenter && noti.fileUrl === fileUrl && noti.line === line;
 						})
 
 						if(checkExist.length === 0) {

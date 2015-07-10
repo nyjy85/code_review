@@ -61,18 +61,18 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		popupGitFactory.getNotification($scope.user)
 		.then(function(notifications) {
 
-			//-----------------------------
 			notifications.map(function(n){
 				console.log('notificatiosn!!!!!')
 				var fileUrl = n.fileUrl;
 				var url = fileUrl.split('/');
 				n.repoName = url[4];
 				n.file = url[url.length-2] + '/' + url[url.length-1];
-				// n.line.splice(0,2);
+				n.timestamp = Math.floor((Date.now() - Date.parse(n.timestamp))/1000/60) + 'min ago';
+				if(n.line) n.line = n.line.slice(2);
 
 				var message = [
-					{update: 'newHighlight', display: n.commenter+' just added ' + n.number + ' new comments on '+ n.repoName + "(" + n.file + ")"},
-					{update: 'newComment', display: n.commenter + ' just added '+ n.number + ' responses on ' + n.repoName + "(" + n.file +")"+' on line '+ n.line}
+					{update: 'newHighlight', display: ' added ' + n.number + ' new comments on '+ n.repoName + "(" + n.file + ")      "},
+					{update: 'newComment', display: ' added '+ n.number + ' responses on ' + n.repoName + "(" + n.file +")"+' on line '+ n.line + "    "}
 				]
 
 				message.forEach(function(msg) {
@@ -85,6 +85,12 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 			$scope.noti = notifications;
 		})
 
+	}
+
+	$scope.openFile = function(url) {
+		chrome.tabs.create({
+        url: url
+    });
 	}
 
 	var cannotAddBox = function () {

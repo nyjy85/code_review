@@ -8,15 +8,66 @@ body {
 h3 {
   margin-top: 0px; }
 
+.file-title {
+  font-weight: bold;
+  color: #2196F3; }
+
 .home-container {
   width: 400px;
   height: 300px; }
 
 .repo-name {
-  display: inline-block; }
+  display: inline-block;
+  padding-left: 10px; }
+
+.noti-username {
+  font-weight: bold; }
+
+.noti-msg {
+  margin-bottom: 2px;
+  padding-left: 8px; }
+
+.noti-timestamp {
+  color: #999999;
+  font-style: italic; }
+
+#file-var {
+  padding-left: 10px;
+  font-weight: bold;
+  color: #3270A8; }
+
+#now {
+  height: 10px; }
+
+#notiIcon {
+  width: 65px !important;
+  position: relative; }
+
+.notiNum {
+  border: none;
+  position: relative;
+  right: 32.25px;
+  bottom: 8px;
+  border-radius: 5px;
+  font-size: 0.75em;
+  background-color: #DE3641; }
 
 .file {
   margin: 0 0 0 0; }
+
+#noRepo {
+  padding-top: 20px;
+  padding-left: 10px; }
+
+#your-repos :hover {
+  background-color: #F9F9F9; }
+
+#repo-list {
+  padding: 15px 20px 15px 10px; }
+
+.repo-more {
+  float: right;
+  padding-bottom: 15px; }
 
 .md-icon-button.filego {
   float: right; }
@@ -26,10 +77,6 @@ h3 {
 
 .commented {
   font-size: xx-small; }
-
-.editRepo.ng-isolate-scope.md-default-theme {
-  margin: 0 0 0 0;
-  float: left; }
 
 .md-button.md-primary {
   color: black; }
