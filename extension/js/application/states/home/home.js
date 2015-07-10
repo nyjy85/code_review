@@ -53,10 +53,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 		$scope.showAddBar = !$scope.showAddBar;
 	}
 
-	$scope.toggleNotification = function () {
-		$scope.showNotification = !$scope.showNotification;
-	}
-
 	$scope.notifications = function () {
 		popupGitFactory.getNotification($scope.user)
 		.then(function(notifications) {

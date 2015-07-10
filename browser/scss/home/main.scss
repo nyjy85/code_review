@@ -26,14 +26,16 @@
 }
 
 #repo-top{
-  padding-top: 60px;
+  padding-top: 0px;
 }
 
 #repo-btn{
   padding-top: 0px;
-  padding-left: 10px;
-  position: absolute;
-  font-size: 15px;
+  padding-left: 16px;
+  position: relative;
+  font-size: 17px;
+  margin-top: 17px;
+  margin-bottom: 5px;
 }
 
 #repo-p{
@@ -42,12 +44,16 @@
 	color: grey;
 }
 
+#repo-book{
+  padding-right: 7px;
+}
+
 #file-title{
   padding-left: 7px;
 }
 
 #files-top{
-  padding-top: 60px;
+  padding-top: 16px;
 }
 
 #files-p{
@@ -63,9 +69,13 @@
   padding-left: 10px;
 }
 
+#comments-box{
+  padding-right: 7px;
+}
+
 
 #accord-top{
-  padding-top: 60px;
+  padding-top: 16px;
 }
 
 
@@ -102,28 +112,30 @@
 	background-color: white;
 }
 
+
+
 .list-of-repos {
-	
+
 	font-weight: 100;
-	font-size: 15px;
+	font-size: 20px;
 	padding-top: 10px;
   padding-left: 10px;
 }
 
 .list-of-files{
-	
+
 	font-weight: 100;
-	font-size: 16px;
+	font-size: 20px;
 	margin-bottom: 2px;
-  margin-top: 11px;
+  margin-top: 30px;
   margin-left: 10px;
 }
 
 .list-of-comments{
 	font-weight: 100;
 	font-size: 15px;
-	margin-bottom: 9px;
-  padding-top:  10px;
+	margin-bottom: -4px;
+  padding-top:  29px;
   padding-left: 10px;
 	#up-icon{
 		margin-right: 2px;
@@ -151,9 +163,9 @@
 }
 
 .effect7{
-    position:absolute; 
+    position:absolute;
     height: 40px;
-    width: 820px;     
+    width: 820px;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -161,7 +173,7 @@
 .effect7:before, .effect6:after
 {
   content:"";
-    position:absolute; 
+    position:absolute;
     z-index:-1;
     -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
     -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
@@ -181,9 +193,9 @@
  * ===============================================*/
 .effect6
 {
-    position:absolute; 
+    position:absolute;
     height: 40px;
-    width: 100%;     
+    width: 100%;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
        -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
             box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -191,7 +203,7 @@
 .effect6:before, .effect6:after
 {
   content:"";
-    position:absolute; 
+    position:absolute;
     z-index:-1;
     -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
     -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);

@@ -1,26 +1,40 @@
+<above></above>
+<!-- <navbar></navbar> -->
+
 <section id="home">
+
 <div class="row">
 
+
     <div class="col-md-2 first" style='height: 700px'>
-    	<div>
-			<div class='list-of-repos'>LIST OF REPOS</div>
+
+      <div>
+		 <h3 class='list-of-repos'><span id='file-title'><ng-md-icon icon="book" style="fill: black" size="17" id='repo-book'></ng-md-icon>LIST OF REPOS</span></he>
 		</div>
 	<div id='repo-top'>
-		<div ng-repeat="repo in reposArray" id='repo-p' ng-click="getFiles(repo.url)"> <div id='repo-btn'>{{repo.name}}</div></div>
+
+		<div ng-repeat="repo in reposArray" id='repo-p' ng-click="getFiles(repo.url)">
+      <div id='repo-btn'>{{repo.name}}</div>
+        </div>
 	    </div>
 	</div>
+
 	<div class='col-md-3 second'>
     	<!-- <div class="list-of-files">Files</div> -->
     	<div>
-			<h3 class='list-of-files'><ng-md-icon icon="my_library_books" id='files-icon' size="17"></ng-md-icon><span id='file-title'>FILES</span></h3>
+			<h3 class='list-of-files'><ng-md-icon icon="my_library_books" id='files-icon' size="17"></ng-md-icon>
+        <span id='file-title'>FILES</span></h3>
 		</div>
 	<div id='files-top'>
-		<div ng-repeat='file in filesArray track by $index' ng-click="	getHighlights(file, $index)" id='files-p'> <div ng-if="highlightArray.	length" id='files-btn'>{{file}}</div></div>
+		<div ng-repeat='file in filesArray track by $index' ng-click="	getHighlights(file, $index)" id='files-p'>
+      <div ng-if="highlightArray.length" id='files-btn'>{{file}}</div>
+      </div>
 		</div>
 	</div>
     <div class='col-md-7'>
+
      	<div>
-     	<div class="list-of-comments">LIST OF COMMENTS <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon> 
+     	<div class="list-of-comments"><ng-md-icon icon="question_answer" style="fill: black" size="17" id='comments-box'></ng-md-icon>LIST OF COMMENTS <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon>
      	 </div>
      	</div>
      	<div id='accord-top'>
@@ -30,11 +44,11 @@
     <v-pane-header id='pane-header-ok'>
       <div ng-repeat='light in high.code track by $index' id='inside-pane-header'>
      	 <code id='each-code'>{{high.code[$index]}}</code>
-  	  </div>  	  
+  	  </div>
   	  	<div id='each-person'>-{{high.comment[0].commenter}}</div>
-  
-      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete' ng-click='deleteComment($index)'></ng-md-icon> 
-        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon> 
+
+      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete' ng-click='deleteComment($index)'></ng-md-icon>
+        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon>
     </v-pane-header>
 
     <v-pane-content>
@@ -56,7 +70,7 @@
 	</div>
      </div>
 </div>
-<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon> 
+<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon>
  -->
-    
+
 </section>
