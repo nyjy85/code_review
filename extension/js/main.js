@@ -561,27 +561,6 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
 
 })
 
-
-app.config(function ($stateProvider) {
-	$stateProvider.state('login', {
-		url: '/',
-		templateUrl: 'js/application/states/login/login.html',
-		controller: 'LoginController',
-		resolve: {
-			Login: function($http, $state) {
-				$http.get("https://gitty-1504.herokuapp.com/session").then(function(res) {
-					if(res.data) {
-						$state.go('home')
-					}
-					else {
-						return
-					}
-				});
-			}
-		}
-	});
-});
-
 app.controller('LoginController', function($scope, $state, popupGitFactory){
   $scope.message = "Check this page out now!";
 
