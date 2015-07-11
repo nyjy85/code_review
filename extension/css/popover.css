@@ -102,9 +102,15 @@
 }
 
 .post-it{
-    background-color: red;
-    height: 17px;
-    width: 10px;
+    background-color: rgb(41, 41, 103);
+    height: 15px;
+    width: 15px;
+    border: none;
+    border-radius: 3px;
+}
+
+.post-it:hover{
+  background-color: rgba(41, 41, 103, 0.66);
 }
 
 
