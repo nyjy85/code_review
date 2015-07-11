@@ -1,5 +1,5 @@
 app.factory('popupGitFactory', function($http) {
-    var domain = "http://localhost:1337";
+    var domain = "https://gitty-1504.herokuapp.com";
 
     return {
 
