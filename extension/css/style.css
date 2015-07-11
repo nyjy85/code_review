@@ -1,5 +1,17 @@
+@import url(http://fonts.googleapis.com/css?family=Anton|Rock+Salt);
 * {
   box-sizing: border-box; }
+
+#loginPage {
+  font-family: 'Quicksand', sans-serif;
+  text-align: center; }
+
+#logo {
+  padding-top: 10px;
+  font-family: 'Rock Salt', cursive; }
+
+#loginButton {
+  padding-top: 20px; }
 
 body {
   width: 400px;
@@ -90,3 +102,4 @@ h3 {
 .logout {
   float: right;
   margin: 10px; }
+
