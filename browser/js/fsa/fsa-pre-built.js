@@ -97,7 +97,7 @@
             });
         };
 
-        var callbackUrls = {github: "http://localhost:1337/auth/github"};
+        var callbackUrls = {github: "https://morning-tundra-4984.herokuapp.com/auth/github"};
 
         this.gitLogin = function() {
             console.log('does this even get here?')
