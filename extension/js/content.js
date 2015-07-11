@@ -17,7 +17,8 @@ $(document).ready(function(){
     )
 });
 
-
+var selection = window.getSelection();
+                selection.removeAllRanges();
 
 
 function url(){
