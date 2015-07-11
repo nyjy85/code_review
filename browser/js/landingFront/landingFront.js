@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('front', {
-        url: '/frt',
+        url: '/',
         templateUrl: 'js/landingFront/landingFront.html',
         controller: 'LoginCtrl'
     });
