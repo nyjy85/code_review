@@ -1,38 +1,61 @@
+<above></above>
+<!-- <navbar></navbar> -->
+
 <section id="home">
+
+<div class="row">
+
+
     <div class="col-md-2 first" style='height: 700px'>
-    	<div class="list-of-repos">List of repos</div>
-       <p ng-repeat="repo in reposArray" ng-click="getFiles(repo.url)"> <md-button id='repo-btn'>{{repo.name}}</md-button></p>
-    </div>
 
-<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon> 
- -->
+      <div>
+		 <h3 class='list-of-repos'><span id='file-title'><ng-md-icon icon="book" style="fill: black" size="17" id='repo-book'></ng-md-icon>LIST OF REPOS</span></he>
+		</div>
+	<div id='repo-top'>
 
-    <div class='col-md-3 second'>
-    	<div class="list-of-files">Files</div>
-    	<p ng-repeat='file in filesArray track by $index' ng-click="getHighlights(file, $index)" id='files-btn'> <md-button ng-if="highlightArray.length">{{file}}</md-button></p>
-    </div>
+		<div ng-repeat="repo in reposArray" id='repo-p' ng-click="getFiles(repo.url)">
+      <div id='repo-btn'>{{repo.name}}</div>
+        </div>
+	    </div>
+	</div>
+
+	<div class='col-md-3 second'>
+    	<!-- <div class="list-of-files">Files</div> -->
+    	<div>
+			<h3 class='list-of-files'><ng-md-icon icon="my_library_books" id='files-icon' size="17"></ng-md-icon>
+        <span id='file-title'>FILES</span></h3>
+		</div>
+	<div id='files-top'>
+		<div ng-repeat='file in filesArray track by $index' ng-click="	getHighlights(file, $index)" id='files-p'>
+      <div ng-if="highlightArray.length" id='files-btn'>{{file}}</div>
+      </div>
+		</div>
+	</div>
     <div class='col-md-7'>
-     	<div class="list-of-comments">List of comments <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon> 
-     	 </div>
-     	
 
-    <v-accordion id="vAccordion--default" multiple control="accordion">
+     	<div>
+     	<div class="list-of-comments"><ng-md-icon icon="question_answer" style="fill: black" size="17" id='comments-box'></ng-md-icon>LIST OF COMMENTS <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon>
+     	 </div>
+     	</div>
+     	<div id='accord-top'>
+     	<v-accordion id="vAccordion--default" multiple control="accordion">
 
   <v-pane ng-repeat='high in highlight track by $index'>
-    <v-pane-header>
-      <div ng-repeat='light in high.code track by $index'>
+    <v-pane-header id='pane-header-ok'>
+      <div ng-repeat='light in high.code track by $index' id='inside-pane-header'>
      	 <code id='each-code'>{{high.code[$index]}}</code>
-  		</div>
+  	  </div>
+  	  	<div id='each-person'>-{{high.comment[0].commenter}}</div>
 
-      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete' ng-click='deleteComment($index)'></ng-md-icon> 
-        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon> 
+      <ng-md-icon icon="delete" style="fill: grey" size="13" id='delete' ng-click='deleteComment($index)'></ng-md-icon>
+        <ng-md-icon icon='github-circle' style='fill: grey;' size='13' ng-click='linkToGitPage($index)' id='git-circle'>  </ng-md-icon>
     </v-pane-header>
 
     <v-pane-content>
       <v-accordion>
         <v-pane ng-repeat="subcomments in high.comment">
           <v-pane-header>
-            	<b>{{high.comment[$index].commenter}}</b>: {{ high.comment[$index].message}}
+            	{{high.comment[$index].commenter}}: {{ high.comment[$index].message}}
               <p class="timestamp">{{high.comment[$index].timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</p>
           </v-pane-header>
           		<!-- <v-pane-content>
@@ -43,5 +66,12 @@
     </v-pane-content>
   			</v-pane>
 		</v-accordion>
+
+
 	</div>
+     </div>
+</div>
+<!--     <ng-md-icon icon="send" style="fill: pink" size="40"></ng-md-icon>
+ -->
+
 </section>
