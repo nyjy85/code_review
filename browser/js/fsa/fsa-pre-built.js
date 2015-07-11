@@ -98,7 +98,7 @@
         };
 
 
-        var callbackUrls = {github: "https://gitty-1504.herokuapp.com/auth/github"};
+        var callbackUrls = {github: "https://gitty-1504.herokuapp.com/auth/github/callback"};
 
 
         this.gitLogin = function() {
