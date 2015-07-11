@@ -46,7 +46,14 @@
   <v-pane ng-repeat='high in highlight track by $index'>
     <v-pane-header id='pane-header-ok'>
       <div ng-repeat='light in high.code track by $index' id='inside-pane-header'>
-     	 <code id='each-code'>{{high.code[$index]}}</code>
+
+
+
+     	 <pre id='pre-tag'><code prism class='language-javascript' source='{{high.code[$index]}}'id='each-code'></code></pre>
+
+
+
+
   	  </div>
   	  	<div id='each-person'>-{{high.comment[0].commenter}}</div>
 

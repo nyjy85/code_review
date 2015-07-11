@@ -116,6 +116,15 @@
 	background-color: white;
 }
 
+code:not(pre) > code[class*="language-"], pre[class*="language-"]{
+  background: white;
+}
+
+#pre-tag{
+  border: 0px;
+  border-radius: 0px;
+  background-color: white;
+}
 
 
 .list-of-repos {
@@ -137,9 +146,9 @@
 
 .list-of-comments{
 	font-weight: 100;
-	font-size: 15px;
+	font-size: 20px;
 	margin-bottom: -4px;
-  padding-top:  30px;
+  margin-top: 30px;
   padding-left: 10px;
 	#up-icon{
 		margin-right: 2px;
