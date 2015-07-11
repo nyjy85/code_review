@@ -17,14 +17,13 @@ $(document).ready(function(){
     )
 });
 
-
+var selection = window.getSelection();
+                selection.removeAllRanges();
 
 
 function url(){
     return window.location.href;
 }
-
-var color = '#ceff63';
 
 function runScript(repoUrl, user){
 
@@ -38,6 +37,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
 
     // INITIALIZE VARIABLES
     var startId, endId, data, comment, section;
+    var color = '#ceff63';
 
 //////////////////////////// box popover
 
@@ -125,7 +125,7 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
                 var hl = res.message;
                 // repopulate highlight
                 hl.highlighted.forEach(function(selection){
-                    reSelect(selection.highlighted, 'yellow');
+                    reSelect(selection.highlighted, 'rgba(206, 255, 99, 0.41)');
                     postIt.append(selection.highlighted.endId, selection);
                 });
                 res.command = null;

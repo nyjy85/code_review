@@ -30,14 +30,16 @@
 }
 
 #repo-top{
-  padding-top: 60px;
+  padding-top: 0px;
 }
 
 #repo-btn{
   padding-top: 0px;
-  padding-left: 10px;
+  padding-left: 16px;
   position: relative;
-  font-size: 15px;
+  font-size: 17px;
+  margin-top: 17px;
+  margin-bottom: 5px;
 }
 
 #repo-p{
@@ -46,12 +48,16 @@
 	color: grey;
 }
 
+#repo-book{
+  padding-right: 7px;
+}
+
 #file-title{
   padding-left: 7px;
 }
 
 #files-top{
-  padding-top: 60px;
+  padding-top: 16px;
 }
 
 #files-p{
@@ -67,9 +73,13 @@
   padding-left: 10px;
 }
 
+#comments-box{
+  padding-right: 7px;
+}
+
 
 #accord-top{
-  padding-top: 60px;
+  padding-top: 16px;
 }
 
 
@@ -106,10 +116,12 @@
 	background-color: white;
 }
 
+
+
 .list-of-repos {
 
 	font-weight: 100;
-	font-size: 15px;
+	font-size: 20px;
 	padding-top: 10px;
   padding-left: 10px;
 }
@@ -117,17 +129,17 @@
 .list-of-files{
 
 	font-weight: 100;
-	font-size: 16px;
+	font-size: 20px;
 	margin-bottom: 2px;
-  margin-top: 11px;
+  margin-top: 30px;
   margin-left: 10px;
 }
 
 .list-of-comments{
 	font-weight: 100;
 	font-size: 15px;
-	margin-bottom: 9px;
-  padding-top:  10px;
+	margin-bottom: -4px;
+  padding-top:  30px;
   padding-left: 10px;
 	#up-icon{
 		margin-right: 2px;

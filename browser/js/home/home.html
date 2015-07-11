@@ -9,10 +9,10 @@
   <div class="col-md-2 first" style='height: 700px'>
 
       <div>
-			     <h3 class='list-of-repos'><span id='file-title'>LIST OF REPOS</span></h3>
-		  </div>
 
-      <div id='repo-top'>
+		 <h3 class='list-of-repos'><span id='file-title'><ng-md-icon icon="book" style="fill: black" size="17" id='repo-book'></ng-md-icon>LIST OF REPOS</span></he>
+		</div>
+	<div id='repo-top'>
 
 		    <div ng-repeat="repo in reposArray" id='repo-p' ng-click="getFiles(repo.url)">
             <div class="repo-list" id='repo-btn'>{{repo.name}}</div>
@@ -37,7 +37,7 @@
     <div class='col-md-7'>
 
      	<div>
-     	<div class="list-of-comments">LIST OF COMMENTS <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon>
+     	<div class="list-of-comments"><ng-md-icon icon="question_answer" style="fill: black" size="17" id='comments-box'></ng-md-icon>LIST OF COMMENTS <ng-md-icon icon="expand_less" id='up-icon' ng-click="accordion.collapseAll()" size="13"></ng-md-icon><ng-md-icon icon="expand_more" ng-click="accordion.expandAll()" id='down-icon' size="13"></ng-md-icon>
      	 </div>
      	</div>
      	<div id='accord-top'>
@@ -59,10 +59,11 @@
         <v-pane ng-repeat="subcomments in high.comment">
           <v-pane-header>
             	{{high.comment[$index].commenter}}: {{ high.comment[$index].message}}
+              <p class="timestamp">{{high.comment[$index].timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</p>
           </v-pane-header>
-          		<v-pane-content>
-            		{{high.comment[$index].timestamp}}
-          		</v-pane-content>
+          		<!-- <v-pane-content>
+
+          		</v-pane-content> -->
         	</v-pane>
       	</v-accordion>
     </v-pane-content>
