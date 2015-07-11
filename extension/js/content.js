@@ -1,38 +1,33 @@
 
-
+var Firebase = new Firebase('https://gitty.firebaseio.com/');
 $(document).ready(function(){
-
     console.log('document is ready!');
-    // get file with highlight array
-    // chrome.runtime.sendMessage({command: 'verify', url: url()})
+    // hacky as hell but oh well
+    $('a').on('click', function(e){
+        e.preventDefault();
+        var href = $(this).attr('href')
+        console.log('href href href', href)
+        window.location.href = href;
+    });
 
     chrome.runtime.onMessage.addListener(
         function(res, sender){
             if(res.command === 'verified'){
-                $('.popover').remove();
                 runScript(res.message.url, res.message.user);    
-            }
-
+            } 
         }
     )
 });
-
-var selection = window.getSelection();
-                selection.removeAllRanges();
-
 
 function url(){
     return window.location.href;
 }
 
 function runScript(repoUrl, user){
-
-    console.log('the list', startId, endId, data, comment, section)
-chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
-
-
     console.log('hit runScript', repoUrl, user)
+  
 
+    chrome.runtime.sendMessage({command: 'notification', len: user.notifications.length.toString()})
     chrome.runtime.sendMessage({command: 'get-file', url: url()});
 
     // INITIALIZE VARIABLES
@@ -62,20 +57,18 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     });
 
     $(".save-button").on('click', function(e){
-        // $('.popover').prepend('<div class="chatbox">'+$('.span1').val()+'</div>');
         console.log('1. .save-button data', data)
         if(data) Comment.postNew(endId, data, user);
         else Comment.update(user);
-        // getHighlight()
         data = null;
-        $('.popover').hide();
+        // $('.popover').hide();
+
     });
 
     $(".cancel-button").on('click', function(e){
+
         $('.popover').hide();
         $('.span1').val("");
-        // if(startId && endId) highlight.clear(startId, endId, 'white')
-         // use serialized variable to toggleHilite()
         highlight.undo(section);
 
     });
@@ -112,7 +105,6 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
             $('.popover').children('div').remove('.chatbox');
             $('.popover').hide();
             $('.span1').val('');
-            // if(startId && endId) highlight.clear(startId, endId, 'white')
         });
     })
 
@@ -129,16 +121,27 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
                     postIt.append(selection.highlighted.endId, selection);
                 });
                 res.command = null;
-
             }
 
             if(res.command === 'highlight-posted'){
                 console.log('posted new highlight and got it from the back!', res)
                 var id = res.message._id;
                 var hl = res.message.highlighted;
-                // highlight.unhighlight('highlighted'+hl.startId);
-                // reSelect(hl, 'red');
                 postIt.append(hl.endId, res.message)
+
+                var chat = Firebase.child(id)
+                chat.push({commenter:user.github.username, comment:res.message.comment[0].message, timestamp: Date.now()})    
+                chat.on('value', function(cho){
+                    console.log('chochochochoc', cho)
+                    console.log('chcohccohcc', cho.val())
+                    var key;
+                    for(var prop in cho.val()){
+                        key = prop;
+                    }
+                    console.log('this is keeeey', key)
+                    $('.popover').show();
+                    $('.span1').val(cho.val()[key].comment)
+                })
                 data = null;
                 console.log('res.command data', data)
                 res.command = null;
@@ -161,3 +164,4 @@ chrome.runtime.sendMessage({command: 'notification', len: user.notifications.len
     )
 
 }
+

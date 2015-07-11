@@ -97,7 +97,7 @@
             });
         };
 
-        var callbackUrls = {github: "http://localhost:1337/auth/github"};
+        var callbackUrls = {github: "https://gitty-1504.herokuapp.com:1337/auth/github"};
 
         this.gitLogin = function() {
             console.log('does this even get here?')

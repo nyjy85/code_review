@@ -10,6 +10,8 @@ module.exports = function (server) {
 
     io.on('connection', function () {
         // Now have access to socket, wowzers!
+        console.log('a user has connected, WOWZERS!')
+     
     });
     
     return io;

@@ -24,7 +24,7 @@
    "content_scripts": [ {
     "matches": ["http://*/*", "https://*/*"],
     "css": ["css/popover.css"],
-    "js": ["js/dependencies/jquery.min.js", "js/modules/highlight.js", "js/modules/deserialize.js", "js/modules/select.js", "js/content.js"],
+    "js": ["js/dependencies/firebase.js", "js/dependencies/jquery.min.js", "js/modules/highlight.js", "js/modules/deserialize.js", "js/modules/select.js", "js/content.js"],
     "all_frames": true
   }]
 }

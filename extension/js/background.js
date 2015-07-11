@@ -1,13 +1,15 @@
 //listens for event from content.js.  this is the purpose of background.js
 // it will be a bunch of if statements that will check for the command and do something on that command
 
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+	console.log('changeInfo', changeInfo)
     console.log('change!', tab.url);
     if(tab.url.indexOf('blob') > -1 && changeInfo.status == 'complete') {
     	chrome.runtime.sendMessage({command: 'verify', url: tab.url});
+    } 
+});
 
-    }
-})
 chrome.runtime.onMessage.addListener(function(req, sender){
  	if (req.command === 'notification') {
         chrome.browserAction.setBadgeText({text: req.len});

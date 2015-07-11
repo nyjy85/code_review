@@ -78,16 +78,16 @@ popOver.bindData = function(data){
     popData.comment.forEach(function(comment){
         console.log('THIS IS COMMENT', comment)
         $('.popover').prepend('<div class="chatbox"><div class="commenter"><p>'+comment.commenter+'</p></div><div class="msg">'+comment.message+'</div><p class="timestamp">'+convertTime(comment.timestamp)+'</p></div>');
+    
     });
 
 }
 
 function convertTime(date){
-    // var date = new Date(date); 
-    // var milliseconds = date.getTime();
     var date2 = new Date(date).toString();
     return date2.split(" ").slice(0,5).join(" ");
 }
+
 var Comment = {};
 Comment.postNew = function(endId, data, user){
     console.log('this be the comment', $('.span1').val())
@@ -105,6 +105,21 @@ Comment.update = function(user){
     updated.comment.push({timestamp: Date.now(), message: $('.span1').val(), commenter: user.github.username});
     updated.url = url();
     console.log('updated Data', updated)
+    Firebase.child(updated._id).push({commenter: updated.comment[1].commenter, message: updated.comment[1].message, timestamp: Date.now()})
+    Firebase.child(updated._id).on('value', function(cho){
+        console.log('chochochochoc', cho)
+        console.log('chcohccohcc', cho.val())
+        var key;
+        for(var prop in cho.val()){
+            key = prop;
+        }
+        console.log('this is keeeey', key)
+        $('.popover').prepend('<div class="chatbox"><div class="commenter"><p>'+cho.val()[key].commenter+'</p></div><div class="msg">'+cho.val()[key].message+'</div><p class="timestamp">'+cho.val()[key].timestamp+'</p></div>');
+        $('.span1').val(cho.val()[key].comment)
+    })
+
+
+
     chrome.runtime.sendMessage({command: 'update-comment', data: updated})
 }
 

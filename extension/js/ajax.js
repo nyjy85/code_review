@@ -1,7 +1,7 @@
 function getRepos(url){
 	$.ajax({
    		type: 'GET', 
-   		url: 'http://localhost:1337/session', 
+   		url: 'https://gitty-1504.herokuapp.com/session', 
    		success: function(response){
    			console.log('response please', response)
    			response.user.repos.forEach(function(repo){
@@ -15,7 +15,7 @@ function getRepos(url){
 function populateFile(id){
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:1337/api/file/'+id,
+		url: 'https://gitty-1504.herokuapp.com/api/file/'+id,
 		success: function(response){
 			console.log('successfully gotten', response);
 			returnMessage(response, "file-retrieved");
@@ -26,7 +26,7 @@ function populateFile(id){
 function sendHighlightData(data){
    $.ajax({
       type: 'POST',
-      url: 'http://localhost:1337/api/highlighted',
+      url: 'https://gitty-1504.herokuapp.com/api/highlighted',
       data: data,
       success: function(response){
          console.log('POST has been successful!', response);
@@ -38,7 +38,7 @@ function sendHighlightData(data){
 function getHighlightData(id){
    $.ajax({
       type: 'GET',
-      url: 'http://localhost:1337/api/highlighted/'+id,
+      url: 'https://gitty-1504.herokuapp.com/api/highlighted/'+id,
       success: function(response){
          console.log('YOU GOT THE HIGLIHGT', response);
          returnMessage(response, 'highlight-retrieved');
@@ -50,7 +50,7 @@ function getFile(url){
    $.ajax({
       type: 'GET',
       data: {url: url},
-      url: 'http://localhost:1337/api/file/',
+      url: 'https://gitty-1504.herokuapp.com/api/file/',
       success: function(response){
          console.log('File from the backend', response);
          returnMessage(response, 'file-retrieved');
@@ -62,7 +62,7 @@ function deleteHighlight(id, url){
    $.ajax({
       type: 'DELETE',
       data: {url: url},
-      url: 'http://localhost:1337/api/highlighted/'+id,
+      url: 'https://gitty-1504.herokuapp.com/api/highlighted/'+id,
       success: function(response){
          console.log('highlight successfully deleted', response)
          // returnMessage(response)
@@ -76,7 +76,7 @@ function updateComment(data){
    $.ajax({
       type: 'PUT',
       data: {data: data},
-      url: 'http://localhost:1337/api/highlighted/'+data._id,
+      url: 'https://gitty-1504.herokuapp.com/api/highlighted/'+data._id,
       success: function(response){
          console.log('successfully updated', response)
          returnMessage(response, 'updated!')
