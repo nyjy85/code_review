@@ -21,7 +21,8 @@ var schema = new mongoose.Schema({
         startOffset: Number,
         endOffset: Number
     },
-    fileUrl: String
+    fileUrl: String,
+    color: String
 });
 
 var checkForFileOnHighlight = function(newData, fileInfo, repoUrl, callback) {

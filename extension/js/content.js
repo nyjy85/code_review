@@ -85,7 +85,7 @@ function runScript(repoUrl, user){
         var code = section.code;
         code = code.split('\n');
         // cache data
-        data = {newData:{highlighted: serialized, code: code}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
+        data = {newData:{highlighted: serialized, code: code, color: color}, fileInfo: {fileUrl: url()}, repoUrl: repoUrl}
         console.log('data', data)
         // comment popover appears
         popOver.show(e, endId, true)
@@ -115,7 +115,7 @@ function runScript(repoUrl, user){
                 var hl = res.message;
                 // repopulate highlight
                 hl.highlighted.forEach(function(selection){
-                    reSelect(selection.highlighted, 'rgba(206, 255, 99, 0.41)');
+                    reSelect(selection.highlighted, selection.color);
                     postIt.append(selection.highlighted.endId, selection);
                 });
                 res.command = null;
