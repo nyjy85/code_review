@@ -105,21 +105,6 @@ Comment.update = function(user){
     updated.comment.push({timestamp: Date.now(), message: $('.span1').val(), commenter: user.github.username});
     updated.url = url();
     console.log('updated Data', updated)
-    Firebase.child(updated._id).push({commenter: updated.comment[1].commenter, message: updated.comment[1].message, timestamp: Date.now()})
-    Firebase.child(updated._id).on('value', function(cho){
-        console.log('chochochochoc', cho)
-        console.log('chcohccohcc', cho.val())
-        var key;
-        for(var prop in cho.val()){
-            key = prop;
-        }
-        console.log('this is keeeey', key)
-        $('.popover').prepend('<div class="chatbox"><div class="commenter"><p>'+cho.val()[key].commenter+'</p></div><div class="msg">'+cho.val()[key].message+'</div><p class="timestamp">'+cho.val()[key].timestamp+'</p></div>');
-        $('.span1').val(cho.val()[key].comment)
-    })
-
-
-
     chrome.runtime.sendMessage({command: 'update-comment', data: updated})
 }
 

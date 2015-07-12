@@ -128,20 +128,6 @@ function runScript(repoUrl, user){
                 var id = res.message._id;
                 var hl = res.message.highlighted;
                 postIt.append(hl.endId, res.message)
-
-                var chat = Firebase.child(id)
-                chat.push({commenter:user.github.username, comment:res.message.comment[0].message, timestamp: Date.now()})    
-                chat.on('value', function(cho){
-                    console.log('chochochochoc', cho)
-                    console.log('chcohccohcc', cho.val())
-                    var key;
-                    for(var prop in cho.val()){
-                        key = prop;
-                    }
-                    console.log('this is keeeey', key)
-                    $('.popover').show();
-                    $('.span1').val(cho.val()[key].comment)
-                })
                 data = null;
                 console.log('res.command data', data)
                 res.command = null;
