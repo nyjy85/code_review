@@ -1,5 +1,3 @@
-
-var Firebase = new Firebase('https://gitty.firebaseio.com/');
 $(document).ready(function(){
     console.log('document is ready!');
     // hacky as hell but oh well
@@ -61,7 +59,7 @@ function runScript(repoUrl, user){
         if(data) Comment.postNew(endId, data, user);
         else Comment.update(user);
         data = null;
-        // $('.popover').hide();
+        $('.popover').hide();
 
     });
 
