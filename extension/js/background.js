@@ -3,8 +3,6 @@
 
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	console.log('changeInfo', changeInfo)
-    console.log('change!', tab.url);
     if(tab.url.indexOf('blob') > -1 && changeInfo.status == 'complete') {
     	chrome.runtime.sendMessage({command: 'verify', url: tab.url});
     } 
