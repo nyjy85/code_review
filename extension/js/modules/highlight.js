@@ -45,17 +45,3 @@ function restoreRange(section) {
     sel.removeAllRanges();
     sel.addRange(range);
 }
-
-// highlight.restorerange = function(ele){
-//     var selection = window.getSelection();
-//     selection.removeAllRanges();
-//     var range = document.createRange();
-//     range.setStart(ele.startContainer, ele.startOffset);
-//     range.setEnd(ele.endContainer, ele.endOffset);
-//     selection.addRange(range);
-// }
-
-// highlight.setBackgroundColor = function(ele) {
-//     highlight.restorerange(ele);
-//     this.set();
-// }

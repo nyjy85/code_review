@@ -129,14 +129,17 @@ function runScript(repoUrl, user){
             }
 
             if(res.command === 'updated!'){
-                console.log('comment appended!!!', res.message)
+                console.log('comment appended!!!', res.message);
+                res.command = null;
             }
 
             if(res.command === 'change-color'){
                 color = res.message;
+                res.command = null;
             }
             if(res.message === 'logout'){
-                console.log('logout is hit in the content.js')
+                console.log('logout is hit in the content.js');
+                res.command = null;
             }
 
         }
