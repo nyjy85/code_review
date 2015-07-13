@@ -1,11 +1,9 @@
 var highlight = {};
 
 highlight.set = function(color){
-	// highlighting = true;
     document.designMode = "on";
     document.execCommand("hiliteColor", false, color);
-    document.designMode = 'off'; 
-    // highlighting = false;  
+    document.designMode = 'off';  
 }
 
 highlight.clear = function(start, end, color){
@@ -27,21 +25,22 @@ highlight.clear = function(start, end, color){
 
 highlight.undo = function(section){
     document.designMode = 'on';
-    var sel = window.getSelection();
-    restoreRange(section)
-    section = null;
+    
+    // restoreRange(section)
     document.execCommand('removeFormat', false, null)
+    var sel = window.getSelection();
     sel.removeAllRanges();
+    // section = null;
     document.designMode = 'off';
 }
 
-function restoreRange(section) {
-    var range = document.createRange();
-    console.log('this be section data in restorerange', section)
-    range.setStart(section.startContainer, section.startOffset);
-    range.setEnd(section.endContainer, section.endOffset);
+// function restoreRange(section) {
+//     var range = document.createRange();
+//     console.log('this be section data in restorerange', section)
+//     range.setStart(section.startContainer, section.startOffset);
+//     range.setEnd(section.endContainer, section.endOffset);
 
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-}
+//     var sel = window.getSelection();
+//     sel.removeAllRanges();
+//     sel.addRange(range);
+// }

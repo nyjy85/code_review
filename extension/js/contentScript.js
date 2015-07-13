@@ -67,6 +67,7 @@ function runScript(repoUrl, user){
 
         $('.popover').hide();
         $('.span1').val("");
+        console.log('section when cancel clicked', section)
         highlight.undo(section);
 
     });
