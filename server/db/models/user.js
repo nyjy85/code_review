@@ -22,7 +22,7 @@ var schema = new mongoose.Schema({
     },
     repos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Repo'}],
     notifications: [{
-      update: {type: String, enum: ['newComment', 'newHighlight']},
+      update: {type: String, enum: ['newComment', 'newHighlight', 'share']},
       number: Number,
       commenter: String,
       timestamp: Date,

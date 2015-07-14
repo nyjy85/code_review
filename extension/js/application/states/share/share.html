@@ -1,0 +1,15 @@
+<md-dialog-content>
+  <div>
+      <h4 class='repo-name'>{{ repoName }}</h4>
+      <span><md-button class="md-icon-button" ng-click="close()">
+        <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button></span>
+      <md-divider></md-divider>
+      <p>Who would you like to add in this repo?</p>
+      <input type="text" ng-model="shareToUser"></input>
+      <button ng-click="shareRepo(shareToUser)">Confirm</button>
+
+      <p></p>
+
+  </div>
+</md-dialog-content>

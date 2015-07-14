@@ -39,6 +39,11 @@ app.factory('popupGitFactory', function($http) {
           })
         },
 
+        shareRepo: function(toUsername, fromUsername, repo) {
+          console.log('shareRepo factory',toUsername, fromUsername, repo.contributors, repo.name);
+          // return $http.put(domain)
+        },
+
         archiveRepo: function(user) {
           console.log('archieve repo factory', user.archives);
           var archives = {repo: user.archives}

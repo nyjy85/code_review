@@ -198,6 +198,18 @@ app.controller('HomeCtrl', function ($scope, $state, popupGitFactory, $timeout, 
     });
 	}
 
+	$scope.shareRepo = function(repo) {
+		var modalInstance = $modal.open({
+      templateUrl: 'js/application/states/share/share.html',
+      controller: 'ShareCtrl',
+      resolve: {
+        repo: function() {
+          return repo;
+        }
+      }
+    });
+	}
+
 	//log out
 	$scope.logout = function () {
 		popupGitFactory.logout().then(function(res){
