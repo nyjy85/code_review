@@ -39,7 +39,8 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 
 		repo.files.forEach(function(file) {
 			var url = file.fileUrl.split('/');
-			file.display = url.slice(7, 8).join('/');
+			file.display = url.slice(url.indexOf('blob')+1).join('/');
+      // file.display = url.slice(7, 8).join('/');
       // [url.length-2] + '/' + url[url.length-1];
 
       //number of comments
