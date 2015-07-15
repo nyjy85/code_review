@@ -5,7 +5,8 @@
 
 >Built with the Chrome Extension and Github APIs, Mongo, Angular/Angular Material, and Node
 >You can highlight/comment on any github file as long as you're a collaborator.
->The highlights persist along with the comments and we recommend you comment on files in commit trees.  That way they can continue to persist
+>The highlights and comments get catalogued, so you can always refer back to them at that particular file URL.
+>We recommend you comment on files in commit trees.  That way they can continue to persist.
 
 
 
