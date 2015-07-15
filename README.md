@@ -20,7 +20,7 @@ Our website: [Gittyapp.co](http://www.gittyapp.co)
 
 3. Add a repo to your list.
 
-4. We recommend you comment on the files on the commit tree as opposed to master, since master files tend to change
+4. We recommend you comment on the files on the commit tree as opposed to the master, since master files tend to change.
 
 5. Start highlighting!  Right click to choose colors!
 
