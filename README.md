@@ -11,16 +11,16 @@
 
 
 
-Our website: [Gittyapp.com](http://www.gittyapp.co)
+Our website: [Gittyapp.co](http://www.gittyapp.co)
 
 ## Installation and Usage
 1. Download the extension.
 
-2. Sign into github via the extension
+2. Sign into Github via the extension.
 
-3. Add a repo to your list
+3. Add a repo to your list.
 
-4. We recommend you comment on commit tree files as opposed to master, since master files tend to change
+4. We recommend you comment on the files on the commit tree as opposed to master, since master files tend to change
 
 5. Start highlighting!  Right click to choose colors!
 
