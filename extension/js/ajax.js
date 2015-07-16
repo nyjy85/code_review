@@ -1,4 +1,4 @@
-var domain = 'https://gitty-1504.herokuapp.com/';
+var domain = 'http://localhost:1337/';
 
 function getRepos(url){
 	$.ajax({

@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
 		controller: 'LoginController',
 		resolve: {
 			Login: function($http, $state) {
-				$http.get("https://gitty-1504.herokuapp.com/session").then(function(res) {
+				$http.get("http://localhost:1337/session").then(function(res) {
 					if(res.data) {
 						$state.go('home')
 					}
@@ -28,7 +28,7 @@ app.controller('LoginController', function($scope, $state, popupGitFactory){
 		console.log('gitLogin')
 		$scope.SuccessfulLogin();
 		chrome.tabs.create({
-        url: "https://gitty-1504.herokuapp.com/auth/github"
+        url: "http://localhost:1337/auth/github"
     });
 
 	}

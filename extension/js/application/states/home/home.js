@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
 		controller: 'HomeCtrl',
 		resolve: {
 			Authenticate: function($http, $state) {
-				$http.get("https://gitty-1504.herokuapp.com/session").then(function(res) {
+				$http.get("http://localhost:1337/session").then(function(res) {
 					if (res.data) {
 						return
 					}
