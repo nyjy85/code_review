@@ -19,9 +19,6 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('LoginController', function($scope, $state, popupGitFactory){
-  $scope.message = "Check this page out now!";
-
-	// $scope.loggedin = false;
 
 	$scope.gitLogin = function() {
 		//need to change localhost:1337 to the appropriate domain name after deployment!!!
@@ -33,22 +30,16 @@ app.controller('LoginController', function($scope, $state, popupGitFactory){
 
 	}
 
-
-	// console.log(session)
-
-
 	$scope.SuccessfulLogin = function() {
-		console.log('successuflly loggin')
+		console.log('successfully logged in')
 
 		$state.go('home')
 		getName();
-		// $scope.loggedin = true;
 	}
 
 	var getName = function() {
 		popupGitFactory.getUserInfo().then(function(data) {
 			console.log('getName', data);
-			// $scope.name =
 		})
 	}
 })

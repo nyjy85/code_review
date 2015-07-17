@@ -15,7 +15,7 @@ router.get('/', function(req, res, next){
   var client = github.client(accessToken);
   client.get('/user/repos', {}, function(err, status, body, header) {
     if (err) return next(err);
-
+     console.log('this be alllll da repos yo', body)
     res.send(body);
   })
 

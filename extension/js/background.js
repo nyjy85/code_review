@@ -18,8 +18,6 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	}
 
 	if (req.command === "verify"){
-		// split get 4th element do repo name check
-		console.log('in background for verification')
     	// var parsedRepo = req.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
     	var repo = req.url.split('/').slice(0,5).join('/');
     	console.log('repo depp', repo)
