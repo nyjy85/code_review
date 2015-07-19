@@ -37,23 +37,6 @@ router.get('/:user', function(req, res, next){
 	.then(null, next)
 })
 
-// make sure to send back the User._id
-// creates a new highlight doc and updates File
-
-// router.post('/', function(req, res, next){
-// 	console.log('req.body from da frrronnnt', req.body);
-// 	var newData = req.body.newData;
-// 	var fileInfo = req.body.fileInfo;
-// 	var repoUrl = req.body.repoUrl;
-
-// 	Highlight.checkForFileOnHighlight(newData, fileInfo, repoUrl, next)
-// 	.then(function(updatedFile){
-// 		//if you want something to res.send, you can change updatedFile in the static
-// 		//in the highlight
-// 		console.log('POST THIS IS RESPONSE', updatedFile)
-// 		res.send(updatedFile);
-// 	})
-// });
 
 router.post('/', function(req, res, next){
     console.log('req.body from da frrronnnt', req.body.newData.highlighted.startId);
@@ -87,23 +70,22 @@ router.post('/', function(req, res, next){
                 .then(function(user){
                     if(user) {
 
-													//search user noti -> check if update + commenter + fileUrl already exist
-													var checkExist = user.notifications.filter(function(noti){
-															return noti.update === 'newHighlight' && noti.commenter === commenter && noti.fileUrl === fileUrl;
-													})
+						//search user noti -> check if update + commenter + fileUrl already exist
+						var checkExist = user.notifications.filter(function(noti){
+							return noti.update === 'newHighlight' && noti.commenter === commenter && noti.fileUrl === fileUrl;
+						})
 
-													if(checkExist.length === 0) {
-														user.notifications.push({update: 'newHighlight', commenter: commenter, timestamp: timestamp, fileUrl: fileUrl, number: 1})
-                          	user.save()
-
-													}	else {
-														var i = user.notifications.indexOf(checkExist[0]);
-														console.log('give me the index!', i)
-														user.notifications[i].number ++
-														user.notifications[i].timestamp = timestamp;
-														user.save()
-													}
-                            console.log('user notification!!!!!',user)
+						if(checkExist.length === 0) {
+							user.notifications.push({update: 'newHighlight', commenter: commenter, timestamp: timestamp, fileUrl: fileUrl, number: 1})
+							user.save()
+						} else {
+							var i = user.notifications.indexOf(checkExist[0]);
+							console.log('give me the index!', i)
+							user.notifications[i].number ++
+							user.notifications[i].timestamp = timestamp;
+							user.save()
+						}
+                        console.log('user notification!!!!!',user)
                     }
                 })
             })

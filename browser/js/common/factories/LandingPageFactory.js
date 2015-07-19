@@ -1,5 +1,5 @@
 app.factory('LandingPageFactory', function($http, $window) {
-    var domain = "https://gitty-1504.herokuapp.com", fileUrls, fileNames, highlights,
+    var domain = "http://localhost:1337", fileUrls, fileNames, highlights,
     data;
 
     return {

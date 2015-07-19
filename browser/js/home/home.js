@@ -49,7 +49,7 @@ app.controller('LandingPageCtrl', function ($scope, AuthService, $state, Landing
         });
     };
 
-    $scope.linkToGitPage = function(index){
+    $scope.linkToGitPage = function(){
         var url = $scope.urlArray[$scope.indexOfFile];
         LandingPageFactory.linkToGit(url);
     }

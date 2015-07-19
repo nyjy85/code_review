@@ -3,8 +3,6 @@
 
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	console.log('changeInfo', changeInfo)
-    console.log('change!', tab.url);
     if(tab.url.indexOf('blob') > -1 && changeInfo.status == 'complete') {
     	chrome.runtime.sendMessage({command: 'verify', url: tab.url});
     } 
@@ -20,10 +18,8 @@ chrome.runtime.onMessage.addListener(function(req, sender){
 	}
 
 	if (req.command === "verify"){
-		// split get 4th element do repo name check
-		console.log('in background for verification')
-    	var parsedRepo = req.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
-    	var repo = parsedRepo.join("");
+    	// var parsedRepo = req.url.match(/^.*\/\/[\w+.]+(?=(\/\w+\/\w+))/);
+    	var repo = req.url.split('/').slice(0,5).join('/');
     	console.log('repo depp', repo)
     	getRepos(repo);
 	}

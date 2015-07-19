@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
 		controller: 'LoginController',
 		resolve: {
 			Login: function($http, $state) {
-				$http.get("https://gitty-1504.herokuapp.com/session").then(function(res) {
+				$http.get("http://localhost:1337/session").then(function(res) {
 					if(res.data) {
 						$state.go('home')
 					}
@@ -19,36 +19,27 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('LoginController', function($scope, $state, popupGitFactory){
-  $scope.message = "Check this page out now!";
-
-	// $scope.loggedin = false;
 
 	$scope.gitLogin = function() {
 		//need to change localhost:1337 to the appropriate domain name after deployment!!!
 		console.log('gitLogin')
 		$scope.SuccessfulLogin();
 		chrome.tabs.create({
-        url: "https://gitty-1504.herokuapp.com/auth/github"
+        url: "http://localhost:1337/auth/github"
     });
 
 	}
 
-
-	// console.log(session)
-
-
 	$scope.SuccessfulLogin = function() {
-		console.log('successuflly loggin')
+		console.log('successfully logged in')
 
 		$state.go('home')
 		getName();
-		// $scope.loggedin = true;
 	}
 
 	var getName = function() {
 		popupGitFactory.getUserInfo().then(function(data) {
 			console.log('getName', data);
-			// $scope.name =
 		})
 	}
 })

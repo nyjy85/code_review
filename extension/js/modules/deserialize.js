@@ -54,27 +54,3 @@ function setStart(node, text) {
        console.log("getDocument: no document found for node");
    }
 }
-
-// function setNewRange(hl){
-//     var selection = window.getSelection();
-//     selection.removeAllRanges();
-//     var newRange = document.createRange();
-
-//     newRange.setStart(newStartNode, hl.startOffset);
-//     newRange.setEnd(newEndNode, hl.endOffset);
-//     selection.addRange(newRange);
-// }
-
-// function reHighlight(selection){
-//   highlight.set('yellow');
-//   selection.removeAllRanges();
-// }
-
-
-// function setNewRange(startNode, startOffset, endNode, endOffset, newRange){ 
-//     if(startNode.nodeType !==3) startNode = startNode.parentElement;
-//     newRange.setStart(startNode, startOffset);
-//     if(endNode.nodeType !==3) endNode = endNode.parentElement;
-//     newRange.setEnd(endNode, endOffset);
-// }
-

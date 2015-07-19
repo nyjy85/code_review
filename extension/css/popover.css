@@ -1,14 +1,10 @@
 .popover {
-/*    font-family: 'Open Sans', sans-serif;*/
     position:absolute;
     display:none;
     background:#fff;
     border: 1px solid #999;
-    /* padding:10px; */
     padding-bottom: 0px;
     width: 300px;
-    /*box-shadow:rgba(0, 0, 0, 0.7) 0px 1px 1px 2px;*/
-    /*border-radius: 5px;*/
     overflow-y: scroll;
     height: 200px;
 }
@@ -31,12 +27,13 @@
     font-size: 10px;
     font-style: italic;
     padding-left: 2px;
+    padding-right: 10px;
 }
 #pop-button{
-    margin-top: 5px;
+    margin-top: 15px;
     margin-bottom:5px;
     margin-left: 5px;
-    margin-right: 5px;
+    margin-right: 15px;
     width: auto; 
     padding: 9px 15px; 
     background: black; 
@@ -47,17 +44,6 @@
     line-height: 1em;
 }
 
-.cancel-button{
-
-  /* background-color: yellow; */
-}
-
-.delete-button {
-  /* background-color: red */
-}
-.save-button{
-  /* background-color: green; */
-}
 #textarea{
     width: 100%;
     display: block;
@@ -69,16 +55,14 @@
 .chatbox{
 
     border-bottom: 1px solid #29ABE2;
-    /*border-radius: 3px;*/
     padding-top: 5px;
-    /*width: 90%;*/
+    padding-right: 10px;
     margin-left: auto;
     margin-right: auto;
     margin-top: -5px;
   
 }
 .commenter p{
-  /*text-align: center;*/
   margin-top: 0;
   margin-bottom: 0;
   color: white;
@@ -86,19 +70,14 @@
 }
 .commenter{
   display: block;
-  /*background-color: rgba(41, 115, 89, 0.45);*/
   background-color: #29ABE2;
-  /*border-radius: 3px;*/
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
   width: 50%;
-  /*border-top-right-radius: 0;*/
-  /*border-top-left-radius: 0;*/
-  
+  padding-left: 5px;
 }
 
 .msg {
-    padding-left: 5px;
+    padding-left: 15px;
+    padding-top: 10px;
 }
 
 .post-it{

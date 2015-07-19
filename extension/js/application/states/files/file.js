@@ -1,23 +1,4 @@
 'use strict';
-// app.config(function ($stateProvider) {
-// 	$stateProvider.state('file', {
-// 		url: '/file',
-// 		templateUrl: 'js/application/states/files/file.html',
-// 		controller: 'FileCtrl',
-// 		resolve: {
-// 			Authenticate: function($http, $state) {
-// 				$http.get("http://localhost:1337/session").then(function(res) {
-// 					if (res.data) {
-// 						return
-// 					}
-// 					else {
-// 						$state.go('login')
-// 					}
-// 				});
-// 			}
-// 		}
-// 	});
-// });
 
 //add Factory
 app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInstance, repo, $mdDialog) {
@@ -40,6 +21,7 @@ app.controller('FileCtrl', function ($scope, $state, popupGitFactory, $modalInst
 		repo.files.forEach(function(file) {
 			var url = file.fileUrl.split('/');
 			file.display = url.slice(url.indexOf('blob')+1).join('/');
+      // file.display = url.slice(7, 8).join('/');
       // [url.length-2] + '/' + url[url.length-1];
 
       //number of comments
