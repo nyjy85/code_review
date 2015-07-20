@@ -1,4 +1,4 @@
-var domain = 'http://localhost:1337/';
+var domain = 'http://www.gittyapp.co';
 
 function getRepos(url){
 	$.ajax({

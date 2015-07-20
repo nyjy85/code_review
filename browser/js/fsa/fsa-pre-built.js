@@ -98,7 +98,7 @@
         };
 
 
-        var callbackUrls = {github: "http://localhost:1337/auth/github"};
+        var callbackUrls = {github: "http://www.gittyapp.co/auth/github"};
 
 
         this.gitLogin = function() {

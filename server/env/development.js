@@ -19,6 +19,6 @@ module.exports = {
   "GITHUB": {
     "clientID": "a5c7dbc1fd5e94dbfa08",
     "clientSecret": "39964f63081a7e48f208ceacb06ae3ed577425fb",
-    "callbackURL": "http://localhost:1337/auth/github/callback"
+    "callbackURL": "http://www.gittyapp.co/auth/github/callback"
   }
 };
