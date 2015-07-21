@@ -8,10 +8,12 @@
 >The highlights and comments get catalogued, so you can always refer back to them at that particular file URL.
 >We recommend you comment on files in commit trees.  That way they can continue to persist.
 
-
-
-
 Our website: [Gittyapp.co](http://www.gittyapp.co)
+
+## Screenshots
+<img src="extension/SS1.png" />
+<img src="extension/SS2.png" />
+<img src="extension/SS3.png" />
 
 ## Installation and Usage
 1. Download the extension.
