@@ -1,7 +1,7 @@
 # Gitty
 
 >Gitty is a chrome extension that allows users to leave code reviews on Github files.
->You can download our chrome extension [here](https://chrome.google.com/webstore/detail/lbelcompobjfpedpgnpfdojjfokgaghf/publish-accepted):
+>You can download our chrome extension [here](https://chrome.google.com/webstore/detail/gitty/lbelcompobjfpedpgnpfdojjfokgaghf):
 
 >Built with the Chrome Extension and Github APIs, Mongo, Angular/Angular Material, and Node.
 >You can highlight/comment on any github file as long as you're a collaborator.
