@@ -31,6 +31,6 @@ Our website: [Gittyapp.co](http://www.gittyapp.co)
 ## Contributors
 * __Joanne Yae__ - Project Lead and Engineer [LinkedIn](https://www.linkedin.com/in/joanneyae) | [Github](https://github.com/nyjy85)
 
-* __Eunice Lee__ - Product Design and Engineer [LinkedIn](https://www.linkedin.com/in/euniceclee) | [Github](https://github.com/eueueleelee)
+* __Eunice Lee__ - Product Design and Engineer [LinkedIn](https://www.linkedin.com/in/euniceclee) | [Github](https://github.com/eueuleelee)
 
 * __Calvin Choi__ - Backend Engineer [LinkedIn](https://www.linkedin.com/pub/calvin-choi/25/721/501) | [Github](https://github.com/cschoi3)
