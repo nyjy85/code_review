@@ -9,6 +9,7 @@
 >We recommend you comment on files in commit trees.  That way they can continue to persist.
 
 Our website: [Gittyapp.co](http://www.gittyapp.co)
+Demo: https://www.youtube.com/watch?v=6c46pmPkUUE
 
 ## Screenshots
 <img src="extension/SS1.png" />
